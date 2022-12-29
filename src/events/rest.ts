@@ -17,6 +17,6 @@ export class Rest {
 		event: 'rateLimited'
 	})
 	rateLimited([data]: RestArgsOf<'rateLimited'>): void {
-		this.logger.warn(`You are being rate-limited: ${data.url}`)
+		this.logger.warn(`You are being rate-limited`)
 	}
 }

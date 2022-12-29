@@ -1,63 +1,121 @@
 import 'reflect-metadata'
 import 'dotenv/config'
 
-import { Client, DIService, tsyringeDependencyRegistryEngine } from 'discordx'
+import { Client, ClientOptions, DIService, tsyringeDependencyRegistryEngine } from 'discordx'
 import { dirname, importx } from '@discordx/importer'
 import { Koa } from '@discordx/koa'
-import { container } from 'tsyringe'
+import { autoInjectable, container } from 'tsyringe'
 
-import { clientOptions } from './config.js'
+import { globalConfig } from './config.js'
 import { CustomLogger } from './services/logger.js'
 import { ErrorHandler } from './services/errorHandler.js'
 
-
-export const client = new Client(clientOptions)
-
-const logger = container.resolve(CustomLogger)
-
-async function bot(client: Client) {
-	try {
-		DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container)
-		await importx(
-			`${dirname(import.meta.url)}/{events,commands,api}/**/*.{ts,js}`
-		)
-		
-		if (!process.env.BOT_TOKEN) {
-			logger.error('No BOT_TOKEN specified!')
-			throw Error('No BOT_TOKEN specified!')
-		}
-		
-		if (process.env.NODE_ENV === 'development') {
-			if(!process.env.DEV_GUILD_ID) {
-				logger.error('No DEV_GUILD_ID specified!')
-				throw Error('No DEV_GUILD_ID specified!')
-			}
-		}
-
-		await client.login(process.env.BOT_TOKEN)
-	} catch (err) {
-		throw err
+export interface MainOptions {
+	clientOptions: ClientOptions,
+	config: {
+		token: string | undefined,
+		devGuildId?: string | undefined,
+		ownerId?: string | undefined
 	}
 }
 
-async function api() {
-	const server = new Koa()
+@autoInjectable()
+class Main {
+	public client: Client
 
-	await server.build()
+	constructor(
+		public opts: MainOptions,
+		private logger?: CustomLogger,
+		private errorHandler?: ErrorHandler
+	) {
+		this.opts = opts
+		this.client = new Client(this.opts.clientOptions)
+		this.logger?.info(`Starting app...`)
+	}
 
-	const port = process.env.PORT ?? 3000
+	public async bot(token: string) {
+		try {
+			await importx(
+				`${dirname(import.meta.url)}/{events,commands,api}/**/*.{ts,js}`
+			)
+	
+			await this.client.login(token)
+		} catch (err) {
+			throw err
+		}
+	}
 
-	server.listen(port, () => {
-		logger.info(`Discord API server started on port ${port}`)
-		logger.info(`Visit http://localhost:${port}/guilds`)
-	})
+	public async api() {
+		try {
+			const server = new Koa()
+
+			await server.build()
+
+			const port = process.env.PORT ?? 3000
+
+			server.listen(port, () => {
+				this.logger?.info(`Discord API server started! GLHF!`)
+				this.logger?.info(`Visit "http://localhost:${port}/guilds"`)
+			})
+			console.log(server)
+		} catch (err) {
+			throw err
+		}
+	}
+
+	public async start() {
+		DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container)
+		await this.errorHandler?.start()
+
+		const {
+			token
+		} = await this.checkEnvs()
+
+		await this.bot(token)
+		await this.api()
+	}
+
+	private async checkEnvs() {
+		// all
+		if (!this.opts.config.token) {
+			throw Error('No BOT_TOKEN specified!')
+		}
+
+		if(!this.opts.clientOptions.simpleCommand?.prefix) {
+			this.logger?.warn('No BOT_PREFIX specified! If you want to use legacy message commands you must provide it')
+		}
+
+		if(!this.opts.clientOptions.botId) {
+			this.logger?.warn('No BOT_ID specified!')
+		}
+
+		// NODE ENV = 'development' or 'production'
+		// development
+		if (process.env.NODE_ENV === 'development') {
+			if(!this.opts.config.devGuildId) {
+				throw Error('No DEV_GUILD_ID specified!')
+			}
+			if(!this.opts.config.ownerId) {
+				throw Error('No OWNER_ID specified!')
+			}
+		}
+
+		// production
+		if (process.env.NODE_ENV === 'production') {
+			if(!this.opts.config.ownerId) {
+				this.logger?.warn('No OWNER_ID specified! If you want be able to use "owner" commands you must provide it')
+			}
+		}
+
+
+		return {
+			nodeEnv: process.env.NODE_ENV,
+			token: this.opts.config.token,
+			devGuildId: this.opts.config.devGuildId,
+			ownerId: this.opts.config.ownerId
+		}
+	}
 }
 
-async function start() {
-	container.resolve(ErrorHandler)
-
-	await bot(client)
-	await api()
-}
-
-start()
+export const client = new Main(globalConfig)
+client.start()

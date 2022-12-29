@@ -27,7 +27,7 @@ export class Bot {
 
             // DEV MODE
             if(process.env.NODE_ENV === 'development' && process.env.DEV_GUILD_ID) {
-                this.logger.warn('DEVELOPMENT MODE')
+                this.logger.warn('Development mode')
                 await client.clearApplicationCommands(process.env.DEV_GUILD_ID)
                 await client.initApplicationCommands({
                     global: {
@@ -42,12 +42,12 @@ export class Bot {
 
             // PRODUCTION MODE
             if(process.env.NODE_ENV === 'production') {
-                this.logger.warn('PRODUCTION MODE')
+                this.logger.warn('Production mode')
                 await client.clearApplicationCommands()
                 await client.initApplicationCommands()
             }
 
-            this.logger.info(`Bot "${botId}" started! GLHF!`)
+            this.logger.info(botId ? `Bot "${botId}" started. GLHF!` : `Bot started. GLHF!`)
         } catch (err) {
             this.logger.error(err)
             client.destroy()

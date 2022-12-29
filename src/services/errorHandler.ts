@@ -12,11 +12,15 @@ export class ErrorHandler {
 
         process.on('uncaughtException', (error: Error, origin: string) => {
             if (origin === 'unhandledRejection') return
-            this.logger.error(error, 'Exception')
+            this.logger.error(error)
         })
 
-        process.on('unhandledRejection', (error: Error | any, promise: Promise<any>) => {
-            this.logger.error(error, 'unhandledRejection')
+        process.on('unhandledRejection', (error: Error | any) => {
+            this.logger.error(error)
         })
+    }
+
+    async start() {
+        this.logger.info('Error handler is working...')
     }
 }

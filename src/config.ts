@@ -5,11 +5,12 @@ import { ClientOptions } from 'discordx'
 import { container } from 'tsyringe'
 
 import { CustomLogger } from './services/logger.js'
+import { MainOptions } from './main.js'
 
 const logger = container.resolve(CustomLogger)
 
-export const clientOptions: ClientOptions = {
-    botId: 'Sayuna',
+const clientOptions: ClientOptions = {
+    botId: process.env.BOT_ID,
     intents: [
         IntentsBitField.Flags.Guilds,
         IntentsBitField.Flags.GuildMembers,
@@ -24,8 +25,17 @@ export const clientOptions: ClientOptions = {
     ],
     silent: process.env.NODE_ENV === 'development' ? false : true,
     simpleCommand: {
-        prefix: '!'
+        prefix: process.env.BOT_PREFIX
     },
     logger,
-    botGuilds: process.env.DEV_GUILD_ID && process.env.NODE_ENV === 'development' ? [process.env.DEV_GUILD_ID] : undefined,
+    botGuilds: process.env.DEV_GUILD_ID && process.env.NODE_ENV === 'development' ? [process.env.DEV_GUILD_ID] : undefined
+}
+
+export const globalConfig: MainOptions = {
+    clientOptions,
+    config: {
+        token: process.env.BOT_TOKEN,
+        devGuildId: process.env.DEV_GUILD_ID,
+        ownerId: process.env.OWNER_ID
+    }
 }

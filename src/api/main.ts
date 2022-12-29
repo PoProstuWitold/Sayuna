@@ -24,6 +24,6 @@ export class API {
 
 	@Get('/guilds')
 	guilds(context: Context): void {
-		context.body = `${client.guilds.cache.map((g) => `${g.id}: ${g.name}\n`)}`
+		context.body = `${client.client.guilds.cache.map((g) => `${g.id}: ${g.name}\n`)}`
 	}
 }
