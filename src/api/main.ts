@@ -1,7 +1,11 @@
-import { Get, Router } from '@discordx/koa'
 import type { Context } from 'koa'
+import { Get, Router } from '@discordx/koa'
+import { container } from 'tsyringe'
 
-import { client } from '../main.js'
+import { Main } from '../main'
+
+
+const Sayuna = container.resolve<Main>('Sayuna')
 
 @Router({
 	name: 'Main routes',
@@ -16,7 +20,7 @@ export class API {
 				Sayuna
 				</h1>
 				<p>
-				Easily extensable and customizable Discord all-in-one bot - moderation, music & fun!
+				Easily extensable and customizable all-in-one Discord bot. Moderation, music & fun!
 				</p>
 			</div>
 		`
@@ -24,6 +28,6 @@ export class API {
 
 	@Get('/guilds')
 	guilds(context: Context): void {
-		context.body = `${client.client.guilds.cache.map((g) => `${g.id}: ${g.name}\n`)}`
+		context.body = `${Sayuna.client.guilds.cache.map((g) => `${g.id}: ${g.name}\n`)}`
 	}
 }

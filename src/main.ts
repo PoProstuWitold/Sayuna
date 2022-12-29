@@ -20,7 +20,7 @@ export interface MainOptions {
 }
 
 @autoInjectable()
-class Main {
+export class Main {
 	public client: Client
 
 	constructor(
@@ -57,7 +57,6 @@ class Main {
 				this.logger?.info(`Discord API server started! GLHF!`)
 				this.logger?.info(`Visit "http://localhost:${port}/guilds"`)
 			})
-			console.log(server)
 		} catch (err) {
 			throw err
 		}
@@ -117,5 +116,7 @@ class Main {
 	}
 }
 
-export const client = new Main(globalConfig)
-client.start()
+container.register<Main>('Sayuna', { useValue: new Main(globalConfig) })
+
+const Sayuna = container.resolve<Main>('Sayuna')
+Sayuna.start()

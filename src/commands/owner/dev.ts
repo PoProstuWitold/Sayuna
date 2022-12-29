@@ -1,6 +1,9 @@
 import { CommandInteraction, EmbedBuilder, PermissionsBitField, Status } from 'discord.js'
 import { Client, Discord, Guard, Slash, SlashGroup } from 'discordx'
-import { Category, NotBot } from '@discordx/utilities'
+import { Category } from '@discordx/utilities'
+
+import { BotOwner } from '../../guards/BotOwner.js'
+
 
 @Discord()
 @Category('dev')
@@ -9,7 +12,9 @@ import { Category, NotBot } from '@discordx/utilities'
     description: 'Developer only commands'
 })
 @SlashGroup('dev')
-@Guard(NotBot)
+@Guard(
+    BotOwner
+)
 export class Dev {
 
     @Slash({
