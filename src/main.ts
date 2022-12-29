@@ -8,6 +8,7 @@ import { container } from 'tsyringe'
 
 import { clientOptions } from './config.js'
 import { CustomLogger } from './services/logger.js'
+import { ErrorHandler } from './services/errorHandler.js'
 
 
 export const client = new Client(clientOptions)
@@ -53,6 +54,8 @@ async function api() {
 }
 
 async function start() {
+	container.resolve(ErrorHandler)
+
 	await bot(client)
 	await api()
 }

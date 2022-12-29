@@ -27,21 +27,29 @@ export class Bot {
 
             // DEV MODE
             if(process.env.NODE_ENV === 'development' && process.env.DEV_GUILD_ID) {
-                this.logger.info('DEVELOPMENT MODE')
+                this.logger.warn('DEVELOPMENT MODE')
                 await client.clearApplicationCommands(process.env.DEV_GUILD_ID)
-                await client.initApplicationCommands()
+                await client.initApplicationCommands({
+                    global: {
+                        disable: {
+                            add: true,
+                            delete: true,
+                            update: true
+                        }
+                    }
+                })
             }
 
             // PRODUCTION MODE
             if(process.env.NODE_ENV === 'production') {
-                this.logger.info('PRODUCTION MODE')
+                this.logger.warn('PRODUCTION MODE')
                 await client.clearApplicationCommands()
                 await client.initApplicationCommands()
             }
 
             this.logger.info(`Bot "${botId}" started! GLHF!`)
         } catch (err) {
-            // logger.error(err)
+            this.logger.error(err)
             client.destroy()
         }
     }

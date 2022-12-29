@@ -18,9 +18,11 @@ export const clientOptions: ClientOptions = {
         IntentsBitField.Flags.GuildVoiceStates,
         IntentsBitField.Flags.MessageContent,
         IntentsBitField.Flags.DirectMessages,
-        IntentsBitField.Flags.GuildBans
+        IntentsBitField.Flags.GuildBans,
+        IntentsBitField.Flags.GuildPresences,
+        IntentsBitField.Flags.GuildIntegrations
     ],
-    silent: false,
+    silent: process.env.NODE_ENV === 'development' ? false : true,
     simpleCommand: {
         prefix: '!'
     },

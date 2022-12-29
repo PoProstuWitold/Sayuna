@@ -18,8 +18,13 @@ export class Dev {
         description: 'Pagination for all slash command'
     })
     public async commands(interaction: CommandInteraction, client: Client): Promise<void> {
-        const commands = MetadataStorage.instance.applicationCommands.map((cmd) => {
-            return { description: cmd.description, name: cmd.name };
+        const commands = MetadataStorage.instance.applicationCommandSlashesFlat.map((cmd) => {
+            return { 
+                name: cmd.name,
+                description: cmd.description,  
+                //@ts-ignore
+                category: cmd.category
+            }
         })
         
         const me = interaction?.guild?.members?.me ?? interaction.user
@@ -33,14 +38,25 @@ export class Dev {
                 })
                 .setTimestamp()
                 .setFooter({ text: `Page ${i + 1} of ${commands.length}` })
-                .addFields({ name: 'Name', value: cmd.name })
+                .addFields({ 
+                    name: 'Category', 
+                    value: `${
+                        cmd.category.length > 0
+                            ? cmd.category
+                            : 'Category unavailable'
+                        }`
+                })
+                .addFields({ 
+                    name: 'Name', 
+                    value: cmd.name 
+                })
                 .addFields({
                     name: 'Description',
                     value: `${
-                    cmd.description.length > 0
-                        ? cmd.description
-                        : 'Description unavailable'
-                    }`,
+                        cmd.description.length > 0
+                            ? cmd.description
+                            : 'Description unavailable'
+                        }`
                 })
       
             return { embeds: [embed] }
