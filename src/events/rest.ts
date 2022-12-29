@@ -1,13 +1,22 @@
 import type { RestArgsOf } from 'discordx'
 import { Discord, On } from 'discordx'
-import logger from '../utils/logger.js'
+import { injectable } from 'tsyringe'
+
+import { CustomLogger } from '../services/logger.js'
+
 
 @Discord()
-export abstract class Rest {
+@injectable()
+export class Rest {
+
+	constructor(
+        private logger: CustomLogger
+    ) {}
+
 	@On.rest({
 		event: 'rateLimited'
 	})
 	rateLimited([data]: RestArgsOf<'rateLimited'>): void {
-		logger.warn(`You are being rate-limited: ${data.url}`)
+		this.logger.warn(`You are being rate-limited: ${data.url}`)
 	}
 }

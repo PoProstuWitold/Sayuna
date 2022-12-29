@@ -1,14 +1,23 @@
 import type { ArgsOf, Client } from 'discordx'
 import { Discord, On } from 'discordx'
-import logger from '../utils/logger.js'
+import { injectable } from 'tsyringe'
+
+import { CustomLogger } from '../services/logger.js'
+
 
 @Discord()
-export abstract class Messages {
+@injectable()
+export class Messages {
+
+	constructor(
+        private logger: CustomLogger
+    ) {}
+
 	@On({
 		event: 'messageCreate'
 	})
 	messageCreate([message]: ArgsOf<'messageCreate'>, client: Client): void {
-		logger.info(`Message Created. Author: ${message.author.username}, content: ${message.content}`)
+		this.logger.info(`Message Created. Author: ${message.author.username}, content: "${message.content}"`)
 		client.executeCommand(message)
 	}
 
@@ -16,6 +25,6 @@ export abstract class Messages {
 		event: 'messageDelete'
 	})
 	messageDelete([message]: ArgsOf<'messageDelete'>, client: Client): void {
-		logger.info(`Message Deleted. Author: ${message.author?.username}, content: ${message.content}`)
+		this.logger.info(`Message Deleted. Author: ${message.author?.username}`)
 	}
 }

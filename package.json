@@ -13,7 +13,7 @@
 	},
 	"scripts": {
 		"start": "node build/main.js",
-		"dev": "nodemon --exec ts-node --esm src/main.ts",
+		"dev": "NODE_ENV='development' nodemon --exec ts-node --esm src/main.ts",
 		"build": "tsc"
 	},
 	"dependencies": {
@@ -26,6 +26,8 @@
 		"discordx": "^11.5.2",
 		"koa": "^2.14.1",
 		"moment": "^2.29.4",
+		"reflect-metadata": "^0.1.13",
+		"tsyringe": "^4.7.0",
 		"winston": "^3.8.2",
 		"winston-transport": "^4.5.0"
 	},

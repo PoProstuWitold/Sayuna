@@ -17,7 +17,9 @@ specifiers:
   koa: ^2.14.1
   moment: ^2.29.4
   nodemon: ^2.0.20
+  reflect-metadata: ^0.1.13
   ts-node: ^10.9.1
+  tsyringe: ^4.7.0
   typescript: 4.9.4
   winston: ^3.8.2
   winston-transport: ^4.5.0
@@ -32,6 +34,8 @@ dependencies:
   discordx: 11.5.2_discord.js@14.7.1
   koa: 2.14.1
   moment: 2.29.4
+  reflect-metadata: 0.1.13
+  tsyringe: 4.7.0
   winston: 3.8.2
   winston-transport: 4.5.0
 
@@ -1121,6 +1125,10 @@ packages:
     dependencies:
       picomatch: 2.3.1
     dev: true
+
+  /reflect-metadata/0.1.13:
+    resolution: {integrity: sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==}
+    dev: false
 
   /safe-buffer/5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
