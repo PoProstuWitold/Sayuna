@@ -1,4 +1,7 @@
-import { CommandInteraction, InteractionReplyOptions, MessageComponentInteraction } from 'discord.js'
+import { 
+    CommandInteraction, GuildMember, InteractionReplyOptions, 
+    MessageComponentInteraction, VoiceBasedChannel 
+} from 'discord.js'
 
 export class DiscordUtils {
     public static async replyOrFollowUp(
@@ -19,5 +22,36 @@ export class DiscordUtils {
 
         // if interaction is not handled yet
         await interaction.reply(replyOptions)
+    }
+
+
+    public static async joinIfVoiceChannel(interaction: CommandInteraction): Promise<VoiceBasedChannel | undefined> {
+        if (
+            !interaction.guild ||
+            !interaction.channel ||
+            !(interaction.member instanceof GuildMember)
+        ) {
+            interaction.reply(
+              '> Your request could not be processed, please try again later'
+            )
+      
+            setTimeout(() => interaction.deleteReply(), 15e3)
+
+            return
+        }
+      
+        if (
+            !(interaction.member instanceof GuildMember) ||
+            !interaction.member.voice.channel
+        ) {
+            interaction.reply('> You are not in the voice channel')
+      
+            setTimeout(() => interaction.deleteReply(), 15e3)
+            return
+        }
+      
+        await interaction.deferReply()
+        
+        return interaction.member.voice.channel
     }
 }

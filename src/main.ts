@@ -4,11 +4,12 @@ import 'dotenv/config'
 import { Client, ClientOptions, DIService, tsyringeDependencyRegistryEngine } from 'discordx'
 import { dirname, importx } from '@discordx/importer'
 import { Koa } from '@discordx/koa'
-import { autoInjectable, container } from 'tsyringe'
+import { autoInjectable, container, delay, inject } from 'tsyringe'
 
 import { globalConfig } from './config.js'
 import { CustomLogger } from './services/logger.js'
 import { ErrorHandler } from './services/errorHandler.js'
+import { MusicManager, MusicPlayerOptions } from './services/musicPlayer.js'
 
 export interface MainOptions {
 	clientOptions: ClientOptions,
@@ -26,7 +27,8 @@ export class Main {
 	constructor(
 		public opts: MainOptions,
 		private logger?: CustomLogger,
-		private errorHandler?: ErrorHandler
+		private errorHandler?: ErrorHandler,
+		@inject(delay(() => MusicManager)) private musicManager?: MusicManager
 	) {
 		this.opts = opts
 		this.client = new Client(this.opts.clientOptions)
@@ -40,6 +42,7 @@ export class Main {
 			)
 	
 			await this.client.login(token)
+			this.logger?.info('Bot has logged in...')
 		} catch (err) {
 			throw err
 		}
@@ -65,7 +68,7 @@ export class Main {
 	public async start() {
 		DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container)
 		await this.errorHandler?.start()
-
+		await this.musicManager?.start()
 		const {
 			token
 		} = await this.checkEnvs()
@@ -106,6 +109,8 @@ export class Main {
 			}
 		}
 
+		
+		this.logger?.info('Enviroment variables are checked...')
 
 		return {
 			nodeEnv: process.env.NODE_ENV,
@@ -116,7 +121,15 @@ export class Main {
 	}
 }
 
-container.register<Main>('Sayuna', { useValue: new Main(globalConfig) })
+const Sayuna = container.register<Main>('Sayuna', { useValue: new Main(globalConfig) }).resolve<Main>('Sayuna')
 
-const Sayuna = container.resolve<Main>('Sayuna')
+if(container.isRegistered('Sayuna')) {
+    const Sayuna = container.resolve<Main>('Sayuna')
+    container.register<MusicPlayerOptions>('musicOpts', {
+        useValue: {
+            client: Sayuna.client
+        }
+    })
+}
+
 Sayuna.start()

@@ -1,9 +1,10 @@
 import type { Client } from 'discordx'
 import { ActivityType } from 'discord.js'
 import { Discord, On } from 'discordx'
-import { injectable } from 'tsyringe'
+import { delay, inject, injectable } from 'tsyringe'
 
 import { CustomLogger } from '../services/logger.js'
+import { MusicManager } from '../services/musicPlayer.js'
 
 
 @Discord()
@@ -11,7 +12,8 @@ import { CustomLogger } from '../services/logger.js'
 export class Bot {
 
     constructor(
-        private logger: CustomLogger
+        private logger: CustomLogger,
+        @inject(delay(() => MusicManager)) private musicManager?: MusicManager
     ) {}
 
 	@On({
@@ -47,6 +49,7 @@ export class Bot {
                 await client.initApplicationCommands()
             }
 
+            this.musicManager?.listen()
             this.logger.info(botId ? `Bot "${botId}" started. GLHF!` : `Bot started. GLHF!`)
         } catch (err) {
             this.logger.error(err)
