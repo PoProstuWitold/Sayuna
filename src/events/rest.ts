@@ -17,6 +17,14 @@ export class Rest {
 		event: 'rateLimited'
 	})
 	rateLimited([data]: RestArgsOf<'rateLimited'>): void {
-		this.logger.warn(`You are being rate-limited`)
+		const { limit, timeToReset, method, route, url } = data
+		this.logger.warn(`
+		You are being rate-limited. 
+		Limit: ${limit}
+		Time to reset (seconds): ${timeToReset/1000} seconds
+		url: ${url}
+		route: ${route}
+		method: ${method}
+		`)
 	}
 }
