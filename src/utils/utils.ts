@@ -2,6 +2,7 @@ import {
     CommandInteraction, GuildMember, InteractionReplyOptions, 
     MessageComponentInteraction, VoiceBasedChannel 
 } from 'discord.js'
+import { DisTubeError } from 'distube'
 
 export class DiscordUtils {
     public static async replyOrFollowUp(
@@ -53,5 +54,12 @@ export class DiscordUtils {
         await interaction.deferReply()
         
         return interaction.member.voice.channel
+    }
+
+    public static async handleInteractionError(interaction: CommandInteraction, error: unknown) {
+        if(error instanceof DisTubeError) {
+            await this.replyOrFollowUp(interaction, `> **MusicPlayerError**: ${error.message}`)
+        }
+        throw new Error(error as any)
     }
 }

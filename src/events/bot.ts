@@ -1,7 +1,7 @@
-import type { Client } from 'discordx'
+import { Client, Once } from 'discordx'
 import { ActivityType } from 'discord.js'
-import { Discord, On } from 'discordx'
-import { delay, inject, injectable } from 'tsyringe'
+import { Discord } from 'discordx'
+import { injectable } from 'tsyringe'
 
 import { CustomLogger } from '../services/logger.js'
 import { MusicManager } from '../services/musicPlayer.js'
@@ -13,10 +13,10 @@ export class Bot {
 
     constructor(
         private logger: CustomLogger,
-        @inject(delay(() => MusicManager)) private musicManager?: MusicManager
+        private musicManager: MusicManager
     ) {}
 
-	@On({
+	@Once({
         event: 'ready'
     })
     async ready([client]: [Client]) {
@@ -30,7 +30,8 @@ export class Bot {
             // DEV MODE
             if(process.env.NODE_ENV === 'development' && process.env.DEV_GUILD_ID) {
                 this.logger.warn('Development mode')
-                await client.clearApplicationCommands(process.env.DEV_GUILD_ID)
+                // causes DiscordAPIError[30034]: Max number of daily application command creates has been reached (200)
+                // await client.clearApplicationCommands(process.env.DEV_GUILD_ID)
                 await client.initApplicationCommands({
                     global: {
                         disable: {
@@ -45,11 +46,12 @@ export class Bot {
             // PRODUCTION MODE
             if(process.env.NODE_ENV === 'production') {
                 this.logger.warn('Production mode')
-                await client.clearApplicationCommands()
+                // causes DiscordAPIError[30034]: Max number of daily application command creates has been reached (200)
+                // await client.clearApplicationCommands()
                 await client.initApplicationCommands()
             }
 
-            this.musicManager?.listen()
+            this.musicManager.listen()
             this.logger.info(botId ? `Bot "${botId}" started. GLHF!` : `Bot started. GLHF!`)
         } catch (err) {
             this.logger.error(err)
