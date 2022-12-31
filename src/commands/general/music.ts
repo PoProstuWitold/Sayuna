@@ -1,10 +1,11 @@
-import { ApplicationCommandOptionType, CommandInteraction } from 'discord.js'
-import { Discord, Slash, SlashGroup, SlashOption } from 'discordx'
+import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder } from 'discord.js'
+import { Client, Discord, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Category } from '@discordx/utilities'
 import { injectable } from 'tsyringe'
 
 import { MusicManager } from '../../services/musicPlayer.js'
 import { DiscordUtils } from '../../utils/utils.js'
+import { Pagination } from '@discordx/pagination'
 
 
 @Discord()
@@ -113,7 +114,7 @@ export class Dev {
         description: 'Get the guild queue'
     })
     async getQueue(
-        interaction: CommandInteraction
+        interaction: CommandInteraction, client: Client
     ): Promise<void> {
         try {
             const voiceChannel = await DiscordUtils.joinIfVoiceChannel(interaction)
@@ -121,7 +122,49 @@ export class Dev {
             if(!interaction.guildId) return
 
             const queue = this.musicManager.player.getQueue(interaction.guildId!)
-            await DiscordUtils.replyOrFollowUp(interaction, `> Getting queue: **${queue?.voiceChannel?.name}**`)
+            if(!queue) return
+
+            const me = interaction?.guild?.members?.me ?? interaction.user
+
+            const pages = queue.songs.map((song, i) => {
+                const embed = new EmbedBuilder()
+                .setTitle(`**${interaction.guild?.name}**`)
+                .setDescription(`Music queue for **${queue.voiceChannel?.name}**`)
+                .setAuthor({
+                    name: client.user!.username,
+                    iconURL: me.displayAvatarURL()
+                })
+                .setTimestamp()
+                .setFooter({ text: `Page ${i + 1} of ${queue?.songs.length}` })
+                .setThumbnail(`${song.thumbnail}`)
+                .addFields({
+                    name: '**name**',
+                    value: `[${song.name}](${song.url})`
+                })
+                .addFields({
+                    name: '**uploader**',
+                    value: `[${song.uploader.name}](${song.uploader.url})`
+                })
+                .addFields({
+                    name: '**download**',
+                    value: `[click](${song.streamURL})`
+                })
+                .addFields({
+                    name: '**source**',
+                    value: `${song.source}`
+                })
+                .addFields({
+                    name: '**duration (seconds/formatted)**',
+                    value: `${song.duration} / ${song.formattedDuration}`
+                })
+      
+                return { embeds: [embed] }
+            })
+            
+
+            const pagination = new Pagination(interaction, pages)
+            await pagination.send()
+            await DiscordUtils.replyOrFollowUp(interaction, `> Getting queue`)
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
         }
@@ -237,7 +280,7 @@ export class Dev {
             if(!interaction.guildId) return
 
             const results = await this.musicManager.player.search(query)
-            await DiscordUtils.replyOrFollowUp(interaction, `> Search results: **${results[0].name}**`)
+            await DiscordUtils.replyOrFollowUp(interaction, `> Search results`)
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
         }
@@ -314,7 +357,7 @@ export class Dev {
             if(!interaction.guildId) return
 
             const queue = await this.musicManager.player.shuffle(interaction.guildId)
-            await DiscordUtils.replyOrFollowUp(interaction, `> Queue shuffled: ${queue.voiceChannel?.name}`)
+            await DiscordUtils.replyOrFollowUp(interaction, `> Queue shuffled`)
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
         }
