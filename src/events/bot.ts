@@ -24,7 +24,7 @@ export class Bot {
             //@ts-ignore
             const botId = client.options.botId
             if(client.user) {
-                client.user.setActivity('Heroes 3', { type: ActivityType.Playing })
+                client.user.setActivity('Detroit: Become Human', { type: ActivityType.Playing })
             }
 
             // DEV MODE
