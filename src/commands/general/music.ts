@@ -6,6 +6,7 @@ import { injectable } from 'tsyringe'
 import { MusicManager } from '../../services/musicPlayer.js'
 import { DiscordUtils } from '../../utils/utils.js'
 import { Pagination } from '@discordx/pagination'
+import { DisTubeError, Queue } from 'distube'
 
 
 @Discord()
@@ -122,48 +123,10 @@ export class Dev {
             if(!interaction.guildId) return
 
             const queue = this.musicManager.player.getQueue(interaction.guildId!)
-            if(!queue) return
+            if(!queue) throw new DisTubeError('NO_QUEUE')
 
-            const me = interaction?.guild?.members?.me ?? interaction.user
-
-            const pages = queue.songs.map((song, i) => {
-                const embed = new EmbedBuilder()
-                .setTitle(`**${interaction.guild?.name}**`)
-                .setDescription(`Music queue for **${queue.voiceChannel?.name}**`)
-                .setAuthor({
-                    name: client.user!.username,
-                    iconURL: me.displayAvatarURL()
-                })
-                .setTimestamp()
-                .setFooter({ text: `Page ${i + 1} of ${queue?.songs.length}` })
-                .setThumbnail(`${song.thumbnail}`)
-                .addFields({
-                    name: '**name**',
-                    value: `[${song.name}](${song.url})`
-                })
-                .addFields({
-                    name: '**uploader**',
-                    value: `[${song.uploader.name}](${song.uploader.url})`
-                })
-                .addFields({
-                    name: '**download**',
-                    value: `[click](${song.streamURL})`
-                })
-                .addFields({
-                    name: '**source**',
-                    value: `${song.source}`
-                })
-                .addFields({
-                    name: '**duration (seconds/formatted)**',
-                    value: `${song.duration} / ${song.formattedDuration}`
-                })
-      
-                return { embeds: [embed] }
-            })
+            await this.paginateQueue(interaction, client, queue)
             
-
-            const pagination = new Pagination(interaction, pages)
-            await pagination.send()
             await DiscordUtils.replyOrFollowUp(interaction, `> Getting queue`)
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
@@ -399,6 +362,75 @@ export class Dev {
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
         }
+    }
+
+    private async paginateQueue(interaction: CommandInteraction, client: Client, queue: Queue) {
+        const songs: any[] = []
+            queue.songs.map((song, i) => songs.push({
+                name: `${i + 1}. ${song.name}`,
+                value: `[url](${song.url}) | [download](${song.streamURL})`
+            }))
+
+            let slicesArray = []
+            while (songs.length > 0) {
+                slicesArray.push(songs.splice(0,10))
+            }
+
+            const me = interaction?.guild?.members?.me ?? interaction.user
+
+            const titlePages = slicesArray.map((songChunk, i) => {
+                const embed = new EmbedBuilder()
+                .setTitle(`**${interaction.guild?.name}**`)
+                .setDescription(`Music queue for **${queue.voiceChannel?.name}**`)
+                .setAuthor({
+                    name: client.user!.username,
+                    iconURL: me.displayAvatarURL()
+                })
+                .setTimestamp()
+                .setFooter({ text: `Page ${i + 1} of ${queue.songs.length + slicesArray.length} | Songs starts at page ${slicesArray.length + 1}` })
+                .addFields(songChunk)
+
+                return { embeds: [embed] }
+            })
+            
+
+            const pages = queue.songs.map((song, i) => {
+                const embed = new EmbedBuilder()
+                .setTitle(`**${interaction.guild?.name}**`)
+                .setDescription(`Music queue for **${queue.voiceChannel?.name}**`)
+                .setAuthor({
+                    name: client.user!.username,
+                    iconURL: me.displayAvatarURL()
+                })
+                .setTimestamp()
+                .setFooter({ text: `Page ${slicesArray.length + i + 1} of ${queue.songs.length + slicesArray.length} | Song ${i + 1} of ${queue.songs.length}` })
+                .setThumbnail(`${song.thumbnail}`)
+                .addFields({
+                    name: '**name**',
+                    value: `[${song.name}](${song.url})`
+                })
+                .addFields({
+                    name: '**uploader**',
+                    value: `[${song.uploader.name}](${song.uploader.url})`
+                })
+                .addFields({
+                    name: '**download**',
+                    value: `[click](${song.streamURL})`
+                })
+                .addFields({
+                    name: '**source**',
+                    value: `${song.source}`
+                })
+                .addFields({
+                    name: '**duration (seconds/formatted)**',
+                    value: `${song.duration} / ${song.formattedDuration}`
+                })
+      
+                return { embeds: [embed] }
+            })
+
+            const pagination = new Pagination(interaction, titlePages.concat(...pages))
+            await pagination.send()
     }
     
 }
