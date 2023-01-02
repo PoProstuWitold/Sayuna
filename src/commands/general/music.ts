@@ -1,12 +1,15 @@
-import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder } from 'discord.js'
+import { 
+    ApplicationCommandOptionType, CommandInteraction, 
+    EmbedBuilder, GuildMember 
+} from 'discord.js'
 import { Client, Discord, Slash, SlashGroup, SlashOption } from 'discordx'
+import { Pagination } from '@discordx/pagination'
 import { Category } from '@discordx/utilities'
 import { injectable } from 'tsyringe'
+import { DisTubeError, Queue } from 'distube'
 
 import { MusicManager } from '../../services/musicPlayer.js'
 import { DiscordUtils } from '../../utils/utils.js'
-import { Pagination } from '@discordx/pagination'
-import { DisTubeError, Queue } from 'distube'
 
 
 @Discord()
@@ -29,8 +32,8 @@ export class Dev {
     })
     async play(
         @SlashOption({
-            description: 'song url or title',
-            name: 'song',
+            description: 'song / playlist search query or url',
+            name: 'music',
             required: true,
             type: ApplicationCommandOptionType.String,
         })
@@ -42,7 +45,12 @@ export class Dev {
             if(!voiceChannel) return
             if(!interaction.guildId) return
 
-            await this.musicManager.player.play(voiceChannel, songName)
+            const member: GuildMember = (interaction.member ? interaction.member : interaction!.guild!.members!.me) as GuildMember
+
+            await this.musicManager.player.play(voiceChannel, songName, {
+                member: member
+            })
+
             const queue = this.musicManager.player.getQueue(interaction.guildId)
             await DiscordUtils.replyOrFollowUp(interaction, `> Now playing: **${queue?.songs[0].name}**`)
         } catch (err) {
@@ -61,10 +69,14 @@ export class Dev {
             const voiceChannel = await DiscordUtils.joinIfVoiceChannel(interaction)
             if(!voiceChannel) return
             if(!interaction.guildId) return
+            
+            const queue = this.musicManager.player.getQueue(interaction.guildId)
+            if(!queue) throw new DisTubeError('NO_QUEUE')
+
+            const song = queue.songs[0]
 
             await this.musicManager.player.stop(interaction.guildId)
-            const queue = this.musicManager.player.getQueue(interaction.guildId)
-            await DiscordUtils.replyOrFollowUp(interaction, `> Stopped music: **${queue?.songs[0].name}**`)
+            await DiscordUtils.replyOrFollowUp(interaction, `> Stopped music: **${song.name}**`)
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
         }
@@ -320,7 +332,7 @@ export class Dev {
             if(!interaction.guildId) return
 
             const queue = await this.musicManager.player.shuffle(interaction.guildId)
-            await DiscordUtils.replyOrFollowUp(interaction, `> Queue shuffled`)
+            await DiscordUtils.replyOrFollowUp(interaction, `> Queue shuffled: **${queue.voiceChannel?.guild.name} | ${queue.voiceChannel?.name}**`)
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
         }
@@ -359,6 +371,91 @@ export class Dev {
 
             const autoplay = this.musicManager.player.toggleAutoplay(interaction.guildId)
             await DiscordUtils.replyOrFollowUp(interaction, `> Autoplay: **${autoplay ? 'ON' : 'OFF'}**`)
+        } catch (err) {
+            DiscordUtils.handleInteractionError(interaction, err)
+        }
+    }
+
+    @Slash({
+        name: 'current',
+        description: 'Display current song and queue'
+    })
+    async currentSong(
+        interaction: CommandInteraction, client: Client
+    ): Promise<void> {
+        try {
+            const voiceChannel = await DiscordUtils.joinIfVoiceChannel(interaction)
+            if(!voiceChannel) return
+            if(!interaction.guildId) return
+
+            const queue: Queue | undefined = this.musicManager.player.getQueue(interaction.guildId)
+            if(!queue) throw new DisTubeError('NO_QUEUE')
+
+			let nextSong: string | undefined
+			let previousSong: string | undefined
+
+            queue.songs[1] ? nextSong = queue.songs[1].name : nextSong = 'No next song'
+			queue.previousSongs[0] ? previousSong = queue.previousSongs[queue.previousSongs.length - 1].name : previousSong = 'No previous song'
+            const me = interaction?.guild?.members?.me ?? interaction.user
+
+            const currentEmbed = new EmbedBuilder()
+                .setTitle(`**${queue.paused ? '⏸ Paused' : '▶ Playing'}**`)
+                .setDescription(`[${queue.songs[0].name}](${queue.songs[0].url})`)
+                .setAuthor({
+                    name: client.user!.username,
+                    iconURL: me.displayAvatarURL()
+                })
+                .setTimestamp()
+                .setFooter({ text: `${queue.voiceChannel?.guild.name} | ${queue.voiceChannel?.name}` })
+                .setThumbnail(`${queue.songs[0].thumbnail}`)
+                .addFields({
+                    name: 'Requested by',
+                    value: `<@${queue?.songs[0].user?.id}>`,
+                    inline: true
+                })
+                .addFields({
+                    name: 'Duration',
+                    value: `${queue.songs[0].formattedDuration}`,
+                    inline: true
+                })
+                .addFields({
+                    name: 'Queue',
+                    value: `${queue.songs.length} song(s) - ${queue.formattedDuration}`,
+                    inline: true
+                })
+                .addFields({
+                    name: 'Volume',
+                    value: `${queue.volume}%`,
+                    inline: true
+                })
+                .addFields({
+                    name: 'Loop',
+                    value: `${queue.repeatMode ? queue.repeatMode == 2 ? 'Repeat queue' : 'Repeat song' : 'Off'}`,
+                    inline: true
+                })
+                .addFields({
+                    name: 'Autoplay',
+                    value: `${queue.autoplay ? 'On' : 'Off'}`,
+                    inline: true
+                })
+                .addFields({
+                    name: 'Next',
+                    value: `${nextSong}`,
+                    inline: true
+                })
+                .addFields({
+                    name: 'Previous',
+                    value: `${previousSong}`,
+                    inline: true
+                })
+                .addFields({
+                    name: 'Links',
+                    value: `[download](${queue.songs[0].streamURL})`
+                })
+
+            await DiscordUtils.replyOrFollowUp(interaction, {
+                embeds: [currentEmbed]
+            })
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
         }

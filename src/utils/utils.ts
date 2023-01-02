@@ -1,5 +1,5 @@
 import { 
-    CommandInteraction, GuildMember, InteractionReplyOptions, 
+    CommandInteraction, DiscordAPIError, GuildMember, InteractionReplyOptions, 
     MessageComponentInteraction, VoiceBasedChannel 
 } from 'discord.js'
 import { DisTubeError } from 'distube'
@@ -57,6 +57,10 @@ export class DiscordUtils {
     }
 
     public static async handleInteractionError(interaction: CommandInteraction, error: unknown) {
+        if(error instanceof DiscordAPIError) {
+            await this.replyOrFollowUp(interaction, `> **DiscordAPIError**: ${error.message}`)
+        }
+
         if(error instanceof DisTubeError) {
             await this.replyOrFollowUp(interaction, `> **MusicPlayerError**: ${error.message}`)
         }
