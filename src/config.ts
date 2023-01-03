@@ -28,7 +28,7 @@ const clientOptions: ClientOptions = {
         prefix: process.env.BOT_PREFIX
     },
     logger,
-    botGuilds: process.env.DEV_GUILD_ID && process.env.NODE_ENV === 'development' ? [process.env.DEV_GUILD_ID] : undefined
+    botGuilds: process.env.DEV_GUILD_ID && process.env.NODE_ENV === 'development' ? process.env.DEV_GUILD_ID.split(', ') : undefined
 }
 
 export const globalConfig: MainOptions = {

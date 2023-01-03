@@ -22,9 +22,11 @@ Written in Typescript, Node.js v19, discord.js, discordx, ESM.
 #### 0.  Create ``.env`` file in server root directory and fill with following:
 
 ```
+# ALL ENV
 BOT_TOKEN=
 
 # DEV
+# you can provide more than one using syntax: 'guild_id1, guild_id2'
 DEV_GUILD_ID=
 
 # OWNER COMMANDS
@@ -46,6 +48,7 @@ BOT_PREFIX=
 - [x] Error handling
 - [ ] Commands
 	- [x] Music Commands
+        - [ ] Current music dashboard with real-time updates
 	- [ ] Moderation commands
 	- [ ] Fun commands
 - [ ] Automod
