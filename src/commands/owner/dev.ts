@@ -3,6 +3,7 @@ import { Client, Discord, Guard, Slash, SlashGroup } from 'discordx'
 import { Category } from '@discordx/utilities'
 
 import { BotOwner } from '../../guards/BotOwner.js'
+import { DiscordUtils } from '../../utils/utils.js'
 
 
 @Discord()
@@ -24,42 +25,46 @@ export class Dev {
         dmPermission: false
     })
     public async health(interaction: CommandInteraction, client: Client): Promise<void> {
-        const msg = await interaction.reply({ content: 'Checking health...', fetchReply: true })
+        try {
+            const msg = await interaction.reply({ content: 'Checking health...', fetchReply: true })
 
-        const messageTime = `${msg.createdTimestamp - interaction.createdTimestamp}ms`
-        const heartBeat = `${Math.round(client.ws.ping)}ms`
-        const websocketStatus = Status[client.ws.status]
+            const messageTime = `${msg.createdTimestamp - interaction.createdTimestamp}ms`
+            const heartBeat = `${Math.round(client.ws.ping)}ms`
+            const websocketStatus = Status[client.ws.status]
 
-        const me = interaction?.guild?.members?.me ?? interaction.user
+            const me = interaction?.guild?.members?.me ?? interaction.user
 
-        const embed = new EmbedBuilder()
-            .setTitle(`**Health**`)
-            .setAuthor({
-                name: client.user!.username,
-                iconURL: me.displayAvatarURL()
+            const embed = new EmbedBuilder()
+                .setTitle(`**Health**`)
+                .setAuthor({
+                    name: client.user!.username,
+                    iconURL: me.displayAvatarURL()
+                })
+                .setDescription(`Health status of the bot`)
+                .setTimestamp()
+                .setFooter({ text: 'Sayuna bot' })
+
+            embed.addFields([
+                {
+                    name: 'Message round-trip',
+                    value: messageTime
+                },
+                {
+                    name: 'Heartbeat ping',
+                    value: heartBeat
+                },
+                {
+                    name: 'Websocket status',
+                    value: websocketStatus
+                }
+            ])
+
+            await msg.edit({
+                embeds: [embed],
+                content: ''
             })
-            .setDescription(`Health status of the bot`)
-            .setTimestamp()
-            .setFooter({ text: 'Sayuna bot' })
-
-        embed.addFields([
-            {
-                name: 'Message round-trip',
-                value: messageTime
-            },
-            {
-                name: 'Heartbeat ping',
-                value: heartBeat
-            },
-            {
-                name: 'Websocket status',
-                value: websocketStatus
-            }
-        ])
-
-        await msg.edit({
-            embeds: [embed],
-            content: ''
-        })
+        } catch (err) {
+            DiscordUtils.handleInteractionError(interaction, err)
+        }
     }
 }

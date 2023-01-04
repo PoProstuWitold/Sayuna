@@ -64,6 +64,12 @@ export class DiscordUtils {
         if(error instanceof DisTubeError) {
             await this.replyOrFollowUp(interaction, `> **MusicPlayerError**: ${error.message}`)
         }
+        
+        //TO DO BaseError
+        if(error instanceof Error) {
+            await this.replyOrFollowUp(interaction, `> **Error**: ${error.message}`)
+        }
+
         throw new Error(error as any)
     }
 }
