@@ -50,13 +50,16 @@ export class Main {
 
 	public async api() {
 		try {
-			const server = new Koa()
+			const app = new Koa()
 
-			await server.build()
+			await app.build()
+
+			app.on('error', (err, ctx) => {
+				console.error('server error', err, ctx)
+			})
 
 			const port = process.env.PORT ?? 3000
-
-			server.listen(port, () => {
+			app.listen(port, () => {
 				this.logger?.info(`Discord API server started! GLHF!`)
 				this.logger?.info(`Visit "http://localhost:${port}/guilds"`)
 			})
