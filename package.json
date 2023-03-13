@@ -18,7 +18,7 @@
 	},
 	"dependencies": {
 		"@discordjs/opus": "^0.9.0",
-		"@discordjs/voice": "^0.14.0",
+		"@discordjs/voice": "^0.15.0",
 		"@discordx/importer": "^1.1.10",
 		"@discordx/koa": "^1.1.2",
 		"@discordx/pagination": "^3.4.1",
@@ -39,11 +39,11 @@
 		"winston-transport": "^4.5.0"
 	},
 	"devDependencies": {
-		"@swc/core": "^1.3.38",
+		"@swc/core": "^1.3.39",
 		"@swc/helpers": "^0.4.14",
 		"@types/koa": "^2.13.5",
 		"@types/koa__router": "^12.0.0",
-		"@types/node": "^18.14.6",
+		"@types/node": "^18.15.0",
 		"dotenv": "^16.0.3",
 		"nodemon": "^2.0.21",
 		"ts-node": "^10.9.1",
