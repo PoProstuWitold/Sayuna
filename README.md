@@ -48,7 +48,7 @@ BOT_PREFIX=
 - [x] Error handling
 - [ ] Commands
 	- [x] Music Commands
-        - [ ] Current music dashboard with real-time updates
+        - [x] Current music dashboard with real-time updates
 	- [ ] Moderation commands
 	- [ ] Fun commands
 - [ ] Automod

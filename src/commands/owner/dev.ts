@@ -2,8 +2,8 @@ import { CommandInteraction, EmbedBuilder, PermissionsBitField, Status } from 'd
 import { Client, Discord, Guard, Slash, SlashGroup } from 'discordx'
 import { Category } from '@discordx/utilities'
 
-import { BotOwner } from '../../guards/BotOwner.js'
-import { DiscordUtils } from '../../utils/discordUtils.js'
+import { BotOwner } from '../../guards/bot-owner.guard.js'
+import { DiscordUtils } from '../../utils/discord.utils.js'
 
 
 @Discord()

@@ -6,7 +6,7 @@ import {
 } from 'discord.js'
 import { Queue } from 'distube'
 
-import { DiscordUtils } from './discordUtils.js'
+import { DiscordUtils } from './discord.utils.js'
 
 
 export class MusicUtils {

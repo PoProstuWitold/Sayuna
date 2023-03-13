@@ -4,7 +4,7 @@ import { IntentsBitField } from 'discord.js'
 import { ClientOptions } from 'discordx'
 import { container } from 'tsyringe'
 
-import { CustomLogger } from './services/logger.js'
+import { CustomLogger } from './services/logger.service.js'
 import { MainOptions } from './main.js'
 
 

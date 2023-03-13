@@ -3,8 +3,8 @@ import { ActivityType } from 'discord.js'
 import { Discord } from 'discordx'
 import { injectable } from 'tsyringe'
 
-import { CustomLogger } from '../services/logger.js'
-import { MusicManager } from '../services/musicPlayer.js'
+import { CustomLogger } from '../services/logger.service.js'
+import { MusicManager } from '../services/music.service.ts.js'
 
 
 @Discord()

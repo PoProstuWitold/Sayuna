@@ -7,9 +7,9 @@ import { Koa } from '@discordx/koa'
 import { autoInjectable, container, delay, inject } from 'tsyringe'
 
 import { globalConfig } from './config.js'
-import { CustomLogger } from './services/logger.js'
-import { ErrorHandler } from './services/errorHandler.js'
-import { MusicManager, MusicPlayerOptions } from './services/musicPlayer.js'
+import { CustomLogger } from './services/logger.service.js'
+import { ErrorHandler } from './services/error-handler.service.js'
+import { MusicManager, MusicPlayerOptions } from './services/music.service.ts.js'
 
 
 export interface MainOptions {

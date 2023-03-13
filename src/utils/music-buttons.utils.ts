@@ -3,9 +3,9 @@ import { Discord } from 'discordx'
 import { DisTubeError, Queue } from 'distube'
 import { injectable } from 'tsyringe'
 
-import { MusicManager } from '../services/musicPlayer.js'
-import { DiscordUtils } from './discordUtils.js'
-import { MusicUtils } from './musicUtils.js'
+import { MusicManager } from '../services/music.service.ts.js'
+import { DiscordUtils } from './discord.utils.js'
+import { MusicUtils } from './music.utils.js'
 
 
 @Discord()

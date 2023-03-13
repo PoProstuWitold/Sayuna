@@ -2,9 +2,9 @@ import { CommandInteraction, EmbedBuilder } from 'discord.js'
 import { Discord, Slash, SlashGroup } from 'discordx'
 import { Category } from '@discordx/utilities'
 
-import { DiscordUtils } from '../../utils/discordUtils.js'
+import { DiscordUtils } from '../../utils/discord.utils.js'
 import { BaseError } from '../../exceptions/base.exception.js'
-import { UtilService } from '../../services/utilService.js'
+import { UtilService } from '../../services/util.service.js'
 
 
 interface MemeJson {

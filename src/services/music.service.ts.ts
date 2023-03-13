@@ -5,7 +5,7 @@ import { YtDlpPlugin } from '@distube/yt-dlp'
 import { SoundCloudPlugin } from '@distube/soundcloud'
 import { SpotifyPlugin } from '@distube/spotify'
 
-import { CustomLogger } from './logger.js'
+import { CustomLogger } from './logger.service.js'
 import { GuildTextBasedChannel, Message } from 'discord.js'
 
 

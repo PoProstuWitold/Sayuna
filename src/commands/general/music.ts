@@ -1,6 +1,7 @@
 import { 
     ActionRowBuilder,
     ApplicationCommandOptionType, ButtonBuilder, ButtonInteraction, ButtonStyle, CommandInteraction, 
+    EmbedBuilder, 
     GuildMember, MessageActionRowComponentBuilder 
 } from 'discord.js'
 import { ButtonComponent, Client, Discord, Slash, SlashGroup, SlashOption } from 'discordx'
@@ -8,10 +9,11 @@ import { Category } from '@discordx/utilities'
 import { injectable } from 'tsyringe'
 import { DisTubeError, Queue } from 'distube'
 
-import { MusicManager } from '../../services/musicPlayer.js'
-import { DiscordUtils } from '../../utils/discordUtils.js'
-import { MusicUtils } from '../../utils/musicUtils.js'
-import { MusicButtons } from '../../utils/musicButtons.js'
+import { MusicManager } from '../../services/music.service.ts.js'
+import { DiscordUtils } from '../../utils/discord.utils.js'
+import { MusicUtils } from '../../utils/music.utils.js'
+import { MusicButtons } from '../../utils/music-buttons.utils.js'
+import { BaseError } from '../../exceptions/base.exception.js'
 
 
 @Discord()
@@ -422,13 +424,12 @@ export class Music {
             if(!voiceChannel) return
             if(!interaction.guildId) return
 
-            const queue: Queue | undefined = this.musicManager.player.getQueue(interaction.guildId)
+            let queue: Queue | undefined 
+            queue = this.musicManager.player.getQueue(interaction.guildId)
+
             if(!queue) throw new DisTubeError('NO_QUEUE')
 
             const me = interaction?.guild?.members?.me ?? interaction.user
-
-            const currentEmbed = await MusicUtils.getCurrentSongEmbed(queue, client, me, interaction)
-            if(!currentEmbed) throw Error('No current song embed!')
 
             const pauseResumeButton = new ButtonBuilder() 
                 .setLabel(`⏸/▶`)
@@ -468,13 +469,43 @@ export class Music {
                     volumeDownButton,
                     volumeUpButton
                 )
+
+            // init
+            let currentEmbed: EmbedBuilder | undefined
+            currentEmbed = await MusicUtils.getCurrentSongEmbed(queue, client, me, interaction)
+            if(!currentEmbed) throw Error('No current song embed!')
                 
-            await DiscordUtils.replyOrFollowUp(interaction, {
+            const intr = await DiscordUtils.replyOrFollowUp(interaction, {
                 embeds: [currentEmbed],
                 components: [
                     buttonRow1, buttonRow2
                 ]
             })
+
+            // 3s "real-time" update
+            const interval = setInterval(async () => {
+                queue = this.musicManager.player.getQueue(interaction.guildId!)!
+                currentEmbed = await MusicUtils.getCurrentSongEmbed(
+                    queue, interaction.client, me, interaction
+                )
+                if(!currentEmbed) throw Error('No current song embed!')
+                
+                intr!.editReply({
+                    embeds: [currentEmbed],
+                    components: [
+                        buttonRow1, buttonRow2
+                    ]
+                })
+            }, 2000)
+
+            // one dashboard at the same time
+            client.on('interactionCreate', (interaction) => {
+                if(interaction.isCommand() && interaction.options.data[0].name === 'dashboard') {
+                    clearInterval(interval)
+                    return
+                }
+            })
+
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
         }

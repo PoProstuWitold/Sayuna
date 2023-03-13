@@ -1,5 +1,6 @@
 import { 
     ButtonInteraction,
+    CacheType,
     CommandInteraction, DiscordAPIError, GuildMember, InteractionReplyOptions, 
     MessageComponentInteraction, VoiceBasedChannel 
 } from 'discord.js'
@@ -11,25 +12,25 @@ import { BaseError } from '../exceptions/base.exception.js'
 export class DiscordUtils {
     public static async replyOrFollowUp(
         interaction: CommandInteraction | MessageComponentInteraction, 
-        replyOptions: (InteractionReplyOptions & { ephemeral?: boolean }) | string,
-        deleteReply?: boolean,
-    ): Promise<void> {
+        replyOptions: (InteractionReplyOptions & { ephemeral?: boolean }) | string
+    ): Promise<CommandInteraction<CacheType> | MessageComponentInteraction<CacheType>> {
+
         // if interaction is already replied
         if (interaction.replied) {
             await interaction.followUp(replyOptions)
+            return interaction
         }
 
         // if interaction is deferred but not replied
         if (interaction.deferred) {
             await interaction.editReply(replyOptions)
+            return interaction
         }
 
         // if interaction is not handled yet
         await interaction.reply(replyOptions)
 
-        if(deleteReply) {
-            setTimeout(() => interaction.deleteReply(), 15e3)
-        }
+        return interaction
     }
 
 
@@ -63,26 +64,34 @@ export class DiscordUtils {
         return interaction.member.voice.channel
     }
 
+    private static async handleErrorReply(
+        interaction: CommandInteraction | MessageComponentInteraction, 
+        replyOptions: (InteractionReplyOptions & { ephemeral?: boolean }) | string
+    ) {
+        await this.replyOrFollowUp(interaction, replyOptions)
+        setTimeout(() => interaction.deleteReply(), 15e3)
+    }
+
     public static async handleInteractionError(interaction: CommandInteraction | ButtonInteraction, error: unknown) {
         if(error instanceof DiscordAPIError) {
-            await this.replyOrFollowUp(interaction, `> **DiscordAPIError**: ${error.message}`, true)
+            await this.handleErrorReply(interaction, `> **DiscordAPIError**: ${error.message}`)
             throw error
         }
 
         if(error instanceof DisTubeError) {
-            await this.replyOrFollowUp(interaction, `> **MusicPlayerError**: ${error.message}`, true)
+            await this.handleErrorReply(interaction, `> **MusicPlayerError**: ${error.message}`)
             throw error
         }
 
         if(error instanceof BaseError) {
-            await this.replyOrFollowUp(
-                interaction, `> **${error.name}${error.status ? ` ${error.status}` : ''}**: ${error.message}`, true
+            await this.handleErrorReply(
+                interaction, `> **${error.name}${error.status ? ` ${error.status}` : ''}**: ${error.message}`
             )
             throw error
         }
         
         if(error instanceof Error) {
-            await this.replyOrFollowUp(interaction, `> **Error**: ${error.message}`, true)
+            await this.handleErrorReply(interaction, `> **Error**: ${error.message}`)
             throw error
         }
 

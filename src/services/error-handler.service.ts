@@ -1,6 +1,6 @@
 import { singleton } from 'tsyringe'
 
-import { CustomLogger } from './logger.js'
+import { CustomLogger } from './logger.service.js'
 
 
 @singleton()

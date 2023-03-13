@@ -3,7 +3,7 @@ import { Client, Discord, MetadataStorage, Slash, SlashGroup } from 'discordx'
 import { Pagination } from '@discordx/pagination'
 import { Category } from '@discordx/utilities'
 
-import { DiscordUtils } from '../../utils/discordUtils.js'
+import { DiscordUtils } from '../../utils/discord.utils.js'
 
 
 @Discord()
