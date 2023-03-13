@@ -484,7 +484,12 @@ export class Music {
 
             // 3s "real-time" update
             const interval = setInterval(async () => {
-                queue = this.musicManager.player.getQueue(interaction.guildId!)!
+                queue = this.musicManager.player.getQueue(interaction.guildId!)
+                if(!queue) {
+                    clearInterval(interval)
+                    return
+                }
+                
                 currentEmbed = await MusicUtils.getCurrentSongEmbed(
                     queue, interaction.client, me, interaction
                 )
