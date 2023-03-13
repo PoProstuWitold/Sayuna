@@ -1,7 +1,7 @@
 import { CommandInteraction } from 'discord.js'
 import {Client, Next} from 'discordx'
 
-import { DiscordUtils } from '../utils/utils.js'
+import { DiscordUtils } from '../utils/discordUtils.js'
 
 
 export const BotOwner = (arg: CommandInteraction, client: Client, next: Next): Promise<unknown> => {

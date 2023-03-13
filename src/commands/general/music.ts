@@ -1,16 +1,17 @@
 import { 
-    ApplicationCommandOptionType, CommandInteraction, 
-    EmbedBuilder, GuildMember 
+    ActionRowBuilder,
+    ApplicationCommandOptionType, ButtonBuilder, ButtonInteraction, ButtonStyle, CommandInteraction, 
+    GuildMember, MessageActionRowComponentBuilder 
 } from 'discord.js'
-import { Client, Discord, Slash, SlashGroup, SlashOption } from 'discordx'
-import { Pagination } from '@discordx/pagination'
+import { ButtonComponent, Client, Discord, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Category } from '@discordx/utilities'
 import { injectable } from 'tsyringe'
 import { DisTubeError, Queue } from 'distube'
 
 import { MusicManager } from '../../services/musicPlayer.js'
-import { DiscordUtils } from '../../utils/utils.js'
-
+import { DiscordUtils } from '../../utils/discordUtils.js'
+import { MusicUtils } from '../../utils/musicUtils.js'
+import { MusicButtons } from '../../utils/musicButtons.js'
 
 @Discord()
 @Category('music')
@@ -20,10 +21,11 @@ import { DiscordUtils } from '../../utils/utils.js'
 })
 @SlashGroup('music')
 @injectable()
-export class Dev {
+export class Music {
 
     constructor(
-		private musicManager: MusicManager
+		private musicManager: MusicManager,
+        private musicButtons: MusicButtons
 	) {}
 
     @Slash({
@@ -137,7 +139,7 @@ export class Dev {
             const queue = this.musicManager.player.getQueue(interaction.guildId!)
             if(!queue) throw new DisTubeError('NO_QUEUE')
 
-            await this.paginateQueue(interaction, client, queue)
+            await MusicUtils.paginateQueue(interaction, client, queue)
             
             await DiscordUtils.replyOrFollowUp(interaction, `> Getting queue`)
         } catch (err) {
@@ -391,67 +393,13 @@ export class Dev {
             const queue: Queue | undefined = this.musicManager.player.getQueue(interaction.guildId)
             if(!queue) throw new DisTubeError('NO_QUEUE')
 
-			let nextSong: string | undefined
-			let previousSong: string | undefined
-
-            queue.songs[1] ? nextSong = queue.songs[1].name : nextSong = 'No next song'
-			queue.previousSongs[0] ? previousSong = queue.previousSongs[queue.previousSongs.length - 1].name : previousSong = 'No previous song'
             const me = interaction?.guild?.members?.me ?? interaction.user
 
-            const currentEmbed = new EmbedBuilder()
-                .setTitle(`**${queue.paused ? '⏸ Paused' : '▶ Playing'}**`)
-                .setDescription(`[${queue.songs[0].name}](${queue.songs[0].url})`)
-                .setAuthor({
-                    name: client.user!.username,
-                    iconURL: me.displayAvatarURL()
-                })
-                .setTimestamp()
-                .setFooter({ text: `${queue.voiceChannel?.guild.name} | ${queue.voiceChannel?.name}` })
-                .setThumbnail(`${queue.songs[0].thumbnail}`)
-                .addFields({
-                    name: 'Requested by',
-                    value: `<@${queue?.songs[0].user?.id}>`,
-                    inline: true
-                })
-                .addFields({
-                    name: 'Duration',
-                    value: `${queue.songs[0].formattedDuration}`,
-                    inline: true
-                })
-                .addFields({
-                    name: 'Queue',
-                    value: `${queue.songs.length} song(s) - ${queue.formattedDuration}`,
-                    inline: true
-                })
-                .addFields({
-                    name: 'Volume',
-                    value: `${queue.volume}%`,
-                    inline: true
-                })
-                .addFields({
-                    name: 'Loop',
-                    value: `${queue.repeatMode ? queue.repeatMode == 2 ? 'Repeat queue' : 'Repeat song' : 'Off'}`,
-                    inline: true
-                })
-                .addFields({
-                    name: 'Autoplay',
-                    value: `${queue.autoplay ? 'On' : 'Off'}`,
-                    inline: true
-                })
-                .addFields({
-                    name: 'Next',
-                    value: `${nextSong}`,
-                    inline: true
-                })
-                .addFields({
-                    name: 'Previous',
-                    value: `${previousSong}`,
-                    inline: true
-                })
-                .addFields({
-                    name: 'Links',
-                    value: `[download](${queue.songs[0].streamURL})`
-                })
+            const currentEmbed = await MusicUtils.getCurrentSongEmbed(
+                queue, client, me, interaction
+            )
+
+            if(!currentEmbed) throw Error('No current song embed!')
 
             await DiscordUtils.replyOrFollowUp(interaction, {
                 embeds: [currentEmbed]
@@ -461,73 +409,106 @@ export class Dev {
         }
     }
 
-    private async paginateQueue(interaction: CommandInteraction, client: Client, queue: Queue) {
-        const songs: any[] = []
-            queue.songs.map((song, i) => songs.push({
-                name: `${i + 1}. ${song.name}`,
-                value: `[url](${song.url}) | [download](${song.streamURL})`
-            }))
+    @Slash({
+        name: 'dashboard',
+        description: 'Display song and queue interactive dashboard'
+    })
+    async dashboard(
+        interaction: CommandInteraction, client: Client
+    ): Promise<void> {
+        try {
+            const voiceChannel = await DiscordUtils.joinIfVoiceChannel(interaction)
+            if(!voiceChannel) return
+            if(!interaction.guildId) return
 
-            let slicesArray = []
-            while (songs.length > 0) {
-                slicesArray.push(songs.splice(0,10))
-            }
+            const queue: Queue | undefined = this.musicManager.player.getQueue(interaction.guildId)
+            if(!queue) throw new DisTubeError('NO_QUEUE')
 
             const me = interaction?.guild?.members?.me ?? interaction.user
 
-            const titlePages = slicesArray.map((songChunk, i) => {
-                const embed = new EmbedBuilder()
-                .setTitle(`**${interaction.guild?.name}**`)
-                .setDescription(`Music queue for **${queue.voiceChannel?.name}**`)
-                .setAuthor({
-                    name: client.user!.username,
-                    iconURL: me.displayAvatarURL()
-                })
-                .setTimestamp()
-                .setFooter({ text: `Page ${i + 1} of ${queue.songs.length + slicesArray.length} | Songs starts at page ${slicesArray.length + 1}` })
-                .addFields(songChunk)
+            const currentEmbed = await MusicUtils.getCurrentSongEmbed(queue, client, me, interaction)
+            if(!currentEmbed) throw Error('No current song embed!')
 
-                return { embeds: [embed] }
-            })
+            const pauseResumeButton = new ButtonBuilder() 
+                .setLabel(`⏸/▶`)
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId('pause-resume')
+            const skipButton = new ButtonBuilder() 
+                .setLabel(`⏭️`)
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId('skip')
+            const previousButton = new ButtonBuilder() 
+                .setLabel(`⏮️`)
+                .setStyle(ButtonStyle.Primary)
+                .setCustomId('previous')
+            const stopButton = new ButtonBuilder() 
+                .setLabel(`⏹️`)
+                .setStyle(ButtonStyle.Danger)
+                .setCustomId('stop')
+            const volumeDownButton = new ButtonBuilder() 
+                .setLabel(`🔉`)
+                .setStyle(ButtonStyle.Secondary)
+                .setCustomId('volume-down')
+            const volumeUpButton = new ButtonBuilder() 
+                .setLabel(`🔊`)
+                .setStyle(ButtonStyle.Secondary)
+                .setCustomId('volume-up')
+
+            const buttonRow1 =
+                new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+                    pauseResumeButton,
+                    skipButton,
+                    previousButton,
+                    stopButton,
+                )
             
-
-            const pages = queue.songs.map((song, i) => {
-                const embed = new EmbedBuilder()
-                .setTitle(`**${interaction.guild?.name}**`)
-                .setDescription(`Music queue for **${queue.voiceChannel?.name}**`)
-                .setAuthor({
-                    name: client.user!.username,
-                    iconURL: me.displayAvatarURL()
-                })
-                .setTimestamp()
-                .setFooter({ text: `Page ${slicesArray.length + i + 1} of ${queue.songs.length + slicesArray.length} | Song ${i + 1} of ${queue.songs.length}` })
-                .setThumbnail(`${song.thumbnail}`)
-                .addFields({
-                    name: '**name**',
-                    value: `[${song.name}](${song.url})`
-                })
-                .addFields({
-                    name: '**uploader**',
-                    value: `[${song.uploader.name}](${song.uploader.url})`
-                })
-                .addFields({
-                    name: '**download**',
-                    value: `[click](${song.streamURL})`
-                })
-                .addFields({
-                    name: '**source**',
-                    value: `${song.source}`
-                })
-                .addFields({
-                    name: '**duration (seconds/formatted)**',
-                    value: `${song.duration} / ${song.formattedDuration}`
-                })
-      
-                return { embeds: [embed] }
+            const buttonRow2 =
+                new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+                    volumeDownButton,
+                    volumeUpButton
+                )
+                
+            await DiscordUtils.replyOrFollowUp(interaction, {
+                embeds: [currentEmbed],
+                components: [
+                    buttonRow1, buttonRow2
+                ]
             })
+        } catch (err) {
+            DiscordUtils.handleInteractionError(interaction, err)
+        }
+    }
 
-            const pagination = new Pagination(interaction, titlePages.concat(...pages))
-            await pagination.send()
+    
+
+    @ButtonComponent({ id: 'pause-resume' })
+    async pauseResumeButton(interaction: ButtonInteraction): Promise<void> {
+        return this.musicButtons.pauseResume(interaction)
+    }
+
+    @ButtonComponent({ id: 'skip' })
+    async skipButton(interaction: ButtonInteraction): Promise<void> {
+        return this.musicButtons.skip(interaction)
+    }
+
+    @ButtonComponent({ id: 'previous' })
+    async previousButton(interaction: ButtonInteraction): Promise<void> {
+        return this.musicButtons.previous(interaction)
+    }
+
+    @ButtonComponent({ id: 'stop' })
+    async stopButton(interaction: ButtonInteraction): Promise<void> {
+        return this.musicButtons.stop(interaction)
+    }
+
+    @ButtonComponent({ id: 'volume-up' })
+    async volumeUpResumeButton(interaction: ButtonInteraction): Promise<void> {
+        return this.musicButtons.volumeUp(interaction)
+    }
+
+    @ButtonComponent({ id: 'volume-down' })
+    async volumeDownButton(interaction: ButtonInteraction): Promise<void> {
+        return this.musicButtons.volumeDown(interaction)
     }
     
 }

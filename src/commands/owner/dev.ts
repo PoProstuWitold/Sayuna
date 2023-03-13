@@ -3,7 +3,7 @@ import { Client, Discord, Guard, Slash, SlashGroup } from 'discordx'
 import { Category } from '@discordx/utilities'
 
 import { BotOwner } from '../../guards/BotOwner.js'
-import { DiscordUtils } from '../../utils/utils.js'
+import { DiscordUtils } from '../../utils/discordUtils.js'
 
 
 @Discord()

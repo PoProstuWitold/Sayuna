@@ -1,4 +1,5 @@
 import { 
+    ButtonInteraction,
     CommandInteraction, DiscordAPIError, GuildMember, InteractionReplyOptions, 
     MessageComponentInteraction, VoiceBasedChannel 
 } from 'discord.js'
@@ -56,18 +57,21 @@ export class DiscordUtils {
         return interaction.member.voice.channel
     }
 
-    public static async handleInteractionError(interaction: CommandInteraction, error: unknown) {
+    public static async handleInteractionError(interaction: CommandInteraction | ButtonInteraction, error: unknown) {
         if(error instanceof DiscordAPIError) {
             await this.replyOrFollowUp(interaction, `> **DiscordAPIError**: ${error.message}`)
+            throw error
         }
 
         if(error instanceof DisTubeError) {
             await this.replyOrFollowUp(interaction, `> **MusicPlayerError**: ${error.message}`)
+            throw error
         }
         
         //TO DO BaseError
         if(error instanceof Error) {
             await this.replyOrFollowUp(interaction, `> **Error**: ${error.message}`)
+            throw error
         }
 
         throw new Error(error as any)

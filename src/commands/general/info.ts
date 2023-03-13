@@ -3,7 +3,7 @@ import { Client, Discord, MetadataStorage, Slash, SlashGroup } from 'discordx'
 import { Pagination } from '@discordx/pagination'
 import { Category } from '@discordx/utilities'
 
-import { DiscordUtils } from '../../utils/utils.js'
+import { DiscordUtils } from '../../utils/discordUtils.js'
 
 
 @Discord()
@@ -13,7 +13,7 @@ import { DiscordUtils } from '../../utils/utils.js'
     description: 'Commands for getting infos about different topics'
 })
 @SlashGroup('info')
-export class Dev {
+export class Info {
 
     @Slash({
         name: 'commands',
