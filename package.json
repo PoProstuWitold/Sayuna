@@ -13,6 +13,7 @@
 	},
 	"scripts": {
 		"start": "node build/main.js",
+		"start:prod": "pm2 start build/main.js --name sayuna",
 		"dev": "NODE_ENV='development' nodemon --exec ts-node --esm src/main.ts",
 		"build": "tsc"
 	},
