@@ -7,6 +7,7 @@ import { container } from 'tsyringe'
 import { CustomLogger } from './services/logger.js'
 import { MainOptions } from './main.js'
 
+
 const logger = container.resolve(CustomLogger)
 
 const clientOptions: ClientOptions = {

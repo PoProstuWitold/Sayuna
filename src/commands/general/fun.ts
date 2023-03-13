@@ -6,6 +6,7 @@ import { DiscordUtils } from '../../utils/discordUtils.js'
 import { BaseError } from '../../exceptions/base.exception.js'
 import { UtilService } from '../../services/utilService.js'
 
+
 interface MemeJson {
     postLink: string
     subreddit: string
@@ -17,7 +18,6 @@ interface MemeJson {
     ups: number
     preview: string[]
 }
-
 
 @Discord()
 @Category('fun')

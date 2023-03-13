@@ -5,7 +5,9 @@ import {
     CommandInteraction, EmbedBuilder, GuildMember, User
 } from 'discord.js'
 import { Queue } from 'distube'
+
 import { DiscordUtils } from './discordUtils.js'
+
 
 export class MusicUtils {
     public static async getCurrentSongEmbed(

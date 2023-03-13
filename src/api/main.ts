@@ -2,7 +2,7 @@ import type { Context } from 'koa'
 import { Get, Router } from '@discordx/koa'
 import { container } from 'tsyringe'
 
-import { Main } from '../main'
+import { Main } from '../main.js'
 
 
 const Sayuna = container.resolve<Main>('Sayuna')

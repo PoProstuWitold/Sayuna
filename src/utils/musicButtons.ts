@@ -7,6 +7,7 @@ import { MusicManager } from '../services/musicPlayer.js'
 import { DiscordUtils } from './discordUtils.js'
 import { MusicUtils } from './musicUtils.js'
 
+
 @Discord()
 @injectable()
 export class MusicButtons {

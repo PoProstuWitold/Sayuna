@@ -11,6 +11,7 @@ import { CustomLogger } from './services/logger.js'
 import { ErrorHandler } from './services/errorHandler.js'
 import { MusicManager, MusicPlayerOptions } from './services/musicPlayer.js'
 
+
 export interface MainOptions {
 	clientOptions: ClientOptions,
 	config: {
