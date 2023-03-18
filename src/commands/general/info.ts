@@ -1,10 +1,16 @@
-import { CommandInteraction, EmbedBuilder } from 'discord.js'
-import { Client, Discord, MetadataStorage, Slash, SlashGroup } from 'discordx'
+import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder } from 'discord.js'
+import { Client, DApplicationCommand, Discord, MetadataStorage, Slash, SlashChoice, SlashGroup, SlashOption } from 'discordx'
 import { Pagination } from '@discordx/pagination'
-import { Category } from '@discordx/utilities'
-
+import { Category, ICategory } from '@discordx/utilities'
 import { DiscordUtils } from '../../utils/discord.utils.js'
 
+interface CommandDocs {
+    name: string
+    description: string
+    category: string | undefined
+}
+
+const choices = ['dev', 'info', 'fun', 'music']
 
 @Discord()
 @Category('info')
@@ -19,22 +25,43 @@ export class Info {
         name: 'commands',
         description: 'Pagination for all slash command'
     })
-    public async commands(interaction: CommandInteraction, client: Client): Promise<void> {
+    public async commands(
+        @SlashChoice(...choices)
+        @SlashOption({
+            description: 'Get docs only for specific command group',
+            name: 'group',
+            required: false,
+            type: ApplicationCommandOptionType.String,
+        })
+        group: string,
+        interaction: CommandInteraction, client: Client
+    ): Promise<void> {
         try {
-            const commands = MetadataStorage.instance.applicationCommandSlashesFlat.map((cmd) => {
-                return { 
-                    name: cmd.name,
-                    description: cmd.description,  
-                    //@ts-ignore
-                    category: cmd.category
-                }
+            const allCommands: CommandDocs[] = MetadataStorage.instance.applicationCommandSlashesFlat.map(
+                    (cmd: DApplicationCommand & ICategory) => {
+                    return { 
+                        name: cmd.name,
+                        description: cmd.description,
+                        category: cmd.category
+                    } 
             })
+
+            let commands: CommandDocs[]
+            let groupCommands: CommandDocs[]
+
+
+            if(!group) {
+                commands = allCommands
+            } else {
+                groupCommands = allCommands.filter((cmd) => cmd.category === group)
+                commands = groupCommands
+            }
             
             const me = interaction?.guild?.members?.me ?? interaction.user
-    
+
             const pages = commands.map((cmd, i) => {
                 const embed = new EmbedBuilder()
-                    .setTitle('**Slash command info**')
+                    .setTitle(`${groupCommands && groupCommands.length > 0 ? `${group} commands info` : '**All commands info**'}`)
                     .setAuthor({
                         name: client.user!.username,
                         iconURL: me.displayAvatarURL()
@@ -44,7 +71,7 @@ export class Info {
                     .addFields({ 
                         name: 'Category', 
                         value: `${
-                            cmd.category.length > 0
+                            cmd.category && cmd.category.length > 0
                                 ? cmd.category
                                 : 'Category unavailable'
                             }`

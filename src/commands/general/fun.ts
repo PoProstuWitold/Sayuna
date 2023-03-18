@@ -1,5 +1,5 @@
-import { CommandInteraction, EmbedBuilder } from 'discord.js'
-import { Discord, Slash, SlashGroup } from 'discordx'
+import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder } from 'discord.js'
+import { Discord, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Category } from '@discordx/utilities'
 
 import { DiscordUtils } from '../../utils/discord.utils.js'
@@ -28,22 +28,43 @@ interface MemeJson {
 @SlashGroup('fun')
 export class Fun {
     @Slash({
-        name: 'meme',
+        name: 'reddit',
         description: 'Get random meme from Reddit'
     })
-    public async meme(interaction: CommandInteraction): Promise<void> {
+    public async randomRedditMeme(
+        @SlashOption({
+            description: 'Your subreddit name',
+            name: 'subreddit',
+            required: false,
+            type: ApplicationCommandOptionType.String,
+        })
+        subReddit: string,
+        interaction: CommandInteraction
+    ): Promise<void> {
         try {
             if(!interaction) throw Error('No interaction found')
 
-            const randomSubreddit = UtilService.getRandomRecords<any>(['memes', 'programmerhumor', 'anbennar'], 1)
+            const randomSubreddit = subReddit ? subReddit :
+            UtilService.getRandomRecords<string>(['memes', 'programmerhumor', 'anbennar'], 1)
 
             const response = await fetch(`https://meme-api.com/gimme/${randomSubreddit}`)
 
+            const baseErrorValues = {
+                name: 'HTTP Error',
+                status: response.status,
+            }
+
+            if(response.status !== 200 && !subReddit) {
+                throw new BaseError({
+                    ...baseErrorValues,
+                    message: response.statusText,
+                })
+            }
+
             if(response.status !== 200) {
                 throw new BaseError({
-                    name: 'HTTP Error',
-                    message: response.statusText,
-                    status: response.status
+                    ...baseErrorValues,
+                    message: `Provided subreddit doesn't exist`
                 })
             }
             
