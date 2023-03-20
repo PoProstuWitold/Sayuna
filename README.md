@@ -35,6 +35,9 @@ OWNER_ID=
 # CLEANER LOGS & LEGACY MESSAGE COMMANDS (OPTIONAL)
 BOT_ID=
 BOT_PREFIX=
+
+# AI
+CHAT_GPT_ACCESS_TOKEN=
 ```
 
 #### 1.  Install dependencies
@@ -46,13 +49,13 @@ BOT_PREFIX=
 ## TO DO
 - [x] Logging
 - [x] Error handling
+- [x] AI
 - [ ] Commands
+	- [x] Fun commands
 	- [x] Music Commands
         - [x] Current music dashboard with real-time updates
 	- [ ] Moderation commands
-	- [ ] Fun commands
 - [ ] Automod
-- [ ] AI (optional)
 
 ## LICENSE
 [MIT](https://choosealicense.com/licenses/mit/)

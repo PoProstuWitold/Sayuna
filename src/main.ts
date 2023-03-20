@@ -1,25 +1,18 @@
 import 'reflect-metadata'
 import 'dotenv/config'
 
-import { Client, ClientOptions, DIService, tsyringeDependencyRegistryEngine } from 'discordx'
+import { Client, DIService, tsyringeDependencyRegistryEngine } from 'discordx'
 import { dirname, importx } from '@discordx/importer'
 import { Koa } from '@discordx/koa'
 import { autoInjectable, container, delay, inject } from 'tsyringe'
 
+import type { MainOptions, MusicPlayerOptions } from './utils/types.js'
 import { globalConfig } from './config.js'
 import { CustomLogger } from './services/logger.service.js'
 import { ErrorHandler } from './services/error-handler.service.js'
-import { MusicManager, MusicPlayerOptions } from './services/music.service.ts.js'
+import { MusicManager } from './services/music.service.ts.js'
+import { AiService } from './services/ai.service.js'
 
-
-export interface MainOptions {
-	clientOptions: ClientOptions,
-	config: {
-		token: string | undefined,
-		devGuildId?: string | undefined,
-		ownerId?: string | undefined
-	}
-}
 
 @autoInjectable()
 export class Main {
@@ -29,7 +22,8 @@ export class Main {
 		public opts: MainOptions,
 		private logger?: CustomLogger,
 		private errorHandler?: ErrorHandler,
-		@inject(delay(() => MusicManager)) private musicManager?: MusicManager
+		@inject(delay(() => MusicManager)) private musicManager?: MusicManager,
+		@inject(delay(() => AiService)) private aiService?: AiService
 	) {
 		this.opts = opts
 		this.client = new Client(this.opts.clientOptions)
@@ -73,6 +67,8 @@ export class Main {
 		DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container)
 		await this.errorHandler?.start()
 		await this.musicManager?.start()
+		await this.aiService?.start()
+
 		const {
 			token
 		} = await this.checkEnvs()
@@ -132,6 +128,13 @@ if(container.isRegistered('Sayuna')) {
     container.register<MusicPlayerOptions>('musicOpts', {
         useValue: {
             client: Sayuna.client
+        }
+    })
+
+	container.register<MainOptions['aiOptions']>('aiOpts', {
+        useValue: {
+            enabled: globalConfig.aiOptions.enabled,
+			chatpgtOptions: globalConfig.aiOptions.chatpgtOptions
         }
     })
 }

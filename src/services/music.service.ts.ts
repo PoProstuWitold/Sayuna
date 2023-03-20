@@ -1,5 +1,4 @@
 import { inject, singleton } from 'tsyringe'
-import { Client } from 'discordx'
 import { DisTube, Playlist, Queue, SearchResult, Song } from 'distube'
 import { YtDlpPlugin } from '@distube/yt-dlp'
 import { SoundCloudPlugin } from '@distube/soundcloud'
@@ -7,11 +6,7 @@ import { SpotifyPlugin } from '@distube/spotify'
 
 import { CustomLogger } from './logger.service.js'
 import { GuildTextBasedChannel, Message } from 'discord.js'
-
-
-export interface MusicPlayerOptions {
-	client: Client
-}
+import type { MusicPlayerOptions } from '../utils/types.js'
 
 @singleton()
 export class MusicManager {

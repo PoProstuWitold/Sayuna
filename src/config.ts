@@ -5,7 +5,8 @@ import { ClientOptions } from 'discordx'
 import { container } from 'tsyringe'
 
 import { CustomLogger } from './services/logger.service.js'
-import { MainOptions } from './main.js'
+import type { MainOptions } from './utils/types.js'
+
 
 
 const logger = container.resolve(CustomLogger)
@@ -32,11 +33,21 @@ const clientOptions: ClientOptions = {
     botGuilds: process.env.DEV_GUILD_ID && process.env.NODE_ENV === 'development' ? process.env.DEV_GUILD_ID.split(', ') : undefined
 }
 
+export const aiOptions: MainOptions['aiOptions'] = {
+    enabled: true,
+    chatpgtOptions: {
+        apiKey: process.env.CHAT_GPT_ACCESS_TOKEN!,
+        // debug: process.env.NODE_ENV === 'development' ? true : false,
+        systemMessage: `You are Sayuna. Discord all-in-one bot for moderation, music & fun. Current date is ${new Date().toISOString()}`
+    }
+}
+
 export const globalConfig: MainOptions = {
     clientOptions,
     config: {
         token: process.env.BOT_TOKEN,
         devGuildId: process.env.DEV_GUILD_ID,
         ownerId: process.env.OWNER_ID
-    }
+    },
+    aiOptions
 }
