@@ -2,9 +2,11 @@ import { Discord, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Category } from '@discordx/utilities'
 import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder } from 'discord.js'
 import { injectable } from 'tsyringe'
+import { Pagination } from '@discordx/pagination'
 
 import { DiscordUtils } from '../../utils/discord.utils.js'
 import { AiService } from '../../services/ai.service.js'
+import { UtilService } from '../../services/util.service.js'
 
 @Discord()
 @Category('ai')
@@ -41,30 +43,33 @@ export class Ai {
             const me = interaction.user
             const res = await this.aiService.chat(prompt, interaction)
 
-            const embed = new EmbedBuilder()
-                .setAuthor({
-                    name: me.username,
-                    iconURL: `https://cdn.discordapp.com/avatars/${me.id}/${me.avatar}.png?size=256`
-                })
-                .setTitle(`Sayuna`) 
-                .addFields({
-                    name: 'Prompt',
-                    value: `> ${prompt}`
-                })
-                .addFields({
-                    name: 'Answer',
-                    value: res.text
-                })
-                .setFooter({
-                    text: `ChatGPT API`
-                })
-                .setTimestamp()
+            const slicesArray = await UtilService.splitLongString(res.text, 1000)
+                    const resPages = slicesArray.map((partialResponseSlice, i) => {
+                        const embed = new EmbedBuilder()
+                            .setAuthor({
+                                name: me.username,
+                                iconURL: `https://cdn.discordapp.com/avatars/${me.id}/${me.avatar}.png?size=256`
+                            })
+                            .setTitle(`Sayuna`)
+                            .addFields({
+                                name: 'Prompt',
+                                value: `> ${prompt}`
+                            })
+                            .addFields({ 
+                                name: 'Answer',
+                                value: partialResponseSlice || '***something wrong, I can feel it***'
+                            })
+                            .setFooter({
+                                text: `Page ${i + 1} of ${slicesArray.length} | ChatGPT API`
+                            })
+                            .setTimestamp()
+        
+                        return { embeds: [embed] }
+                    })
+                        
+                    const pagination = new Pagination(interaction, resPages)
 
-            await interaction.editReply({
-                embeds: [
-                    embed
-                ]
-            })
+                    await pagination.send()
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
         }

@@ -10,7 +10,7 @@ interface CommandDocs {
     category: string | undefined
 }
 
-const choices = ['dev', 'info', 'fun', 'music']
+const choices = ['dev', 'info', 'fun', 'music', 'ai']
 
 @Discord()
 @Category('info')

@@ -1,6 +1,6 @@
 import { inject, singleton } from 'tsyringe'
 import { ChatGPTAPI } from 'chatgpt'
-import { CommandInteraction, EmbedBuilder, Message } from 'discord.js'
+import { CommandInteraction } from 'discord.js'
 
 import { CustomLogger } from './logger.service.js'
 import { MainOptions } from '../utils/types.js'
@@ -36,39 +36,14 @@ export class AiService {
         try {
             let res = await this.chatgptApi?.sendMessage(prompt, {
                 onProgress: async (partialResponse) => {
-                    const me = interaction.user
-
-                    const embed = new EmbedBuilder()
-                        .setAuthor({
-                            name: me.username,
-                            iconURL: `https://cdn.discordapp.com/avatars/${me.id}/${me.avatar}.png?size=256`
-                        })
-                        .setTitle(`Sayuna`)
-                        .addFields({
-                            name: 'Prompt',
-                            value: `> ${prompt}`
-                        })
-                        .addFields({
-                            name: 'Answer',
-                            value: partialResponse.text
-                        })
-                        .setFooter({
-                            text: `ChatGPT API`
-                        })
-                        .setTimestamp()
-
-                    await interaction.editReply({
-                        embeds: [
-                            embed
-                        ]
-                    })
+                    // It is possible to make real time updates like ChatGPT does, but it's too resource heavy
                 },
                 timeoutMs: 10 * 60 * 1000
             })
             
 
             if(!res) {
-                throw new BaseError({
+                throw new BaseError({ 
                     name: 'ChatGPT Error',
                     message: `Couldn't get response from ChatGPT`
                 })
