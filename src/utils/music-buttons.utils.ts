@@ -3,7 +3,7 @@ import { Discord } from 'discordx'
 import { DisTubeError, Queue } from 'distube'
 import { injectable } from 'tsyringe'
 
-import { MusicManager } from '../services/music.service.ts.js'
+import { MusicManager } from '../services/music.service.js'
 import { DiscordUtils } from './discord.utils.js'
 import { MusicUtils } from './music.utils.js'
 

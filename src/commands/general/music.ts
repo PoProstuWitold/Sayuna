@@ -9,12 +9,10 @@ import { Category } from '@discordx/utilities'
 import { injectable } from 'tsyringe'
 import { DisTubeError, Queue } from 'distube'
 
-import { MusicManager } from '../../services/music.service.ts.js'
+import { MusicManager } from '../../services/music.service.js'
 import { DiscordUtils } from '../../utils/discord.utils.js'
 import { MusicUtils } from '../../utils/music.utils.js'
 import { MusicButtons } from '../../utils/music-buttons.utils.js'
-import { BaseError } from '../../exceptions/base.exception.js'
-
 
 @Discord()
 @Category('music')

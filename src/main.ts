@@ -10,7 +10,7 @@ import type { MainOptions, MusicPlayerOptions } from './utils/types.js'
 import { globalConfig } from './config.js'
 import { CustomLogger } from './services/logger.service.js'
 import { ErrorHandler } from './services/error-handler.service.js'
-import { MusicManager } from './services/music.service.ts.js'
+import { MusicManager } from './services/music.service.js'
 import { AiService } from './services/ai.service.js'
 
 

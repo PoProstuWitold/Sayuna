@@ -4,7 +4,7 @@ import { Discord } from 'discordx'
 import { injectable } from 'tsyringe'
 
 import { CustomLogger } from '../services/logger.service.js'
-import { MusicManager } from '../services/music.service.ts.js'
+import { MusicManager } from '../services/music.service.js'
 
 
 @Discord()
