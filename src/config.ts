@@ -1,6 +1,6 @@
 import 'dotenv/config'
 
-import { IntentsBitField } from 'discord.js'
+import { ActivityType, IntentsBitField } from 'discord.js'
 import { ClientOptions } from 'discordx'
 import { container } from 'tsyringe'
 
@@ -8,8 +8,8 @@ import { CustomLogger } from './services/logger.service.js'
 import type { MainOptions } from './utils/types.js'
 
 
-
 const logger = container.resolve(CustomLogger)
+
 
 const clientOptions: ClientOptions = {
     botId: process.env.BOT_ID,
@@ -34,7 +34,7 @@ const clientOptions: ClientOptions = {
 }
 
 export const aiOptions: MainOptions['aiOptions'] = {
-    enabled: true,
+    enabled: process.env.AI_ENABLED === "1" ? true : false,
     chatpgtOptions: {
         apiKey: process.env.CHAT_GPT_ACCESS_TOKEN!,
         // debug: process.env.NODE_ENV === 'development' ? true : false,
@@ -42,12 +42,18 @@ export const aiOptions: MainOptions['aiOptions'] = {
     }
 }
 
+const config = {
+    token: process.env.BOT_TOKEN,
+    devGuildId: process.env.DEV_GUILD_ID,
+    ownerId: process.env.OWNER_ID,
+    activity: {
+        name: 'Homsterix',
+        type: ActivityType.Playing
+    }
+}
+
 export const globalConfig: MainOptions = {
     clientOptions,
-    config: {
-        token: process.env.BOT_TOKEN,
-        devGuildId: process.env.DEV_GUILD_ID,
-        ownerId: process.env.OWNER_ID
-    },
+    config,
     aiOptions
 }

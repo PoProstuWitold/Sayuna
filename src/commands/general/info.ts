@@ -1,14 +1,13 @@
 import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder } from 'discord.js'
-import { Client, DApplicationCommand, Discord, MetadataStorage, Slash, SlashChoice, SlashGroup, SlashOption } from 'discordx'
+import { 
+    Client, DApplicationCommand, Discord, MetadataStorage, Slash, SlashChoice, SlashGroup, SlashOption
+} from 'discordx'
 import { Pagination } from '@discordx/pagination'
 import { Category, ICategory } from '@discordx/utilities'
-import { DiscordUtils } from '../../utils/discord.utils.js'
 
-interface CommandDocs {
-    name: string
-    description: string
-    category: string | undefined
-}
+import { DiscordUtils } from '../../utils/discord.utils.js'
+import { CommandDocs } from '../../utils/types.js'
+
 
 const choices = ['dev', 'info', 'fun', 'music', 'ai']
 

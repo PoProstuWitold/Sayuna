@@ -1,7 +1,6 @@
 //@ts-nocheck
 import { inject, singleton } from 'tsyringe'
 import { ChatGPTAPI } from 'chatgpt'
-import { CommandInteraction } from 'discord.js'
 
 import { CustomLogger } from './logger.service.js'
 import { MainOptions } from '../utils/types.js'
@@ -33,7 +32,7 @@ export class AiService {
         }
     }
 
-    async chat(prompt: string, interaction: CommandInteraction) {
+    async chat(prompt: string) {
         try {
             let res = await this.chatgptApi?.sendMessage(prompt, {
                 onProgress: async (partialResponse) => {

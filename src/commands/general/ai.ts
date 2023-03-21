@@ -1,4 +1,4 @@
-import { Discord, Slash, SlashGroup, SlashOption } from 'discordx'
+import { Discord, Guard, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Category } from '@discordx/utilities'
 import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder } from 'discord.js'
 import { injectable } from 'tsyringe'
@@ -7,6 +7,8 @@ import { Pagination } from '@discordx/pagination'
 import { DiscordUtils } from '../../utils/discord.utils.js'
 import { AiService } from '../../services/ai.service.js'
 import { UtilService } from '../../services/util.service.js'
+import { FeatureEnabled } from '../../guards/feature-enabled.guard.js'
+import { globalConfig } from '../../config.js'
 
 @Discord()
 @Category('ai')
@@ -15,6 +17,12 @@ import { UtilService } from '../../services/util.service.js'
     description: `Commands related to artifactal intelligence such as OpenAI's API`
 })
 @SlashGroup('ai')
+@Guard(
+    FeatureEnabled(
+        'artifactal intelligence', 
+        globalConfig.aiOptions.enabled
+    )
+)
 @injectable()
 export class Ai {
     constructor(
@@ -41,7 +49,7 @@ export class Ai {
             await interaction.deferReply()
 
             const me = interaction.user
-            const res = await this.aiService.chat(prompt, interaction)
+            const res = await this.aiService.chat(prompt)
 
             const slicesArray = await UtilService.splitLongString(res.text, 1000)
                     const resPages = slicesArray.map((partialResponseSlice, i) => {

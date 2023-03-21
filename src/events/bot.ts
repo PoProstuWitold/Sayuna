@@ -1,10 +1,10 @@
-import { Client, Once } from 'discordx'
-import { ActivityType } from 'discord.js'
-import { Discord } from 'discordx'
+import { Client, Once, Discord } from 'discordx'
 import { injectable } from 'tsyringe'
 
 import { CustomLogger } from '../services/logger.service.js'
 import { MusicManager } from '../services/music.service.js'
+import { globalConfig } from '../config.js'
+import { ActivityType } from 'discord.js'
 
 
 @Discord()
@@ -24,7 +24,10 @@ export class Bot {
             //@ts-ignore
             const botId = client.options.botId
             if(client.user) {
-                client.user.setActivity('Detroit: Become Human', { type: ActivityType.Playing })
+                client.user.setActivity(
+                    globalConfig.config.activity.name, 
+                    { type:  globalConfig.config.activity.type as any }
+                )
             }
 
             // DEV MODE

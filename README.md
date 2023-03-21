@@ -37,6 +37,8 @@ BOT_ID=
 BOT_PREFIX=
 
 # AI
+# Access token for talking to ChatGPT
+AI_ENABLED= # 1 - enabled, every other value - disabled
 CHAT_GPT_ACCESS_TOKEN=
 ```
 

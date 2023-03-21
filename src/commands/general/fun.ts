@@ -5,19 +5,8 @@ import { Category } from '@discordx/utilities'
 import { DiscordUtils } from '../../utils/discord.utils.js'
 import { BaseError } from '../../exceptions/base.exception.js'
 import { UtilService } from '../../services/util.service.js'
+import { MemeJson } from '../../utils/types.js'
 
-
-interface MemeJson {
-    postLink: string
-    subreddit: string
-    title: string
-    url: string
-    nsfw: boolean
-    spoiler: boolean
-    author: string
-    ups: number
-    preview: string[]
-}
 
 @Discord()
 @Category('fun')
