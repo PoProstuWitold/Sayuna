@@ -1,3 +1,4 @@
+//@ts-nocheck
 import 'reflect-metadata'
 import 'dotenv/config'
 

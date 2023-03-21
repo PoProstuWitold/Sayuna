@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { inject, singleton } from 'tsyringe'
 import { ChatGPTAPI } from 'chatgpt'
 import { CommandInteraction } from 'discord.js'

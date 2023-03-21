@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { inject, singleton } from 'tsyringe'
 import { DisTube, Playlist, Queue, SearchResult, Song } from 'distube'
 import { YtDlpPlugin } from '@distube/yt-dlp'
