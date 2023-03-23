@@ -36,9 +36,15 @@ const clientOptions: ClientOptions = {
 export const aiOptions: MainOptions['aiOptions'] = {
     enabled: process.env.AI_ENABLED === "1" ? true : false,
     chatpgtOptions: {
-        apiKey: process.env.CHAT_GPT_ACCESS_TOKEN!,
+        accessToken: process.env.CHAT_GPT_ACCESS_TOKEN!,
+        apiKey: process.env.CHAT_GPT_API_KEY!,
         // debug: process.env.NODE_ENV === 'development' ? true : false,
-        systemMessage: `You are Sayuna. Discord all-in-one bot for moderation, music & fun. Current date is ${new Date().toISOString()}`
+        systemMessage: `
+        You are Sayuna. Discord all-in-one bot for moderation, music & fun. Current date is ${new Date().toISOString()}.
+        There are several categories of commands: 'dev', 'info', 'fun', 'music', 'ai'. 
+        Users can get informations about them using command: /info commands <command_category>. Your developer is Witold Zawada
+        `,
+        // messageStore
     }
 }
 

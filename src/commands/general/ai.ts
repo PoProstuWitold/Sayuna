@@ -49,7 +49,7 @@ export class Ai {
             await interaction.deferReply()
 
             const me = interaction.user
-            const res = await this.aiService.chat(prompt)
+            const res = await this.aiService.chat(`${me.id}: ${prompt}`)
 
             const slicesArray = await UtilService.splitLongString(res.text, 1000)
                     const resPages = slicesArray.map((partialResponseSlice, i) => {
