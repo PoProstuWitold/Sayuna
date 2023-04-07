@@ -15,7 +15,7 @@ export interface MainOptions {
 	}
 	aiOptions: {
 		enabled: boolean
-		chatpgtOptions?: any
+		chatpgtOptions?: ChatGPTAPIOptions
 	}
 }
 

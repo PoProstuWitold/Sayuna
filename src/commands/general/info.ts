@@ -2,7 +2,7 @@ import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder } from '
 import { 
     Client, DApplicationCommand, Discord, MetadataStorage, Slash, SlashChoice, SlashGroup, SlashOption
 } from 'discordx'
-import { Pagination } from '@discordx/pagination'
+import { Pagination, PaginationOptions, PaginationType } from '@discordx/pagination'
 import { Category, ICategory } from '@discordx/utilities'
 
 import { DiscordUtils } from '../../utils/discord.utils.js'
@@ -57,7 +57,7 @@ export class Info {
             }
             
             const me = interaction?.guild?.members?.me ?? interaction.user
-
+            let externalEmbed: EmbedBuilder
             const pages = commands.map((cmd, i) => {
                 const embed = new EmbedBuilder()
                     .setTitle(`${groupCommands && groupCommands.length > 0 ? `${group} commands info` : '**All commands info**'}`)
@@ -87,12 +87,22 @@ export class Info {
                                 : 'Description unavailable'
                             }`
                     })
-          
+                externalEmbed = embed;
                 return { embeds: [embed] }
             })
           
-            const pagination = new Pagination(interaction, pages)
-            await pagination.send()
+            if(pages.length == 1) {
+                const {
+                    embeds
+                } = pages[0]
+
+                await DiscordUtils.replyOrFollowUp(interaction, {
+                    embeds
+                })
+            } else {
+                const pagination = new Pagination(interaction, pages)
+                await pagination.send()
+            }
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
         }
