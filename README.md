@@ -5,7 +5,7 @@ Written in Typescript, Node.js v19, discord.js, discordx, ESM.
 
 
 ## Requirements
-- Node.js v19 or higher
+- Node.js v19 (currently **ts-node** doesn't work with **Node v20 with ESM**; the issue is currently [unresolved](https://github.com/TypeStrong/ts-node/issues/1997))
 - ffmpeg (installation instructions can be found [here](https://ffmpeg.org/download.html))
 - Discord bot account and a Discord server
 

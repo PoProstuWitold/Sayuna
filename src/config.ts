@@ -36,7 +36,6 @@ const clientOptions: ClientOptions = {
 export const aiOptions: MainOptions['aiOptions'] = {
     enabled: process.env.AI_ENABLED === "1" ? true : false,
     chatpgtOptions: {
-        accessToken: process.env.CHAT_GPT_ACCESS_TOKEN!,
         apiKey: process.env.CHAT_GPT_API_KEY!,
         // debug: process.env.NODE_ENV === 'development' ? true : false,
         systemMessage: `
