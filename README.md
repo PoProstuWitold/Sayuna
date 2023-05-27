@@ -52,11 +52,11 @@ CHAT_GPT_ACCESS_TOKEN=
 - [x] Logging
 - [x] Error handling
 - [x] AI
-- [ ] Commands
+- [x] Commands
 	- [x] Fun commands
 	- [x] Music Commands
         - [x] Current music dashboard with real-time updates
-	- [ ] Moderation commands
+	- [x] Moderation commands
 - [ ] Automod
 
 ## LICENSE

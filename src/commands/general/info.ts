@@ -9,7 +9,7 @@ import { DiscordUtils } from '../../utils/discord.utils.js'
 import { CommandDocs } from '../../utils/types.js'
 
 
-const choices = ['dev', 'info', 'fun', 'music', 'ai']
+const choices = ['dev', 'info', 'fun', 'music', 'ai', 'mod']
 
 @Discord()
 @Category('info')
