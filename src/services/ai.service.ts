@@ -1,6 +1,6 @@
 //@ts-nocheck
 import { inject, singleton } from 'tsyringe'
-import { ChatGPTAPI, ChatMessage } from 'chatgpt'
+import { ChatGPTAPI, ChatGPTError, ChatMessage } from 'chatgpt'
 
 import { CustomLogger } from './logger.service.js'
 import { MainOptions } from '../utils/types.js'
@@ -11,6 +11,7 @@ import { BaseError } from '../exceptions/base.exception.js'
 export class AiService {
     public readonly chatgptApi: ChatGPTAPI | undefined
     public initRes: ChatMessage
+	private error: ChatGPTError
 
     public constructor(
         @inject('aiOpts') public opts: MainOptions['aiOptions'],
@@ -54,12 +55,22 @@ export class AiService {
                 this.logger.warn('AI is disabled')
             }
         } catch (err) {
+			if(err instanceof ChatGPTError) {
+				this.error = err
+			}
             this.logger.warn(err)
         }
     }
 
     async chat(prompt: string) {
-        try {
+        try { 
+			if(!this.initRes) {
+				throw new BaseError({
+					name: `OpenAI Error`,
+					message: this.error.statusText || `Couldn't get response from ChatGPT`,
+					status: this.error.statusCode || '400'
+				})
+			}
             let res = await this.chatgptApi?.sendMessage(prompt, {
                 timeoutMs: 10 * 60 * 1000,
                 conversationId: this.initRes.conversationId,
