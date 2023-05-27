@@ -55,7 +55,12 @@ export class Music {
             })
 
             const queue = this.musicManager.player.getQueue(interaction.guildId)
-            await DiscordUtils.replyOrFollowUp(interaction, `> Now playing: **${queue?.songs[0].name}**`)
+			if(!queue) return
+			queue.songs.length < 2 
+			?
+            await DiscordUtils.replyOrFollowUp(interaction, `> Now playing: **${queue.songs[0].name}**`)
+			:
+			await DiscordUtils.replyOrFollowUp(interaction, `> Added to queue: **${queue.songs[queue.songs.length - 1].name}**. There are ${queue.songs.length} songs in the queue`)
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
         }
