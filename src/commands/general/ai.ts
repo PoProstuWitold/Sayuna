@@ -18,10 +18,11 @@ import { globalConfig } from '../../config.js'
 })
 @SlashGroup('ai')
 @Guard(
-    FeatureEnabled(
-        'artifactal intelligence', 
-        globalConfig.aiOptions.enabled
-    )
+    FeatureEnabled({
+		enabled: globalConfig.aiOptions.enabled,
+		feature: 'AI',
+		reason: 'ChatGPT pricing'
+	})
 )
 @injectable()
 export class Ai {

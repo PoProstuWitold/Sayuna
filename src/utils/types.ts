@@ -2,6 +2,12 @@ import { ChatGPTAPIOptions } from 'chatgpt'
 import { ActivityType } from 'discord.js'
 import { Client, ClientOptions } from 'discordx'
 
+export interface FeatureEnabledGuardOptions {
+	enabled: boolean
+	feature: string
+	reason?: string
+}
+
 export interface MainOptions {
 	clientOptions: ClientOptions,
 	config: {

@@ -4,7 +4,7 @@ import {
     EmbedBuilder, 
     GuildMember, MessageActionRowComponentBuilder 
 } from 'discord.js'
-import { ButtonComponent, Client, Discord, Slash, SlashGroup, SlashOption } from 'discordx'
+import { ButtonComponent, Client, Discord, Guard, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Category } from '@discordx/utilities'
 import { injectable } from 'tsyringe'
 import { DisTubeError, Queue } from 'distube'
@@ -13,6 +13,7 @@ import { MusicManager } from '../../services/music.service.js'
 import { DiscordUtils } from '../../utils/discord.utils.js'
 import { MusicUtils } from '../../utils/music.utils.js'
 import { MusicButtons } from '../../utils/music-buttons.utils.js'
+import { FeatureEnabled } from '../../guards/feature-enabled.guard.js'
 
 @Discord()
 @Category('music')
@@ -243,6 +244,13 @@ export class Music {
         }
     }
 
+	@Guard(
+		FeatureEnabled({
+			enabled: false,
+			feature: 'music search command',
+			reason: 'Not implemented yet'
+		})
+	)
     @Slash({
         name: 'search',
         description: 'Search for a song'
