@@ -89,10 +89,13 @@ export class MusicUtils {
 
     public static async paginateQueue(interaction: CommandInteraction, client: Client, queue: Queue) {
         const songs: any[] = []
-            queue.songs.map((song, i) => songs.push({
-                name: `${i + 1}. ${song.name}`,
-                value: `[url](${song.url}) | [download](${song.streamURL})`
-            }))
+            queue.songs.map((song, i) => {
+				const downloadUrl = `[url](${song.url}) | [download](${song.streamURL})`
+				songs.push({
+					name: `${i + 1}. ${song.name}`,
+					value: downloadUrl.length > 1024 ? `Preview download URL too long. Check song's page` : downloadUrl
+				})
+			})
 
             let slicesArray = []
             while (songs.length > 0) {
