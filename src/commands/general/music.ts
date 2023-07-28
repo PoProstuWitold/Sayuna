@@ -4,16 +4,16 @@ import {
     EmbedBuilder, 
     GuildMember, MessageActionRowComponentBuilder 
 } from 'discord.js'
-import { ButtonComponent, Client, Discord, Guard, Slash, SlashGroup, SlashOption } from 'discordx'
+import { ButtonComponent, Client, Discord, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Category } from '@discordx/utilities'
 import { injectable } from 'tsyringe'
-import { DisTubeError, Queue } from 'distube'
+import { DisTubeError, Queue, SearchResult } from 'distube'
 
 import { MusicManager } from '../../services/music.service.js'
 import { DiscordUtils } from '../../utils/discord.utils.js'
 import { MusicUtils } from '../../utils/music.utils.js'
 import { MusicButtons } from '../../utils/music-buttons.utils.js'
-import { FeatureEnabled } from '../../guards/feature-enabled.guard.js'
+import { BaseError } from '../../exceptions/base.exception.js'
 
 @Discord()
 @Category('music')
@@ -24,11 +24,14 @@ import { FeatureEnabled } from '../../guards/feature-enabled.guard.js'
 @SlashGroup('music')
 @injectable()
 export class Music {
+	protected results: SearchResult[]
 
     constructor(
 		private musicManager: MusicManager,
         private musicButtons: MusicButtons
-	) {}
+	) {
+		this.results = []
+	}
 
     @Slash({
         name: 'play',
@@ -244,13 +247,6 @@ export class Music {
         }
     }
 
-	@Guard(
-		FeatureEnabled({
-			enabled: false,
-			feature: 'music search command',
-			reason: 'Not implemented yet'
-		})
-	)
     @Slash({
         name: 'search',
         description: 'Search for a song'
@@ -270,8 +266,65 @@ export class Music {
             if(!voiceChannel) return
             if(!interaction.guildId) return
 
-            const results = await this.musicManager.player.search(query)
-            await DiscordUtils.replyOrFollowUp(interaction, `> Search results`)
+            this.results = await this.musicManager.player.search(query)
+
+			const fields = this.results.map((result, index) => {
+				return {
+					name: `${index + 1}. ${result.name}`,
+					value: result.url
+				}
+			})
+
+			const embed = new EmbedBuilder({
+				title: 'Search results',
+				description: 'Type **/rplay number** to play that song',
+				fields
+			})
+
+            await DiscordUtils.replyOrFollowUp(interaction, {
+				embeds: [embed]
+			})
+        } catch (err) {
+            DiscordUtils.handleInteractionError(interaction, err)
+        }
+    }
+
+	@Slash({
+        name: 'rplay',
+        description: 'Play selected song from search results'
+    })
+    async rplay(
+        @SlashOption({
+            description: 'Enter number from results',
+            name: 'number',
+            required: true,
+			minValue: 1,
+			maxValue: 10,
+            type: ApplicationCommandOptionType.Number,
+        })
+        number: number,
+        interaction: CommandInteraction
+    ): Promise<void> {
+        try {
+            const voiceChannel = await DiscordUtils.joinIfVoiceChannel(interaction)
+            if(!voiceChannel) return
+            if(!interaction.guildId) return
+			if(!this.results) throw new BaseError({
+				name: 'No results',
+				message: 'Please, use **search** command first',
+				status: 404
+			})
+
+			await this.musicManager.player.play(voiceChannel, this.results[number - 1].url)
+
+			const queue = this.musicManager.player.getQueue(interaction.guildId)
+			if(!queue) return
+			queue.songs.length < 2 
+			?
+            await DiscordUtils.replyOrFollowUp(interaction, `> Now playing: **${queue.songs[0].name}**`)
+			:
+			await DiscordUtils.replyOrFollowUp(interaction, `> Added to queue: **${queue.songs[queue.songs.length - 1].name}**. There are ${queue.songs.length} songs in the queue`)
+            
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
         }
