@@ -54,7 +54,7 @@ export class Main {
 				console.error('server error', err, ctx)
 			})
 
-			const port = Number(process.env.PORT) | 3000
+			const port = Number(process.env.PORT) || 3000
 			app.listen(port, () => {
 				this.logger?.info(`Discord API server started! GLHF!`)
 				this.logger?.info(`Visit "http://localhost:${port}/guilds"`)
