@@ -1,11 +1,11 @@
 # Sayuna
 
 Easily extensible and customizable all-in-one Discord bot. Moderation, music & fun!
-Written in Typescript, Node.js v19, discord.js, discordx, ESM.
+Written in Typescript, Node.js, discord.js, discordx, ESM.
 
 
 ## Requirements
-- Node.js v19 (currently **ts-node** doesn't work with **Node v20 with ESM**; the issue is currently [unresolved](https://github.com/TypeStrong/ts-node/issues/1997))
+- Node.js v19 or Node.js v18.17.1 (LTS; recommended) (currently **ts-node** doesn't work with **Node v20 with ESM**; the issue is currently [unresolved](https://github.com/TypeStrong/ts-node/issues/1997))
 - ffmpeg (installation instructions can be found [here](https://ffmpeg.org/download.html))
 - Discord bot account and a Discord server
 
@@ -39,7 +39,10 @@ BOT_PREFIX=
 # AI
 # Access token for talking to ChatGPT
 AI_ENABLED= # 1 - enabled, every other value - disabled
-CHAT_GPT_ACCESS_TOKEN=
+CHAT_GPT_API_KEY=
+
+# Dashboard
+PORT=3006
 ```
 
 #### 1.  Install dependencies
