@@ -4,6 +4,7 @@ import { Category } from '@discordx/utilities'
 
 import { BotOwner } from '../../guards/bot-owner.guard.js'
 import { DiscordUtils } from '../../utils/discord.utils.js'
+import { CONSTANTS } from '../../config.js'
 
 
 @Discord()
@@ -45,6 +46,10 @@ export class Dev {
                 .setFooter({ text: 'Sayuna bot' })
 
             embed.addFields([
+				{
+                    name: 'Version (bot/discord.js)',
+                    value: `${CONSTANTS['version']}/${CONSTANTS['discordjs']}`
+                },
                 {
                     name: 'Message round-trip',
                     value: messageTime

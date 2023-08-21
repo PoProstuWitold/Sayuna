@@ -10,6 +10,10 @@ import type { MainOptions } from './utils/types.js'
 
 const logger = container.resolve(CustomLogger)
 
+export const CONSTANTS = {
+	version: '0.4.0',
+	discordjs: '14.13.0'
+}
 
 const clientOptions: ClientOptions = {
     botId: process.env.BOT_ID,

@@ -52,7 +52,7 @@ export class Music {
             if(!voiceChannel) return
             if(!interaction.guildId) return
 
-            const member: GuildMember = (interaction.member ? interaction.member : interaction!.guild!.members!.me) as GuildMember
+            const member: GuildMember = DiscordUtils.getInteractionMember(interaction)
 
             await this.musicManager.player.play(voiceChannel, songName, {
                 member: member
@@ -315,7 +315,11 @@ export class Music {
 				status: 404
 			})
 
-			await this.musicManager.player.play(voiceChannel, this.results[number - 1].url)
+			const member: GuildMember = DiscordUtils.getInteractionMember(interaction)
+
+			await this.musicManager.player.play(voiceChannel, this.results[number - 1].url, {
+				member
+			})
 
 			const queue = this.musicManager.player.getQueue(interaction.guildId)
 			if(!queue) return

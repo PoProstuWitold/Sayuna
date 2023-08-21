@@ -97,4 +97,8 @@ export class DiscordUtils {
 
         throw new Error(error as any)
     }
+
+	public static getInteractionMember(interaction: CommandInteraction): GuildMember {
+		return (interaction.member ? interaction.member : interaction!.guild!.members!.me) as GuildMember
+	}
 }
