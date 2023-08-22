@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  sayuna-dev:
+    build:
+      context: .
+      target: development
+    container_name: Sayuna-dev
+    stdin_open: true
+    tty: true
+    ports:
+      - "${PORT}:${PORT}"
+    env_file:
+      .env
+    volumes:
+      - .:/app  # Mount the current directory as /app in the container
+    restart: unless-stopped
