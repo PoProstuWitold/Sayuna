@@ -14,6 +14,7 @@ import { DiscordUtils } from '../../utils/discord.utils.js'
 import { MusicUtils } from '../../utils/music.utils.js'
 import { MusicButtons } from '../../utils/music-buttons.utils.js'
 import { BaseError } from '../../exceptions/base.exception.js'
+import { formatSeconds } from '../../utils/functions.js'
 
 @Discord()
 @Category('music')
@@ -340,10 +341,11 @@ export class Music {
     })
     async seek(
         @SlashOption({
-            description: 'Time to seek in song',
+            description: 'Time to seek in song (in seconds)',
             name: 'time',
             required: true,
             type: ApplicationCommandOptionType.Number,
+			minValue: 1
         })
         time: number,
         interaction: CommandInteraction
@@ -354,7 +356,10 @@ export class Music {
             if(!interaction.guildId) return
 
             const queue = this.musicManager.player.seek(interaction.guildId, time)
-            await DiscordUtils.replyOrFollowUp(interaction, `> Seeked to time ${queue.currentTime}: **${queue.songs[0].name}**`)
+            await DiscordUtils.replyOrFollowUp(interaction, `
+			> Seeked to time **${formatSeconds(time)}** of **${formatSeconds(queue.songs[0].duration)}** - ${time <= queue.songs[0].duration ? `**${queue.songs[0].name}**` : `skipping`} 
+			> Total queue time: **${formatSeconds(queue.currentTime)}** of **${formatSeconds(queue.duration)}**
+			`)
         } catch (err) {
             DiscordUtils.handleInteractionError(interaction, err)
         }
