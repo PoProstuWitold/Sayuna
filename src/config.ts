@@ -11,7 +11,7 @@ import type { MainOptions } from './utils/types.js'
 const logger = container.resolve(CustomLogger)
 
 export const CONSTANTS = {
-	version: '0.4.0',
+	version: '1.0.0',
 	discordjs: '14.13.0'
 }
 

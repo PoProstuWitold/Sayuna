@@ -33,8 +33,6 @@ export class Bot {
             // DEV MODE
             if(process.env.NODE_ENV === 'development' && process.env.DEV_GUILD_ID) {
                 this.logger.warn('Development mode')
-                // causes DiscordAPIError[30034]: Max number of daily application command creates has been reached (200)
-                // await client.clearApplicationCommands(process.env.DEV_GUILD_ID)
                 await client.initApplicationCommands({
                     global: {
                         disable: {
@@ -49,9 +47,16 @@ export class Bot {
             // PRODUCTION MODE
             if(process.env.NODE_ENV === 'production') {
                 this.logger.warn('Production mode')
-                // causes DiscordAPIError[30034]: Max number of daily application command creates has been reached (200)
-                // await client.clearApplicationCommands()
-                await client.initApplicationCommands()
+				await client.clearApplicationCommands()
+                await client.initApplicationCommands({
+					guild: {
+						disable: {
+                            add: true,
+                            delete: true,
+                            update: true
+                        }
+					}
+				})
             }
 
             this.musicManager.listen()

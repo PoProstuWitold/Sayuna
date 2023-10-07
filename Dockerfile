@@ -14,12 +14,16 @@ RUN pnpm install --frozen-lockfile
 ### development
 FROM setup AS development
 
+ENV NODE_ENV='development'
+
 WORKDIR /app
 
 CMD [ "pnpm", "run", "dev" ]
 
 ### production
 FROM setup AS production
+
+ENV NODE_ENV='production'
 
 WORKDIR /app
 
