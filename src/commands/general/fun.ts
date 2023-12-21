@@ -57,7 +57,7 @@ export class Fun {
                 })
             }
             
-            const memeJson: MemeJson = await response.json()
+			const memeJson: MemeJson = await response.json() as MemeJson;
 
             const memeEmbed = new EmbedBuilder()
                 .setTitle(`**${memeJson.title}**`)
