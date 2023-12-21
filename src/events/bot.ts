@@ -33,6 +33,10 @@ export class Bot {
             // DEV MODE
             if(process.env.NODE_ENV === 'development' && process.env.DEV_GUILD_ID) {
                 this.logger.warn('Development mode')
+				await client.clearApplicationCommands()
+				if(process.env.DEV_GUILD_ID) {
+					await client.clearApplicationCommands(process.env.DEV_GUILD_ID)
+				}
                 await client.initApplicationCommands({
                     global: {
                         disable: {
@@ -48,15 +52,10 @@ export class Bot {
             if(process.env.NODE_ENV === 'production') {
                 this.logger.warn('Production mode')
 				await client.clearApplicationCommands()
-                await client.initApplicationCommands({
-					guild: {
-						disable: {
-                            add: true,
-                            delete: true,
-                            update: true
-                        }
-					}
-				})
+				if(process.env.DEV_GUILD_ID) {
+					await client.clearApplicationCommands(process.env.DEV_GUILD_ID)
+				}
+                await client.initApplicationCommands()
             }
 
             this.musicManager.listen()

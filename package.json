@@ -1,6 +1,6 @@
 {
 	"name": "sayuna",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Easily extensible and customizable all-in-one Discord bot. Moderation, music & fun!",
 	"author": "Witold Zawada",
 	"private": true,
@@ -14,7 +14,7 @@
 	"scripts": {
 		"start": "node build/main.js",
 		"start:prod": "NODE_ENV='production' pm2 start build/main.js --name sayuna",
-		"dev": "NODE_ENV='development' nodemon --exec ts-node --esm src/main.ts",
+		"dev": "NODE_ENV='development' nodemon --exec node --loader ts-node/esm src/main.ts",
 		"build": "tsc"
 	},
 	"dependencies": {
@@ -38,6 +38,7 @@
 		"libsodium-wrappers": "^0.7.13",
 		"moment": "^2.29.4",
 		"reflect-metadata": "^0.2.1",
+		"ts-node": "^10.9.2",
 		"tsyringe": "^4.8.0",
 		"winston": "^3.11.0",
 		"winston-transport": "^4.6.0"
@@ -50,7 +51,6 @@
 		"@types/node": "^20.10.5",
 		"dotenv": "^16.3.1",
 		"nodemon": "^3.0.2",
-		"ts-node": "^10.9.2",
 		"typescript": "5.3.3"
 	}
 }
