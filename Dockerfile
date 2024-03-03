@@ -1,5 +1,5 @@
 ### build
-FROM node:lts-alpine AS setup
+FROM node:lts-iron AS setup
 
 WORKDIR /app
 
