@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   sayuna-dev:
@@ -11,7 +11,7 @@ services:
     ports:
       - "${PORT}:${PORT}"
     env_file:
-      .env
+      - .env
     volumes:
       - .:/app  # Mount the current directory as /app in the container
     restart: unless-stopped

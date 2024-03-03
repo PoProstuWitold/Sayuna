@@ -1,6 +1,6 @@
 {
 	"name": "sayuna",
-	"version": "1.0.1",
+	"version": "1.1.0",
 	"description": "Easily extensible and customizable all-in-one Discord bot. Moderation, music & fun!",
 	"author": "Witold Zawada",
 	"private": true,
@@ -10,7 +10,7 @@
 	"engines": {
 		"node": ">=20.x.x"
 	},
-	"packageManager": "^pnpm@8.3.0",
+	"packageManager": "^pnpm@8.15.0",
 	"scripts": {
 		"start": "node build/main.js",
 		"start:prod": "NODE_ENV='production' pm2 start build/main.js --name sayuna",
@@ -25,7 +25,7 @@
 		"@discordx/pagination": "^3.5.0",
 		"@discordx/utilities": "^6.1.0",
 		"@distube/soundcloud": "^1.3.3",
-		"@distube/spotify": "^1.5.1",
+		"@distube/spotify": "^1.5.2",
 		"@distube/yt-dlp": "^1.1.3",
 		"@distube/ytdl-core": "^4.13.3",
 		"@distube/ytsr": "^2.0.0",
@@ -34,23 +34,22 @@
 		"discord.js": "^14.14.1",
 		"discordx": "^11.9.0",
 		"distube": "^4.1.1",
-		"koa": "^2.14.2",
+		"koa": "^2.15.0",
 		"libsodium-wrappers": "^0.7.13",
-		"moment": "^2.29.4",
+		"moment": "^2.30.1",
 		"reflect-metadata": "^0.2.1",
 		"ts-node": "^10.9.2",
 		"tsyringe": "^4.8.0",
 		"winston": "^3.11.0",
-		"winston-transport": "^4.6.0"
+		"winston-transport": "^4.7.0"
 	},
 	"devDependencies": {
-		"@swc/core": "^1.3.101",
-		"@swc/helpers": "^0.5.3",
-		"@types/koa": "^2.13.12",
+		"@swc/core": "^1.4.2",
+		"@types/koa": "^2.15.0",
 		"@types/koa__router": "^12.0.4",
-		"@types/node": "^20.10.5",
-		"dotenv": "^16.3.1",
-		"nodemon": "^3.0.2",
+		"@types/node": "^20.11.24",
+		"dotenv": "^16.4.5",
+		"nodemon": "^3.1.0",
 		"typescript": "5.3.3"
 	}
 }

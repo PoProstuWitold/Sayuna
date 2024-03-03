@@ -90,10 +90,9 @@ export class MusicUtils {
     public static async paginateQueue(interaction: CommandInteraction, client: Client, queue: Queue) {
         const songs: any[] = []
             queue.songs.map((song, i) => {
-				const downloadUrl = `[url](${song.url}) | [download](${song.streamURL})`
 				songs.push({
 					name: `${i + 1}. ${song.name}`,
-					value: downloadUrl.length > 1024 ? `Preview download URL too long. Check song's page` : downloadUrl
+					value: `duration: ${song.formattedDuration}`
 				})
 			})
 
@@ -138,10 +137,6 @@ export class MusicUtils {
                 .addFields({
                     name: '**uploader**',
                     value: `[${song.uploader.name}](${song.uploader.url})`
-                })
-                .addFields({
-                    name: '**download**',
-                    value: `[click](${song.streamURL})`
                 })
                 .addFields({
                     name: '**source**',

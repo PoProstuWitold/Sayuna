@@ -11,5 +11,5 @@ services:
     ports:
       - "${PORT}:${PORT}"
     env_file:
-      .env
+      - .env
     restart: unless-stopped

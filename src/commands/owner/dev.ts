@@ -47,8 +47,16 @@ export class Dev {
 
             embed.addFields([
 				{
-                    name: 'Version (bot/discord.js)',
-                    value: `${CONSTANTS['version']}/${CONSTANTS['discordjs']}`
+                    name: 'Bot version',
+                    value: `${CONSTANTS['version']}`
+                },
+				{
+                    name: 'Node.js version',
+                    value: `${process.version}`
+                },
+				{
+                    name: 'Discord.js version',
+                    value: `${CONSTANTS['discordjs']}`
                 },
                 {
                     name: 'Message round-trip',
