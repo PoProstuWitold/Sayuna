@@ -6,9 +6,9 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 COPY . .
 
-RUN apt-get update && apt-get install -y ffmpeg \
-    && npm install -g pnpm \
-    && pnpm install --frozen-lockfile
+RUN apt-get update && apt-get install -y ffmpeg
+RUN npm install -g pnpm
+RUN pnpm install --frozen-lockfile
 
 ### development
 FROM setup AS development
