@@ -5,7 +5,7 @@ Written in Typescript, Node.js, discord.js, discordx, ESM.
 
 ## Docker
 
-You can run this bot using official **[Docker image](https://hub.docker.com/repository/docker/poprostuwitold/sayuna)**. There are all instructions and available options for running in Docker container.
+You can run this bot using official **[Docker image](https://hub.docker.com/r/poprostuwitold/sayuna)**. There are all instructions and available options for running in Docker container.
 
 ## Requirements
 - Node.js lts/iron (v20.11.1)
