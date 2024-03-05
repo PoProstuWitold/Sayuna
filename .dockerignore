@@ -1,0 +1,28 @@
+# Exclude development-specific files
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Exclude build artifacts
+build/
+dist/
+*.log
+
+# Exclude version control files
+.git/
+.gitignore
+
+# Exclude editor-specific files
+.vscode/
+.idea/
+
+# Exclude environment-specific files
+.env
+.env.local
+.env.*.local
+
+# Exclude documentation and non-essential files
+*.md
+LICENSE
+*.txt
+*.pdf

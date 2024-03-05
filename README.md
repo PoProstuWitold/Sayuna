@@ -3,9 +3,12 @@
 Easily extensible and customizable all-in-one Discord bot. Moderation, music & fun!
 Written in Typescript, Node.js, discord.js, discordx, ESM.
 
+## Docker
+
+You can run this bot using official **[Docker image](https://hub.docker.com/repository/docker/poprostuwitold/sayuna)**. There are all instructions and available options for running in Docker container.
 
 ## Requirements
-- Node.js v20.10.0 or earlier LTS
+- Node.js lts/iron (v20.11.1)
 - ffmpeg (installation instructions can be found [here](https://ffmpeg.org/download.html))
 - Discord bot account and a Discord server
 
@@ -60,7 +63,6 @@ PORT=3006
 	- [x] Music Commands
         - [x] Current music dashboard with real-time updates
 	- [x] Moderation commands
-- [ ] Automod
 
 ## LICENSE
 [MIT](https://choosealicense.com/licenses/mit/)
