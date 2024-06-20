@@ -44,26 +44,6 @@ export class Main {
 		}
 	}
 
-	public async api() {
-		try {
-			const app = new Koa()
-
-			await app.build()
-
-			app.on('error', (err, ctx) => {
-				console.error('server error', err, ctx)
-			})
-
-			const port = Number(process.env.PORT) || 3000
-			app.listen(port, () => {
-				this.logger?.info(`Discord API server started! GLHF!`)
-				this.logger?.info(`Visit "http://localhost:${port}/guilds"`)
-			})
-		} catch (err) {
-			throw err
-		}
-	}
-
 	public async start() {
 		DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container)
 		await this.errorHandler?.start()
@@ -75,7 +55,6 @@ export class Main {
 		} = await this.checkEnvs()
 
 		await this.bot(token)
-		await this.api()
 	}
 
 	private async checkEnvs() {

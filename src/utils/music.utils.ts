@@ -72,11 +72,6 @@ export class MusicUtils {
                     inline: true
                 })
                 .addFields({
-                    name: 'Links',
-                    value: `[download](${queue.songs[0].streamURL})`,
-                    inline: true
-                })
-                .addFields({
                     name: 'Requested by',
                     value: `<@${queue?.songs[0].user?.id}>`,
                     inline: true

@@ -8,8 +8,8 @@ services:
     container_name: Sayuna-dev
     stdin_open: true
     tty: true
-    ports:
-      - "${PORT}:${PORT}"
+    # ports:
+      # - "${PORT}:${PORT}"
     env_file:
       - .env
     volumes:

@@ -36,15 +36,7 @@ export class Bot {
 				if(process.env.DEV_GUILD_ID) {
 					await client.clearApplicationCommands(process.env.DEV_GUILD_ID)
 				}
-                await client.initApplicationCommands({
-                    global: {
-                        disable: {
-                            add: true,
-                            delete: true,
-                            update: true
-                        }
-                    }
-                })
+                await client.initApplicationCommands()
             }
 
             // PRODUCTION MODE
