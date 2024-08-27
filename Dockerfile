@@ -20,8 +20,7 @@ ENV NODE_ENV='development' \
     BOT_ID=$BOT_ID \
     BOT_PREFIX=$BOT_PREFIX \
     AI_ENABLED=$AI_ENABLED \
-    CHAT_GPT_API_KEY=$CHAT_GPT_API_KEY \
-    PORT=${PORT:-3000}
+    CHAT_GPT_API_KEY=$CHAT_GPT_API_KEY
 
 CMD [ "pnpm", "run", "dev" ]
 
@@ -43,7 +42,5 @@ COPY --from=setup /app .
 
 RUN npm install -g pm2 \
     && pnpm run build
-
-EXPOSE ${PORT}
 
 CMD ["pm2-runtime", "build/main.js"]

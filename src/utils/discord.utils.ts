@@ -8,7 +8,6 @@ import { DisTubeError } from 'distube'
 
 import { BaseError } from '../exceptions/base.exception.js'
 
-
 export class DiscordUtils {
     public static async replyOrFollowUp(
         interaction: CommandInteraction | MessageComponentInteraction, 

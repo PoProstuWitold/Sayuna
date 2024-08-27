@@ -1,15 +1,8 @@
-import { singleton } from 'tsyringe'
+import { CustomLogger, logger } from './logger.service.js'
 
-import { CustomLogger } from './logger.service.js'
-
-
-@singleton()
 export class ErrorHandler {
-
-    constructor(
-        private logger: CustomLogger
-    ) {
-
+	private logger: CustomLogger = logger
+    constructor() {
         process.on('uncaughtException', (error: Error, origin: string) => {
             if (origin === 'unhandledRejection') return
             this.logger.error(error)
@@ -24,3 +17,5 @@ export class ErrorHandler {
         this.logger.info('Error handler is working...')
     }
 }
+
+export const errorHandler = new ErrorHandler()

@@ -8,7 +8,6 @@ import { Queue } from 'distube'
 
 import { DiscordUtils } from './discord.utils.js'
 
-
 export class MusicUtils {
     public static async getCurrentSongEmbed(
         queue: Queue, client: Client, me: GuildMember | User,
@@ -18,8 +17,8 @@ export class MusicUtils {
 			let nextSong: string | undefined
 			let previousSong: string | undefined
 
-            queue.songs[1] ? nextSong = queue?.songs[1].name : nextSong = 'No next song'
-			queue.previousSongs[0] ? previousSong = queue?.previousSongs[queue?.previousSongs.length - 1].name : previousSong = 'No previous song'
+            queue.songs[1] ? nextSong = queue.songs[1].name : nextSong = 'No next song'
+			queue.previousSongs[0] ? previousSong = queue.previousSongs[queue.previousSongs.length - 1].name : previousSong = 'No previous song'
 
             const currentEmbed = new EmbedBuilder()
                 .setTitle(`**${queue.paused ? '⏸ Paused' : '▶ Playing'}**`)
@@ -73,7 +72,7 @@ export class MusicUtils {
                 })
                 .addFields({
                     name: 'Requested by',
-                    value: `<@${queue?.songs[0].user?.id}>`,
+                    value: `<@${queue.songs[0].user?.id}>`,
                     inline: true
                 })
             return currentEmbed
@@ -96,7 +95,7 @@ export class MusicUtils {
                 slicesArray.push(songs.splice(0,10))
             }
 
-            const me = interaction?.guild?.members?.me ?? interaction.user
+            const me = interaction.guild?.members.me ?? interaction.user
 
             const titlePages = slicesArray.map((songChunk, i) => {
                 const embed = new EmbedBuilder()

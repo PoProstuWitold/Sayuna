@@ -1,34 +1,29 @@
-//@ts-nocheck
 import 'reflect-metadata'
 import 'dotenv/config'
 
-import { Client, DIService, tsyringeDependencyRegistryEngine } from 'discordx'
+import { Client } from 'discordx'
 import { dirname, importx } from '@discordx/importer'
-import { Koa } from '@discordx/koa'
-import { autoInjectable, container, delay, inject } from 'tsyringe'
 
-import type { MainOptions, MusicPlayerOptions } from './utils/types.js'
+import type { MainOptions } from './utils/types.js'
 import { globalConfig } from './config.js'
-import { CustomLogger } from './services/logger.service.js'
-import { ErrorHandler } from './services/error-handler.service.js'
-import { MusicManager } from './services/music.service.js'
-import { AiService } from './services/ai.service.js'
+import { CustomLogger, logger } from './services/logger.service.js'
+import { errorHandler, ErrorHandler } from './services/error-handler.service.js'
+import { musicManager, MusicManager } from './services/music.service.js'
+import { aiService, AiService } from './services/ai.service.js'
 
-
-@autoInjectable()
 export class Main {
 	public client: Client
 
 	constructor(
 		public opts: MainOptions,
-		private logger?: CustomLogger,
-		private errorHandler?: ErrorHandler,
-		@inject(delay(() => MusicManager)) private musicManager?: MusicManager,
-		@inject(delay(() => AiService)) private aiService?: AiService
+		private logger: CustomLogger,
+		private errorHandler: ErrorHandler,
+		private musicManager: MusicManager,
+		private aiService: AiService
 	) {
 		this.opts = opts
-		this.client = new Client(this.opts.clientOptions)
-		this.logger?.info(`Starting app...`)
+		this.client = globalConfig.client
+		this.logger.info(`Starting app...`)
 	}
 
 	public async bot(token: string) {
@@ -38,17 +33,16 @@ export class Main {
 			)
 	
 			await this.client.login(token)
-			this.logger?.info('Bot has logged in...')
+			this.logger.info('Bot has logged in...')
 		} catch (err) {
+			console.log(err)
 			throw err
 		}
 	}
 
 	public async start() {
-		DIService.engine = tsyringeDependencyRegistryEngine.setInjector(container)
-		await this.errorHandler?.start()
-		await this.musicManager?.start()
-		await this.aiService?.start()
+		await this.errorHandler.start()
+		await this.aiService.start()
 
 		const {
 			token
@@ -64,11 +58,11 @@ export class Main {
 		}
 
 		if(!this.opts.clientOptions.simpleCommand?.prefix) {
-			this.logger?.warn('No BOT_PREFIX specified! If you want to use legacy message commands you must provide it')
+			this.logger.warn('No BOT_PREFIX specified! If you want to use legacy message commands you must provide it')
 		}
 
 		if(!this.opts.clientOptions.botId) {
-			this.logger?.warn('No BOT_ID specified!')
+			this.logger.warn('No BOT_ID specified!')
 		}
 
 		// NODE ENV = 'development' or 'production'
@@ -85,12 +79,12 @@ export class Main {
 		// production
 		if (process.env.NODE_ENV === 'production') {
 			if(!this.opts.config.ownerId) {
-				this.logger?.warn('No OWNER_ID specified! If you want be able to use "owner" commands you must provide it')
+				this.logger.warn('No OWNER_ID specified! If you want be able to use "owner" commands you must provide it')
 			}
 		}
 
 		
-		this.logger?.info('Enviroment variables are checked...')
+		this.logger.info('Enviroment variables are checked...')
 
 		return {
 			nodeEnv: process.env.NODE_ENV,
@@ -101,22 +95,12 @@ export class Main {
 	}
 }
 
-const Sayuna = container.register<Main>('Sayuna', { useValue: new Main(globalConfig) }).resolve<Main>('Sayuna')
+export const sayuna = new Main(
+	globalConfig,
+	logger,
+	errorHandler,
+	musicManager,
+	aiService
+)
 
-if(container.isRegistered('Sayuna')) {
-    const Sayuna = container.resolve<Main>('Sayuna')
-    container.register<MusicPlayerOptions>('musicOpts', {
-        useValue: {
-            client: Sayuna.client
-        }
-    })
-
-	container.register<MainOptions['aiOptions']>('aiOpts', {
-        useValue: {
-            enabled: globalConfig.aiOptions.enabled,
-			chatpgtOptions: globalConfig.aiOptions.chatpgtOptions
-        }
-    })
-}
-
-Sayuna.start()
+sayuna.start()

@@ -1,27 +1,20 @@
 import { Client, Once, Discord } from 'discordx'
-import { injectable } from 'tsyringe'
 
-import { CustomLogger } from '../services/logger.service.js'
-import { MusicManager } from '../services/music.service.js'
+import { CustomLogger, logger } from '../services/logger.service.js'
+import { musicManager, MusicManager } from '../services/music.service.js'
 import { globalConfig } from '../config.js'
 
-
 @Discord()
-@injectable()
 export class Bot {
-
-    constructor(
-        private logger: CustomLogger,
-        private musicManager: MusicManager
-    ) {}
+	private logger: CustomLogger = logger
+	private musicManager: MusicManager = musicManager
 
 	@Once({
         event: 'ready'
     })
     async ready([client]: [Client]) {
         try {
-            //@ts-ignore
-            const botId = client.options.botId
+            const botId = globalConfig.client.botId
             if(client.user) {
                 client.user.setActivity(
                     globalConfig.config.activity.name, 

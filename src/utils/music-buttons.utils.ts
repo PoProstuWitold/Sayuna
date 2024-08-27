@@ -1,20 +1,14 @@
 import { ButtonInteraction } from 'discord.js'
 import { Discord } from 'discordx'
 import { DisTubeError, Queue } from 'distube'
-import { injectable } from 'tsyringe'
 
-import { MusicManager } from '../services/music.service.js'
+import { musicManager, MusicManager } from '../services/music.service.js'
 import { DiscordUtils } from './discord.utils.js'
 import { MusicUtils } from './music.utils.js'
 
-
 @Discord()
-@injectable()
 export class MusicButtons {
-    
-    constructor(
-		private musicManager: MusicManager
-	) {}
+	private musicManager: MusicManager = musicManager
 
     async pauseResume(interaction: ButtonInteraction) {
         try {
@@ -27,7 +21,7 @@ export class MusicButtons {
             :
             this.musicManager.player.pause(interaction.guildId)
             
-            const me = interaction?.guild?.members?.me ?? interaction.user
+            const me = interaction.guild?.members.me ?? interaction.user
 
             const currentEmbed = await MusicUtils.getCurrentSongEmbed(
                 queue, interaction.client, me, interaction
@@ -56,7 +50,7 @@ export class MusicButtons {
             let queue: Queue | undefined = this.musicManager.player.getQueue(interaction.guildId)
             if(!queue) throw new DisTubeError('NO_QUEUE')
             
-            const me = interaction?.guild?.members?.me ?? interaction.user
+            const me = interaction.guild?.members.me ?? interaction.user
 
             const currentEmbed = await MusicUtils.getCurrentSongEmbed(
                 queue, interaction.client, me, interaction
@@ -85,7 +79,7 @@ export class MusicButtons {
             let queue: Queue | undefined = this.musicManager.player.getQueue(interaction.guildId)
             if(!queue) throw new DisTubeError('NO_QUEUE')
             
-            const me = interaction?.guild?.members?.me ?? interaction.user
+            const me = interaction.guild?.members.me ?? interaction.user
 
             const currentEmbed = await MusicUtils.getCurrentSongEmbed(
                 queue, interaction.client, me, interaction
@@ -110,7 +104,7 @@ export class MusicButtons {
 
             this.musicManager.player.stop(interaction.guildId)
             
-            const me = interaction?.guild?.members?.me ?? interaction.user
+            const me = interaction.guild?.members.me ?? interaction.user
 
             const currentEmbed = await MusicUtils.getCurrentSongEmbed(
                 queue, interaction.client, me, interaction
@@ -143,7 +137,7 @@ export class MusicButtons {
             queue = this.musicManager.player.getQueue(interaction.guildId)
             if(!queue) throw new DisTubeError('NO_QUEUE')
             
-            const me = interaction?.guild?.members?.me ?? interaction.user
+            const me = interaction.guild?.members.me ?? interaction.user
 
             const currentEmbed = await MusicUtils.getCurrentSongEmbed(
                 queue, interaction.client, me, interaction
@@ -174,7 +168,7 @@ export class MusicButtons {
             queue = this.musicManager.player.getQueue(interaction.guildId)
             if(!queue) throw new DisTubeError('NO_QUEUE')
             
-            const me = interaction?.guild?.members?.me ?? interaction.user
+            const me = interaction.guild?.members.me ?? interaction.user
 
             const currentEmbed = await MusicUtils.getCurrentSongEmbed(
                 queue, interaction.client, me, interaction
@@ -191,3 +185,5 @@ export class MusicButtons {
         }
     }
 }
+
+export const musicButtons = new MusicButtons()

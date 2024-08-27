@@ -2,10 +2,13 @@ import { CommandInteraction, EmbedBuilder, PermissionsBitField, Status } from 'd
 import { Client, Discord, Guard, Slash, SlashGroup } from 'discordx'
 import { Category } from '@discordx/utilities'
 
+import { globalConfig } from '../../config.js'
 import { BotOwner } from '../../guards/bot-owner.guard.js'
 import { DiscordUtils } from '../../utils/discord.utils.js'
-import { CONSTANTS } from '../../config.js'
 
+const {
+	constants
+} = globalConfig
 
 @Discord()
 @Category('dev')
@@ -33,7 +36,7 @@ export class Dev {
             const heartBeat = `${Math.round(client.ws.ping)}ms`
             const websocketStatus = Status[client.ws.status]
 
-            const me = interaction?.guild?.members?.me ?? interaction.user
+            const me = interaction.guild?.members.me ?? interaction.user
 
             const embed = new EmbedBuilder()
                 .setTitle(`**Health**`)
@@ -47,16 +50,20 @@ export class Dev {
 
             embed.addFields([
 				{
-                    name: 'Bot version',
-                    value: `${CONSTANTS['version']}`
+                    name: 'Bot',
+                    value: `v${constants['version']}`
                 },
 				{
-                    name: 'Node.js version',
-                    value: `${process.version}`
+                    name: 'Node.js',
+                    value: `v${process.version}`
                 },
 				{
-                    name: 'Discord.js version',
-                    value: `${CONSTANTS['discordjs']}`
+                    name: 'Discord.js',
+                    value: `v${constants['discordjs']}`
+                },
+				{
+                    name: 'Distube',
+                    value: `v${constants['distube']}`
                 },
                 {
                     name: 'Message round-trip',

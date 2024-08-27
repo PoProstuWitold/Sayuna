@@ -1,9 +1,6 @@
 import { Logger, createLogger, format, transports } from 'winston'
 import moment from 'moment'
-import { singleton } from 'tsyringe'
 
-
-@singleton()
 export class CustomLogger {
     private readonly logger: Logger
 
@@ -68,3 +65,5 @@ export class CustomLogger {
         return combine(colorize(), splat(), timestamp(), myFormat)
     }
 }
+
+export const logger = new CustomLogger()

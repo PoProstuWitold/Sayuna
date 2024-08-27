@@ -1,18 +1,15 @@
 import 'dotenv/config'
 
 import { ActivityType, IntentsBitField } from 'discord.js'
-import { ClientOptions } from 'discordx'
-import { container } from 'tsyringe'
+import { Client, ClientOptions } from 'discordx'
 
-import { CustomLogger } from './services/logger.service.js'
+import { logger } from './services/logger.service.js'
 import type { MainOptions } from './utils/types.js'
 
-
-const logger = container.resolve(CustomLogger)
-
-export const CONSTANTS = {
-	version: '1.1.0',
-	discordjs: '14.14.1'
+const constants = {
+	version: '2.0.0',
+	discordjs: '14.15.3',
+	distube: '5.0.2'
 }
 
 const clientOptions: ClientOptions = {
@@ -37,8 +34,8 @@ const clientOptions: ClientOptions = {
     botGuilds: process.env.DEV_GUILD_ID && process.env.NODE_ENV === 'development' ? process.env.DEV_GUILD_ID.split(', ') : undefined
 }
 
-export const aiOptions: MainOptions['aiOptions'] = {
-    enabled: process.env.AI_ENABLED === "1" ? true : false,
+const aiOptions: MainOptions['aiOptions'] = {
+    enabled: process.env.AI_ENABLED === '1' ? true : false,
     chatpgtOptions: {
         apiKey: process.env.CHAT_GPT_API_KEY!,
         // debug: process.env.NODE_ENV === 'development' ? true : false,
@@ -51,7 +48,7 @@ export const aiOptions: MainOptions['aiOptions'] = {
     }
 }
 
-const config = {
+const config: MainOptions['config'] = {
     token: process.env.BOT_TOKEN,
     devGuildId: process.env.DEV_GUILD_ID,
     ownerId: process.env.OWNER_ID,
@@ -61,8 +58,12 @@ const config = {
     }
 }
 
+const client = new Client(clientOptions)
+
 export const globalConfig: MainOptions = {
     clientOptions,
     config,
-    aiOptions
+    aiOptions,
+	constants,
+	client
 }

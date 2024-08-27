@@ -1,10 +1,9 @@
-import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder, Guild, GuildMember, PermissionsBitField, TextChannel, User } from 'discord.js'
+import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder, GuildMember, PermissionsBitField, TextChannel, User } from 'discord.js'
 import { Discord, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Category } from '@discordx/utilities'
 
 import { DiscordUtils } from '../../utils/discord.utils.js'
 import { BaseError } from '../../exceptions/base.exception.js'
-
 
 @Discord()
 @Category('mod')

@@ -6,13 +6,13 @@ import {
 } from 'discord.js'
 import { ButtonComponent, Client, Discord, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Category } from '@discordx/utilities'
-import { injectable } from 'tsyringe'
-import { DisTubeError, Queue, SearchResult } from 'distube'
+import { DisTubeError, Queue } from 'distube'
+import { SearchResultType, YouTubeSearchResultSong } from '@distube/youtube'
 
-import { MusicManager } from '../../services/music.service.js'
+import { musicManager, MusicManager } from '../../services/music.service.js'
 import { DiscordUtils } from '../../utils/discord.utils.js'
 import { MusicUtils } from '../../utils/music.utils.js'
-import { MusicButtons } from '../../utils/music-buttons.utils.js'
+import { musicButtons, MusicButtons } from '../../utils/music-buttons.utils.js'
 import { BaseError } from '../../exceptions/base.exception.js'
 import { formatSeconds } from '../../utils/functions.js'
 
@@ -23,16 +23,10 @@ import { formatSeconds } from '../../utils/functions.js'
     description: 'Everything related to music'
 })
 @SlashGroup('music')
-@injectable()
 export class Music {
-	protected results: SearchResult[]
-
-    constructor(
-		private musicManager: MusicManager,
-        private musicButtons: MusicButtons
-	) {
-		this.results = []
-	}
+	protected results: any[] = []
+	private musicManager: MusicManager = musicManager
+	private musicButtons: MusicButtons = musicButtons
 
     @Slash({
         name: 'play',
@@ -267,7 +261,11 @@ export class Music {
             if(!voiceChannel) return
             if(!interaction.guildId) return
 
-            this.results = await this.musicManager.player.search(query)
+            this.results = await this.musicManager.ytPlugin.search(query, {
+				limit: 10,
+				safeSearch: false,
+				type: SearchResultType.VIDEO
+			})
 
 			const fields = this.results.map((result, index) => {
 				return {
@@ -469,7 +467,7 @@ export class Music {
             const queue: Queue | undefined = this.musicManager.player.getQueue(interaction.guildId)
             if(!queue) throw new DisTubeError('NO_QUEUE')
 
-            const me = interaction?.guild?.members?.me ?? interaction.user
+            const me = interaction.guild?.members.me ?? interaction.user
 
             const currentEmbed = await MusicUtils.getCurrentSongEmbed(
                 queue, client, me, interaction
@@ -502,7 +500,7 @@ export class Music {
 
             if(!queue) throw new DisTubeError('NO_QUEUE')
 
-            const me = interaction?.guild?.members?.me ?? interaction.user
+            const me = interaction.guild?.members.me ?? interaction.user
 
             const pauseResumeButton = new ButtonBuilder() 
                 .setLabel(`⏸/▶`)

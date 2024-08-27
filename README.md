@@ -12,6 +12,8 @@ You can run this bot using official **[Docker image](https://hub.docker.com/r/po
 - ffmpeg (installation instructions can be found [here](https://ffmpeg.org/download.html))
 - Discord bot account and a Discord server
 
+...or just Docker to run production version.
+
 ## Features
 - Logging
 - Error handling
@@ -43,9 +45,6 @@ BOT_PREFIX=
 # Access token for talking to ChatGPT
 AI_ENABLED= # 1 - enabled, every other value - disabled
 CHAT_GPT_API_KEY=
-
-# Dashboard
-PORT=3006
 ```
 
 #### 1.  Install dependencies

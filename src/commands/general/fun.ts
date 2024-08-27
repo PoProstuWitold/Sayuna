@@ -7,7 +7,6 @@ import { BaseError } from '../../exceptions/base.exception.js'
 import { UtilService } from '../../services/util.service.js'
 import { MemeJson } from '../../utils/types.js'
 
-
 @Discord()
 @Category('fun')
 @SlashGroup({ 

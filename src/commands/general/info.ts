@@ -2,12 +2,11 @@ import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder } from '
 import { 
     Client, DApplicationCommand, Discord, MetadataStorage, Slash, SlashChoice, SlashGroup, SlashOption
 } from 'discordx'
-import { Pagination, PaginationOptions, PaginationType } from '@discordx/pagination'
+import { Pagination } from '@discordx/pagination'
 import { Category, ICategory } from '@discordx/utilities'
 
 import { DiscordUtils } from '../../utils/discord.utils.js'
 import { CommandDocs } from '../../utils/types.js'
-
 
 const choices = ['dev', 'info', 'fun', 'music', 'ai', 'mod']
 
@@ -56,7 +55,7 @@ export class Info {
                 commands = groupCommands
             }
             
-            const me = interaction?.guild?.members?.me ?? interaction.user
+            const me = interaction.guild?.members.me ?? interaction.user
             let externalEmbed: EmbedBuilder
             const pages = commands.map((cmd, i) => {
                 const embed = new EmbedBuilder()
@@ -87,7 +86,7 @@ export class Info {
                                 : 'Description unavailable'
                             }`
                     })
-                externalEmbed = embed;
+                externalEmbed = embed
                 return { embeds: [embed] }
             })
           

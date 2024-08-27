@@ -1,14 +1,13 @@
 import { Discord, Guard, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Category } from '@discordx/utilities'
 import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder } from 'discord.js'
-import { injectable } from 'tsyringe'
 import { Pagination } from '@discordx/pagination'
 
+import { globalConfig } from '../../config.js'
 import { DiscordUtils } from '../../utils/discord.utils.js'
-import { AiService } from '../../services/ai.service.js'
+import { aiService, AiService } from '../../services/ai.service.js'
 import { UtilService } from '../../services/util.service.js'
 import { FeatureEnabled } from '../../guards/feature-enabled.guard.js'
-import { globalConfig } from '../../config.js'
 
 @Discord()
 @Category('ai')
@@ -24,11 +23,8 @@ import { globalConfig } from '../../config.js'
 		reason: 'ChatGPT pricing'
 	})
 )
-@injectable()
 export class Ai {
-    constructor(
-		private aiService: AiService,
-	) {}
+	private aiService: AiService = aiService
 
     @Slash({
         name: 'chat',

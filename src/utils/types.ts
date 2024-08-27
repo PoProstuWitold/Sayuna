@@ -11,9 +11,9 @@ export interface FeatureEnabledGuardOptions {
 export interface MainOptions {
 	clientOptions: ClientOptions,
 	config: {
-		token: string | undefined,
-		devGuildId?: string | undefined,
-		ownerId?: string | undefined,
+		token?: string,
+		devGuildId?: string,
+		ownerId?: string,
 		activity: {
 			name: string,
 			type: ActivityType
@@ -23,10 +23,11 @@ export interface MainOptions {
 		enabled: boolean
 		chatpgtOptions?: ChatGPTAPIOptions
 	}
-}
-
-
-export interface MusicPlayerOptions {
+	constants: {
+		version: string
+		discordjs: string
+		distube: string
+	}
 	client: Client
 }
 
