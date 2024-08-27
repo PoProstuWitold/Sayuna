@@ -1,15 +1,20 @@
-version: "3.8"
-
 services:
-  sayuna-prod:
-    build:
-      context: .
-      target: production
-    container_name: Sayuna
+  sayuna:
+    container_name: sayuna
+    image: poprostuwitold/sayuna
+    # build:
+    #  context: .
+    #  target: production
     stdin_open: true
     tty: true
-    # ports:
-      # - "${PORT}:${PORT}"
-    env_file:
-      - .env
+    # env_file:
+    #  - .env
+    environment:
+      - BOT_TOKEN=
+      - DEV_GUILD_ID=
+      - OWNER_ID=
+      - BOT_ID='Sayuna'
+      - BOT_PREFIX='$$'
+      - AI_ENABLED=0
+      - CHAT_GPT_API_KEY=
     restart: unless-stopped

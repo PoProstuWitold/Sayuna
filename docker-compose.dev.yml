@@ -1,15 +1,11 @@
-version: "3.8"
-
 services:
-  sayuna-dev:
+  sayuna_dev:
+    container_name: sayuna_dev
     build:
       context: .
       target: development
-    container_name: Sayuna-dev
     stdin_open: true
     tty: true
-    # ports:
-      # - "${PORT}:${PORT}"
     env_file:
       - .env
     volumes:
