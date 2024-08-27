@@ -1,20 +1,20 @@
 services:
   sayuna:
     container_name: sayuna
-    image: poprostuwitold/sayuna
-    # build:
-    #  context: .
-    #  target: production
+    # image: poprostuwitold/sayuna
+    build:
+     context: .
+     target: production
     stdin_open: true
     tty: true
-    # env_file:
-    #  - .env
-    environment:
-      - BOT_TOKEN=
-      - DEV_GUILD_ID=
-      - OWNER_ID=
-      - BOT_ID='Sayuna'
-      - BOT_PREFIX='$$'
-      - AI_ENABLED=0
-      - CHAT_GPT_API_KEY=
+    env_file:
+     - .env
+    # environment:
+    #   - BOT_TOKEN=
+    #   - DEV_GUILD_ID=
+    #   - OWNER_ID=
+    #   - BOT_ID='Sayuna'
+    #   - BOT_PREFIX='$$'
+    #   - AI_ENABLED=0
+    #   - CHAT_GPT_API_KEY=
     restart: unless-stopped

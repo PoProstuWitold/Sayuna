@@ -1,12 +1,12 @@
 ### build
-FROM node:lts-iron AS setup
+FROM node:iron-alpine AS setup
 
 WORKDIR /app
 
 COPY package.json pnpm-lock.yaml ./
 COPY . .
 
-RUN apt-get update && apt-get install -y ffmpeg
+RUN apk add  --no-cache ffmpeg
 RUN npm install -g pnpm
 RUN pnpm install --frozen-lockfile
 
@@ -33,8 +33,7 @@ ENV NODE_ENV='production' \
     BOT_ID=$BOT_ID \
     BOT_PREFIX=$BOT_PREFIX \
     AI_ENABLED=$AI_ENABLED \
-    CHAT_GPT_API_KEY=$CHAT_GPT_API_KEY \
-    PORT=${PORT:-3000}
+    CHAT_GPT_API_KEY=$CHAT_GPT_API_KEY
 
 WORKDIR /app
 
