@@ -55,7 +55,7 @@ export class Dev {
                 },
 				{
                     name: 'Node.js',
-                    value: `v${process.version}`
+                    value: `${process.version}`
                 },
 				{
                     name: 'Discord.js',

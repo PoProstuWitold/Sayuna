@@ -275,7 +275,7 @@ export class Music {
 			})
 
 			const embed = new EmbedBuilder({
-				title: 'Search results',
+				title: `Search results for "${query}"`,
 				description: 'Type **/rplay number** to play that song',
 				fields
 			})

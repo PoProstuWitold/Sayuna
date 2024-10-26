@@ -8,7 +8,7 @@ import type { MainOptions } from './utils/types.js'
 
 const constants = {
 	version: '2.0.0',
-	discordjs: '14.15.3',
+	discordjs: '14.16.3',
 	distube: '5.0.2'
 }
 

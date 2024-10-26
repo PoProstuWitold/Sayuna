@@ -43,8 +43,11 @@ BOT_PREFIX=
 
 # AI
 # Access token for talking to ChatGPT
-AI_ENABLED= # 1 - enabled, every other value - disabled
+AI_ENABLED=
 CHAT_GPT_API_KEY=
+
+# Debug logs in production
+LOG_EVERYTHING=true
 ```
 
 #### 1.  Install dependencies
