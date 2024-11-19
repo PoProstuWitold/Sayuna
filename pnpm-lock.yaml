@@ -56,6 +56,9 @@ importers:
       distube:
         specifier: ^5.0.4
         version: 5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
+      libsodium-wrappers:
+        specifier: ^0.7.15
+        version: 0.7.15
       moment:
         specifier: ^2.30.1
         version: 2.30.1
@@ -933,6 +936,12 @@ packages:
 
   kuler@2.0.0:
     resolution: {integrity: sha512-Xq9nH7KlWZmXAtodXDDRE7vs6DU1gTU8zYDHDiWLSip45Egwq3plLHzPn27NgvzL2r1LMPC1vdqh98sQxtqj4A==}
+
+  libsodium-wrappers@0.7.15:
+    resolution: {integrity: sha512-E4anqJQwcfiC6+Yrl01C1m8p99wEhLmJSs0VQqST66SbQXXBoaJY0pF4BNjRYa/sOQAxx6lXAaAFIlx+15tXJQ==}
+
+  libsodium@0.7.15:
+    resolution: {integrity: sha512-sZwRknt/tUpE2AwzHq3jEyUU5uvIZHtSssktXq7owd++3CSgn8RGrv6UZJJBpP7+iBghBqe7Z06/2M31rI2NKw==}
 
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
@@ -2254,6 +2263,12 @@ snapshots:
       json-buffer: 3.0.1
 
   kuler@2.0.0: {}
+
+  libsodium-wrappers@0.7.15:
+    dependencies:
+      libsodium: 0.7.15
+
+  libsodium@0.7.15: {}
 
   lines-and-columns@1.2.4: {}
 
