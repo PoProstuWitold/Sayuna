@@ -1,5 +1,5 @@
 ### build
-FROM node:iron-alpine AS setup
+FROM node:jod-alpine AS setup
 
 WORKDIR /app
 

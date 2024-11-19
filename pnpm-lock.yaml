@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@discordjs/voice':
-        specifier: ^0.17.0
-        version: 0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1)
+        specifier: ^0.18.0
+        version: 0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1)
       '@discordx/importer':
         specifier: ^1.3.1
         version: 1.3.1
@@ -22,22 +22,22 @@ importers:
         version: 7.0.3(discord.js@14.16.3)(discordx@11.12.2(discord.js@14.16.3))
       '@distube/deezer':
         specifier: ^2.0.1
-        version: 2.0.1(distube@5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))
+        version: 2.0.1(distube@5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))
       '@distube/direct-link':
         specifier: ^1.0.1
-        version: 1.0.1(distube@5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))
+        version: 1.0.1(distube@5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))
       '@distube/soundcloud':
         specifier: ^2.0.4
-        version: 2.0.4(distube@5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))
+        version: 2.0.4(distube@5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))
       '@distube/spotify':
         specifier: ^2.0.2
-        version: 2.0.2(distube@5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))
+        version: 2.0.2(distube@5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))
       '@distube/youtube':
         specifier: ^1.0.4
-        version: 1.0.4(distube@5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))
+        version: 1.0.4(distube@5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))
       '@distube/yt-dlp':
         specifier: ^2.0.1
-        version: 2.0.1(distube@5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))
+        version: 2.0.1(distube@5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))
       '@distube/ytdl-core':
         specifier: ^4.15.1
         version: 4.15.1
@@ -55,7 +55,7 @@ importers:
         version: 11.12.2(discord.js@14.16.3)
       distube:
         specifier: ^5.0.4
-        version: 5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
+        version: 5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
       moment:
         specifier: ^2.30.1
         version: 2.30.1
@@ -66,24 +66,24 @@ importers:
         specifier: ^0.2.2
         version: 0.2.2
       sodium-native:
-        specifier: ^4.3.0
-        version: 4.3.0
+        specifier: ^4.3.1
+        version: 4.3.1
       winston:
-        specifier: ^3.16.0
-        version: 3.16.0
+        specifier: ^3.17.0
+        version: 3.17.0
       winston-transport:
-        specifier: ^4.8.0
-        version: 4.8.0
+        specifier: ^4.9.0
+        version: 4.9.0
     devDependencies:
       '@biomejs/biome':
         specifier: ^1.9.4
         version: 1.9.4
       '@swc/core':
-        specifier: ^1.9.1
-        version: 1.9.1
+        specifier: ^1.9.2
+        version: 1.9.2
       '@types/node':
-        specifier: ^22.9.0
-        version: 22.9.0
+        specifier: ^22.9.1
+        version: 22.9.1
       dotenv:
         specifier: ^16.4.5
         version: 16.4.5
@@ -196,9 +196,9 @@ packages:
     resolution: {integrity: sha512-eddz6UnOBEB1oITPinyrB2Pttej49M9FZQY8NxgEvc3tq6ZICZ19m70RsmzRdDHk80O9NoYN/25AqJl8vPVf/g==}
     engines: {node: '>=18'}
 
-  '@discordjs/voice@0.17.0':
-    resolution: {integrity: sha512-hArn9FF5ZYi1IkxdJEVnJi+OxlwLV0NJYWpKXsmNOojtGtAZHxmsELA+MZlu2KW1F/K1/nt7lFOfcMXNYweq9w==}
-    engines: {node: '>=16.11.0'}
+  '@discordjs/voice@0.18.0':
+    resolution: {integrity: sha512-BvX6+VJE5/vhD9azV9vrZEt9hL1G+GlOdsQaVl5iv9n87fkXjf3cSwllhR3GdaUC8m6dqT8umXIWtn3yCu4afg==}
+    engines: {node: '>=18'}
 
   '@discordjs/ws@1.1.1':
     resolution: {integrity: sha512-PZ+vLpxGCRtmr2RMkqh8Zp+BenUaJqlS6xhgWKEZcgC/vfHLEzpHtKkB0sl3nZWpwtcKk6YWy+pU3okL2I97FA==}
@@ -438,68 +438,68 @@ packages:
     resolution: {integrity: sha512-jjmJywLAFoWeBi1W7994zZyiNWPIiqRRNAmSERxyg93xRGzNYvGjlZ0gR6x0F4gPRi2+0O6S71kOZYyr3cxaIQ==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
 
-  '@swc/core-darwin-arm64@1.9.1':
-    resolution: {integrity: sha512-2/ncHSCdAh5OHem1fMITrWEzzl97OdMK1PHc9CkxSJnphLjRubfxB5sbc5tDhcO68a5tVy+DxwaBgDec3PXnOg==}
+  '@swc/core-darwin-arm64@1.9.2':
+    resolution: {integrity: sha512-nETmsCoY29krTF2PtspEgicb3tqw7Ci5sInTI03EU5zpqYbPjoPH99BVTjj0OsF53jP5MxwnLI5Hm21lUn1d6A==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [darwin]
 
-  '@swc/core-darwin-x64@1.9.1':
-    resolution: {integrity: sha512-4MDOFC5zmNqRJ9RGFOH95oYf27J9HniLVpB1pYm2gGeNHdl2QvDMtx2QTuMHQ6+OTn/3y1BHYuhBGp7d405oLA==}
+  '@swc/core-darwin-x64@1.9.2':
+    resolution: {integrity: sha512-9gD+bwBz8ZByjP6nZTXe/hzd0tySIAjpDHgkFiUrc+5zGF+rdTwhcNrzxNHJmy6mw+PW38jqII4uspFHUqqxuQ==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [darwin]
 
-  '@swc/core-linux-arm-gnueabihf@1.9.1':
-    resolution: {integrity: sha512-eVW/BjRW8/HpLe3+1jRU7w7PdRLBgnEEYTkHJISU8805/EKT03xNZn6CfaBpKfeAloY4043hbGzE/NP9IahdpQ==}
+  '@swc/core-linux-arm-gnueabihf@1.9.2':
+    resolution: {integrity: sha512-kYq8ief1Qrn+WmsTWAYo4r+Coul4dXN6cLFjiPZ29Cv5pyU+GFvSPAB4bEdMzwy99rCR0u2P10UExaeCjurjvg==}
     engines: {node: '>=10'}
     cpu: [arm]
     os: [linux]
 
-  '@swc/core-linux-arm64-gnu@1.9.1':
-    resolution: {integrity: sha512-8m3u1v8R8NgI/9+cHMkzk14w87blSy3OsQPWPfhOL+XPwhyLPvat+ahQJb2nZmltjTgkB4IbzKFSfbuA34LmNA==}
+  '@swc/core-linux-arm64-gnu@1.9.2':
+    resolution: {integrity: sha512-n0W4XiXlmEIVqxt+rD3ZpkogsEWUk1jJ+i5bQNgB+1JuWh0fBE8c/blDgTQXa0GB5lTPVDZQussgdNOCnAZwiA==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [linux]
 
-  '@swc/core-linux-arm64-musl@1.9.1':
-    resolution: {integrity: sha512-hpT0sQAZnW8l02I289yeyFfT9llGO9PzKDxUq8pocKtioEHiElRqR53juCWoSmzuWi+6KX7zUJ0NKCBrc8pmDg==}
+  '@swc/core-linux-arm64-musl@1.9.2':
+    resolution: {integrity: sha512-8xzrOmsyCC1zrx2Wzx/h8dVsdewO1oMCwBTLc1gSJ/YllZYTb04pNm6NsVbzUX2tKddJVRgSJXV10j/NECLwpA==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [linux]
 
-  '@swc/core-linux-x64-gnu@1.9.1':
-    resolution: {integrity: sha512-sGFdpdAYusk/ropHiwtXom2JrdaKPxl8MqemRv6dvxZq1Gm/GdmOowxdXIPjCgBGMgoXVcgNviH6CgiO5q+UtA==}
+  '@swc/core-linux-x64-gnu@1.9.2':
+    resolution: {integrity: sha512-kZrNz/PjRQKcchWF6W292jk3K44EoVu1ad5w+zbS4jekIAxsM8WwQ1kd+yjUlN9jFcF8XBat5NKIs9WphJCVXg==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [linux]
 
-  '@swc/core-linux-x64-musl@1.9.1':
-    resolution: {integrity: sha512-YtNLNwIWs0Z2+XgBs6+LrCIGtfCDtNr4S4b6Q5HDOreEIGzSvhkef8eyBI5L+fJ2eGov4b7iEo61C4izDJS5RA==}
+  '@swc/core-linux-x64-musl@1.9.2':
+    resolution: {integrity: sha512-TTIpR4rjMkhX1lnFR+PSXpaL83TrQzp9znRdp2TzYrODlUd/R20zOwSo9vFLCyH6ZoD47bccY7QeGZDYT3nlRg==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [linux]
 
-  '@swc/core-win32-arm64-msvc@1.9.1':
-    resolution: {integrity: sha512-qSxD3uZW2vSiHqUt30vUi0PB92zDh9bjqh5YKpfhhVa7h1vt/xXhlid8yMvSNToTfzhRrTEffOAPUr7WVoyQUA==}
+  '@swc/core-win32-arm64-msvc@1.9.2':
+    resolution: {integrity: sha512-+Eg2d4icItKC0PMjZxH7cSYFLWk0aIp94LNmOw6tPq0e69ax6oh10upeq0D1fjWsKLmOJAWEvnXlayZcijEXDw==}
     engines: {node: '>=10'}
     cpu: [arm64]
     os: [win32]
 
-  '@swc/core-win32-ia32-msvc@1.9.1':
-    resolution: {integrity: sha512-C3fPEwyX/WRPlX6zIToNykJuz1JkZX0sk8H1QH2vpnKuySUkt/Ur5K2FzLgSWzJdbfxstpgS151/es0VGAD+ZA==}
+  '@swc/core-win32-ia32-msvc@1.9.2':
+    resolution: {integrity: sha512-nLWBi4vZDdM/LkiQmPCakof8Dh1/t5EM7eudue04V1lIcqx9YHVRS3KMwEaCoHLGg0c312Wm4YgrWQd9vwZ5zQ==}
     engines: {node: '>=10'}
     cpu: [ia32]
     os: [win32]
 
-  '@swc/core-win32-x64-msvc@1.9.1':
-    resolution: {integrity: sha512-2XZ+U1AyVsOAXeH6WK1syDm7+gwTjA8fShs93WcbxnK7HV+NigDlvr4124CeJLTHyh3fMh1o7+CnQnaBJhlysQ==}
+  '@swc/core-win32-x64-msvc@1.9.2':
+    resolution: {integrity: sha512-ik/k+JjRJBFkXARukdU82tSVx0CbExFQoQ78qTO682esbYXzjdB5eLVkoUbwen299pnfr88Kn4kyIqFPTje8Xw==}
     engines: {node: '>=10'}
     cpu: [x64]
     os: [win32]
 
-  '@swc/core@1.9.1':
-    resolution: {integrity: sha512-OnPc+Kt5oy3xTvr/KCUOqE9ptJcWbyQgAUr1ydh9EmbBcmJTaO1kfQCxm/axzJi6sKeDTxL9rX5zvLOhoYIaQw==}
+  '@swc/core@1.9.2':
+    resolution: {integrity: sha512-dYyEkO6mRYtZFpnOsnYzv9rY69fHAHoawYOjGOEcxk9WYtaJhowMdP/w6NcOKnz2G7GlZaenjkzkMa6ZeQeMsg==}
     engines: {node: '>=10'}
     peerDependencies:
       '@swc/helpers': '*'
@@ -510,11 +510,11 @@ packages:
   '@swc/counter@0.1.3':
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
 
-  '@swc/types@0.1.14':
-    resolution: {integrity: sha512-PbSmTiYCN+GMrvfjrMo9bdY+f2COnwbdnoMw7rqU/PI5jXpKjxOGZ0qqZCImxnT81NkNsKnmEpvu+hRXLBeCJg==}
+  '@swc/types@0.1.15':
+    resolution: {integrity: sha512-XKaZ+dzDIQ9Ot9o89oJQ/aluI17+VvUnIpYJTcZtvv1iYX6MzHh3Ik2CSR7MdPKpPwfZXHBeCingb2b4PoDVdw==}
 
-  '@types/node@22.9.0':
-    resolution: {integrity: sha512-vuyHg81vvWA1Z1ELfvLko2c8f34gyA0zaic0+Rllc5lbCnbSyuvb2Oxpm6TAUAC/2xZN3QGqxBNggD1nNR2AfQ==}
+  '@types/node@22.9.1':
+    resolution: {integrity: sha512-p8Yy/8sw1caA8CdRIQBG5tiLHmxtQKObCijiAa9Ez+d4+PRffM4054xbju0msf+cvhJpnFEeNjxmVT/0ipktrg==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -531,10 +531,6 @@ packages:
 
   abbrev@1.1.1:
     resolution: {integrity: sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q==}
-
-  abort-controller@3.0.0:
-    resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
-    engines: {node: '>=6.5'}
 
   agent-base@6.0.2:
     resolution: {integrity: sha512-RZNwNclF7+MS/8bDg70amg32dyeZGZxiDuQmZxKLAlQjr3jGyLx+4Kkk58UO7D2QdgFIQCovuSuZESne6RG6XQ==}
@@ -599,9 +595,6 @@ packages:
 
   brace-expansion@2.0.1:
     resolution: {integrity: sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA==}
-
-  buffer@6.0.3:
-    resolution: {integrity: sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==}
 
   cac@6.7.14:
     resolution: {integrity: sha512-b6Ilus+c3RrdDk+JhLKUAQfzzgLEPy6wcXqS7f/xe1EETvsDP6GORG7SFuOs6cID5YkqchW/LXZbX5bc8j7ZcQ==}
@@ -708,6 +701,9 @@ packages:
   discord-api-types@0.37.100:
     resolution: {integrity: sha512-a8zvUI0GYYwDtScfRd/TtaNBDTXwP5DiDVX7K5OmE+DRT57gBqKnwtOC5Ol8z0mRW8KQfETIgiB8U0YZ9NXiCA==}
 
+  discord-api-types@0.37.105:
+    resolution: {integrity: sha512-TSNlLF5Q9vFLMeHjYskhmDj/zCQ4dFA+OLxQrHUypGW48gt8ttGaB+opCD9w3Zkq1otyoBoetrwaoDFZAFuGng==}
+
   discord-api-types@0.37.83:
     resolution: {integrity: sha512-urGGYeWtWNYMKnYlZnOnDHm8fVRffQs3U0SpE8RHeiuLKb/u92APS8HoQnPTFbnXmY1vVnXjXO4dOxcAn3J+DA==}
 
@@ -770,14 +766,6 @@ packages:
     resolution: {integrity: sha512-VVNz/9Sa0bs5SELtn3f7qhJCDPCF5oMEl5cO9/SSinpE9hbPVvxbd572HH5AKiP7WD8INO53GgfDDhRjkylHEg==}
     engines: {node: '>=18'}
     hasBin: true
-
-  event-target-shim@5.0.1:
-    resolution: {integrity: sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==}
-    engines: {node: '>=6'}
-
-  events@3.3.0:
-    resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
-    engines: {node: '>=0.8.x'}
 
   eventsource-parser@1.1.2:
     resolution: {integrity: sha512-v0eOBUbiaFojBu2s2NPBfYUoRR9GjcDNvCXVaqEf5vVfpIAh9f8RCo4vXTP8c63QRKCFwoLpMpTdPwwhEKVgzA==}
@@ -891,9 +879,6 @@ packages:
     resolution: {integrity: sha512-dFcAjpTQFgoLMzC2VwU+C/CbS7uRL0lWmxDITmqm7C+7F0Odmj6s9l6alZc6AELXhrnggM2CeWSXHGOdX2YtwA==}
     engines: {node: '>= 6'}
 
-  ieee754@1.2.1:
-    resolution: {integrity: sha512-dcyqhDvX1C46lXZcVqCpK+FtMRQVdIMN6/Df5js2zouUsqG7I6sFxitIC+7KYK29KdXOLHdu9zL4sFnoVQnqaA==}
-
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
     deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
@@ -962,8 +947,8 @@ packages:
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
 
-  logform@2.6.1:
-    resolution: {integrity: sha512-CdaO738xRapbKIMVn2m4F6KTj4j7ooJ8POVnebSgKo3KBz5axNXRAL7ZdRjIV6NOr2Uf4vjtRkxrFETOioCqSA==}
+  logform@2.7.0:
+    resolution: {integrity: sha512-TFYA4jnP7PVbmlBIfhlSe+WKxs9dklXMTEGcBCIvLhE/Tn3H6Gk1norupVW7m5Cnd4bLcr08AytbyV/xj7f/kQ==}
     engines: {node: '>= 12.0.0'}
 
   lru-cache@10.4.3:
@@ -1144,10 +1129,6 @@ packages:
       opusscript:
         optional: true
 
-  process@0.11.10:
-    resolution: {integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A==}
-    engines: {node: '>= 0.6.0'}
-
   psl@1.9.0:
     resolution: {integrity: sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==}
 
@@ -1177,10 +1158,6 @@ packages:
   readable-stream@3.6.2:
     resolution: {integrity: sha512-9u/sniCrY3D5WdsERHzHE4G2YCXqoG5FTHUiCC4SIbr6XcLZBY05ya9EKjYek9O5xOAwjGq+1JdGBAS7Q9ScoA==}
     engines: {node: '>= 6'}
-
-  readable-stream@4.5.2:
-    resolution: {integrity: sha512-yjavECdqeZ3GLXNgRXgeQEdz9fvDDkNKyHnbHRFtOr7/LcfgBcmct7t/ET+HaCTqfh06OzoAxrkN/IfjJBVe+g==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
   reflect-metadata@0.2.2:
     resolution: {integrity: sha512-urBwgfrvVP/eAyXx4hluJivBKzuEbSQs9rKWCrCkbSxNv8mxPcUZKeuoF3Uy4mJl3Lwprp6yy5/39VWigZ4K6Q==}
@@ -1248,8 +1225,8 @@ packages:
   simple-swizzle@0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
 
-  sodium-native@4.3.0:
-    resolution: {integrity: sha512-OcMgoS0NJx+4yVUlhvL9uZsVZfmyHZ2RpSXkiIoOHMglqvJDeGwn1rUigPrvcNTq3m9hPXtt6syxQbF3vvwmRQ==}
+  sodium-native@4.3.1:
+    resolution: {integrity: sha512-YdP64gAdpIKHfL4ttuX4aIfjeunh9f+hNeQJpE9C8UMndB3zkgZ7YmmGT4J2+v6Ibyp6Wem8D1TcSrtdW0bqtg==}
 
   soundcloud.ts@0.6.2:
     resolution: {integrity: sha512-2uQGp71SPENcIdRj9wLEeVX2kdL+WCrh4OHYKwtzodJBB4klIMJajlc/DqCcLEbLNaoxCswpgAq66kZdoXOb9g==}
@@ -1407,12 +1384,12 @@ packages:
   wide-align@1.1.5:
     resolution: {integrity: sha512-eDMORYaPNZ4sQIuuYPDHdQvf4gyCF9rEEV/yPxGfwPkRodwEgiMUUXTx/dex+Me0wxx53S+NgUHaP7y3MGlDmg==}
 
-  winston-transport@4.8.0:
-    resolution: {integrity: sha512-qxSTKswC6llEMZKgCQdaWgDuMJQnhuvF5f2Nk3SNXc4byfQ+voo2mX1Px9dkNOuR8p0KAjfPG29PuYUSIb+vSA==}
+  winston-transport@4.9.0:
+    resolution: {integrity: sha512-8drMJ4rkgaPo1Me4zD/3WLfI/zPdA9o2IipKODunnGDcuqbHwjsbB79ylv04LCGGzU0xQ6vTznOMpQGaLhhm6A==}
     engines: {node: '>= 12.0.0'}
 
-  winston@3.16.0:
-    resolution: {integrity: sha512-xz7+cyGN5M+4CmmD4Npq1/4T+UZaz7HaeTlAruFUTjk79CNMq+P6H30vlE4z0qfqJ01VHYQwd7OZo03nYm/+lg==}
+  winston@3.17.0:
+    resolution: {integrity: sha512-DLiFIXYC5fMPxaRg832S6F5mJYvePtmO5G9v9IgUFPhXm9/GkXarH/TUrBAVzhTCzAj9anE/+GjrgXp/54nOgw==}
     engines: {node: '>= 12.0.0'}
 
   wrap-ansi@7.0.0:
@@ -1555,10 +1532,10 @@ snapshots:
 
   '@discordjs/util@1.1.1': {}
 
-  '@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1)':
+  '@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1)':
     dependencies:
       '@types/ws': 8.5.12
-      discord-api-types: 0.37.83
+      discord-api-types: 0.37.105
       prism-media: 1.3.5(@discordjs/opus@0.9.0)(opusscript@0.1.1)
       tslib: 2.8.0
       ws: 8.18.0
@@ -1607,24 +1584,24 @@ snapshots:
       discord.js: 14.16.3
       discordx: 11.12.2(discord.js@14.16.3)
 
-  '@distube/deezer@2.0.1(distube@5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))':
+  '@distube/deezer@2.0.1(distube@5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))':
     dependencies:
-      distube: 5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
+      distube: 5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
       undici: 6.20.1
 
-  '@distube/direct-link@1.0.1(distube@5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))':
+  '@distube/direct-link@1.0.1(distube@5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))':
     dependencies:
-      distube: 5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
+      distube: 5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
       undici: 6.20.1
 
-  '@distube/soundcloud@2.0.4(distube@5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))':
+  '@distube/soundcloud@2.0.4(distube@5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))':
     dependencies:
-      distube: 5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
+      distube: 5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
       soundcloud.ts: 0.6.2
 
-  '@distube/spotify@2.0.2(distube@5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))':
+  '@distube/spotify@2.0.2(distube@5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))':
     dependencies:
-      distube: 5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
+      distube: 5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
       spotify-uri: 4.1.0
       spotify-url-info: 3.2.17
       spotify-web-api-node: 5.0.2
@@ -1632,19 +1609,19 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@distube/youtube@1.0.4(distube@5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))':
+  '@distube/youtube@1.0.4(distube@5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))':
     dependencies:
       '@distube/ytdl-core': 4.15.1
       '@distube/ytpl': 1.2.1
       '@distube/ytsr': 2.0.4
-      distube: 5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
+      distube: 5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
     transitivePeerDependencies:
       - supports-color
 
-  '@distube/yt-dlp@2.0.1(distube@5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))':
+  '@distube/yt-dlp@2.0.1(distube@5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3))':
     dependencies:
       dargs: 7.0.0
-      distube: 5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
+      distube: 5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3)
       undici: 6.20.1
 
   '@distube/ytdl-core@4.15.1':
@@ -1761,59 +1738,59 @@ snapshots:
 
   '@sapphire/snowflake@3.5.3': {}
 
-  '@swc/core-darwin-arm64@1.9.1':
+  '@swc/core-darwin-arm64@1.9.2':
     optional: true
 
-  '@swc/core-darwin-x64@1.9.1':
+  '@swc/core-darwin-x64@1.9.2':
     optional: true
 
-  '@swc/core-linux-arm-gnueabihf@1.9.1':
+  '@swc/core-linux-arm-gnueabihf@1.9.2':
     optional: true
 
-  '@swc/core-linux-arm64-gnu@1.9.1':
+  '@swc/core-linux-arm64-gnu@1.9.2':
     optional: true
 
-  '@swc/core-linux-arm64-musl@1.9.1':
+  '@swc/core-linux-arm64-musl@1.9.2':
     optional: true
 
-  '@swc/core-linux-x64-gnu@1.9.1':
+  '@swc/core-linux-x64-gnu@1.9.2':
     optional: true
 
-  '@swc/core-linux-x64-musl@1.9.1':
+  '@swc/core-linux-x64-musl@1.9.2':
     optional: true
 
-  '@swc/core-win32-arm64-msvc@1.9.1':
+  '@swc/core-win32-arm64-msvc@1.9.2':
     optional: true
 
-  '@swc/core-win32-ia32-msvc@1.9.1':
+  '@swc/core-win32-ia32-msvc@1.9.2':
     optional: true
 
-  '@swc/core-win32-x64-msvc@1.9.1':
+  '@swc/core-win32-x64-msvc@1.9.2':
     optional: true
 
-  '@swc/core@1.9.1':
+  '@swc/core@1.9.2':
     dependencies:
       '@swc/counter': 0.1.3
-      '@swc/types': 0.1.14
+      '@swc/types': 0.1.15
     optionalDependencies:
-      '@swc/core-darwin-arm64': 1.9.1
-      '@swc/core-darwin-x64': 1.9.1
-      '@swc/core-linux-arm-gnueabihf': 1.9.1
-      '@swc/core-linux-arm64-gnu': 1.9.1
-      '@swc/core-linux-arm64-musl': 1.9.1
-      '@swc/core-linux-x64-gnu': 1.9.1
-      '@swc/core-linux-x64-musl': 1.9.1
-      '@swc/core-win32-arm64-msvc': 1.9.1
-      '@swc/core-win32-ia32-msvc': 1.9.1
-      '@swc/core-win32-x64-msvc': 1.9.1
+      '@swc/core-darwin-arm64': 1.9.2
+      '@swc/core-darwin-x64': 1.9.2
+      '@swc/core-linux-arm-gnueabihf': 1.9.2
+      '@swc/core-linux-arm64-gnu': 1.9.2
+      '@swc/core-linux-arm64-musl': 1.9.2
+      '@swc/core-linux-x64-gnu': 1.9.2
+      '@swc/core-linux-x64-musl': 1.9.2
+      '@swc/core-win32-arm64-msvc': 1.9.2
+      '@swc/core-win32-ia32-msvc': 1.9.2
+      '@swc/core-win32-x64-msvc': 1.9.2
 
   '@swc/counter@0.1.3': {}
 
-  '@swc/types@0.1.14':
+  '@swc/types@0.1.15':
     dependencies:
       '@swc/counter': 0.1.3
 
-  '@types/node@22.9.0':
+  '@types/node@22.9.1':
     dependencies:
       undici-types: 6.19.8
 
@@ -1823,16 +1800,12 @@ snapshots:
 
   '@types/ws@8.5.12':
     dependencies:
-      '@types/node': 22.9.0
+      '@types/node': 22.9.1
 
   '@vladfrangu/async_event_emitter@2.4.6': {}
 
   abbrev@1.1.1:
     optional: true
-
-  abort-controller@3.0.0:
-    dependencies:
-      event-target-shim: 5.0.1
 
   agent-base@6.0.2:
     dependencies:
@@ -1899,11 +1872,6 @@ snapshots:
   brace-expansion@2.0.1:
     dependencies:
       balanced-match: 1.0.2
-
-  buffer@6.0.3:
-    dependencies:
-      base64-js: 1.5.1
-      ieee754: 1.2.1
 
   cac@6.7.14: {}
 
@@ -2019,6 +1987,8 @@ snapshots:
 
   discord-api-types@0.37.100: {}
 
+  discord-api-types@0.37.105: {}
+
   discord-api-types@0.37.83: {}
 
   discord-api-types@0.37.97: {}
@@ -2048,9 +2018,9 @@ snapshots:
       discord.js: 14.16.3
       lodash: 4.17.21
 
-  distube@5.0.4(@discordjs/voice@0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3):
+  distube@5.0.4(@discordjs/voice@0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1))(discord.js@14.16.3):
     dependencies:
-      '@discordjs/voice': 0.17.0(@discordjs/opus@0.9.0)(opusscript@0.1.1)
+      '@discordjs/voice': 0.18.0(@discordjs/opus@0.9.0)(opusscript@0.1.1)
       discord.js: 14.16.3
       tiny-typed-emitter: 2.1.0
       undici: 6.20.1
@@ -2107,10 +2077,6 @@ snapshots:
       '@esbuild/win32-arm64': 0.23.1
       '@esbuild/win32-ia32': 0.23.1
       '@esbuild/win32-x64': 0.23.1
-
-  event-target-shim@5.0.1: {}
-
-  events@3.3.0: {}
 
   eventsource-parser@1.1.2: {}
 
@@ -2241,8 +2207,6 @@ snapshots:
       - supports-color
     optional: true
 
-  ieee754@1.2.1: {}
-
   inflight@1.0.6:
     dependencies:
       once: 1.4.0
@@ -2301,7 +2265,7 @@ snapshots:
 
   lodash@4.17.21: {}
 
-  logform@2.6.1:
+  logform@2.7.0:
     dependencies:
       '@colors/colors': 1.6.0
       '@types/triple-beam': 1.3.5
@@ -2458,8 +2422,6 @@ snapshots:
       '@discordjs/opus': 0.9.0
       opusscript: 0.1.1
 
-  process@0.11.10: {}
-
   psl@1.9.0: {}
 
   punycode@2.3.1: {}
@@ -2490,14 +2452,6 @@ snapshots:
       inherits: 2.0.4
       string_decoder: 1.3.0
       util-deprecate: 1.0.2
-
-  readable-stream@4.5.2:
-    dependencies:
-      abort-controller: 3.0.0
-      buffer: 6.0.3
-      events: 3.3.0
-      process: 0.11.10
-      string_decoder: 1.3.0
 
   reflect-metadata@0.2.2: {}
 
@@ -2557,7 +2511,7 @@ snapshots:
     dependencies:
       is-arrayish: 0.3.2
 
-  sodium-native@4.3.0:
+  sodium-native@4.3.1:
     dependencies:
       node-gyp-build: 4.8.2
 
@@ -2731,25 +2685,25 @@ snapshots:
       string-width: 4.2.3
     optional: true
 
-  winston-transport@4.8.0:
+  winston-transport@4.9.0:
     dependencies:
-      logform: 2.6.1
-      readable-stream: 4.5.2
+      logform: 2.7.0
+      readable-stream: 3.6.2
       triple-beam: 1.4.1
 
-  winston@3.16.0:
+  winston@3.17.0:
     dependencies:
       '@colors/colors': 1.6.0
       '@dabh/diagnostics': 2.0.3
       async: 3.2.6
       is-stream: 2.0.1
-      logform: 2.6.1
+      logform: 2.7.0
       one-time: 1.0.0
       readable-stream: 3.6.2
       safe-stable-stringify: 2.5.0
       stack-trace: 0.0.10
       triple-beam: 1.4.1
-      winston-transport: 4.8.0
+      winston-transport: 4.9.0
 
   wrap-ansi@7.0.0:
     dependencies:
