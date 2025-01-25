@@ -48,7 +48,7 @@ export class MusicManager {
 			this.logger.info(`Song ${song.name} has been added to queue ${queue.id}`)
 		})
 		this.player.on(Events.DEBUG, (debug) => {
-			process.env.NODE_ENV === 'development' || process.env.LOG_EVERYTHING === 'true' 
+			process.env.NODE_ENV === 'development' || process.env.DEBUG_LOGS === 'true' 
 			? this.logger.log(debug) : null
 		})
 		this.player.on(Events.DELETE_QUEUE, (queue) => {
@@ -62,7 +62,7 @@ export class MusicManager {
 			this.logger.error(error)
 		})
 		this.player.on(Events.FFMPEG_DEBUG, (debug) => {
-			process.env.NODE_ENV === 'development' || process.env.LOG_EVERYTHING === 'true' 
+			process.env.NODE_ENV === 'development' || process.env.DEBUG_LOGS === 'true' 
 			? this.logger.log(debug) : null
 		})
 		this.player.on(Events.FINISH, (queue) => {

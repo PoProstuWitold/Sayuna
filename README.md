@@ -8,7 +8,7 @@ Written in Typescript, Node.js, discord.js, discordx, ESM.
 You can run this bot using official **[Docker image](https://hub.docker.com/r/poprostuwitold/sayuna)**. There are all instructions and available options for running in Docker container.
 
 ## Requirements
-- Node.js lts/iron (v20.11.1)
+- Node.js v22.12.0 'Jod' (LTS)
 - ffmpeg (installation instructions can be found [here](https://ffmpeg.org/download.html))
 - Discord bot account and a Discord server
 
@@ -47,7 +47,7 @@ AI_ENABLED=
 CHAT_GPT_API_KEY=
 
 # Debug logs in production
-LOG_EVERYTHING=true
+DEBUG_LOGS=true
 ```
 
 #### 1.  Install dependencies
