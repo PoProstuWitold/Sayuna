@@ -7,7 +7,7 @@ import { logger } from './services/logger.service.js'
 import type { MainOptions } from './utils/types.js'
 
 const constants = {
-	version: '2.3.0',
+	version: '2.3.1',
 	discordjs: '14.17.3',
 	distube: '5.0.4'
 }
