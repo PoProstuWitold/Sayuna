@@ -61,7 +61,9 @@ export class CustomLogger {
 					m &&
 					typeof m === 'object' &&
 					m !== null &&
+					// @ts-ignore
 					typeof m[0] !== 'string' &&
+					// @ts-ignore
 					Object.keys(m[0]).length !== 0
 				) {
 					msg += JSON.stringify(m, null, 4)

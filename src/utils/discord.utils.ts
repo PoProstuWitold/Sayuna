@@ -29,6 +29,7 @@ export class DiscordUtils {
 
 		// if interaction is deferred but not replied
 		if (interaction.deferred) {
+			// @ts-ignore
 			await interaction.editReply(replyOptions)
 			return interaction
 		}

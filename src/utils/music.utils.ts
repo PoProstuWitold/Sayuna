@@ -37,7 +37,7 @@ export class MusicUtils {
 					`[${queue.songs[0].name}](${queue.songs[0].url})`
 				)
 				.setAuthor({
-					name: client.user?.username,
+					name: client.user?.username || '',
 					iconURL: me.displayAvatarURL()
 				})
 				.setTimestamp()
@@ -123,7 +123,7 @@ export class MusicUtils {
 					`Music queue for **${queue.voiceChannel?.name}**`
 				)
 				.setAuthor({
-					name: client.user?.username,
+					name: client.user?.username || '',
 					iconURL: me.displayAvatarURL()
 				})
 				.setTimestamp()
@@ -142,7 +142,7 @@ export class MusicUtils {
 					`Music queue for **${queue.voiceChannel?.name}**`
 				)
 				.setAuthor({
-					name: client.user?.username,
+					name: client.user?.username || '',
 					iconURL: me.displayAvatarURL()
 				})
 				.setTimestamp()

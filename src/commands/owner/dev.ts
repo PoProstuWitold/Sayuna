@@ -47,7 +47,7 @@ export class Dev {
 			const embed = new EmbedBuilder()
 				.setTitle('**Health**')
 				.setAuthor({
-					name: client.user?.username,
+					name: client.user?.username || '',
 					iconURL: me.displayAvatarURL()
 				})
 				.setDescription('Health status of the bot')

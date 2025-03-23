@@ -1,5 +1,5 @@
 # base setup stage (dependencies + pnpm)
-FROM node:jod-alpine AS setup
+FROM node:22-alpine AS setup
 
 WORKDIR /app
 

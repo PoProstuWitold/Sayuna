@@ -77,7 +77,7 @@ export class Info {
 						`${groupCommands && groupCommands.length > 0 ? `${group} commands info` : '**All commands info**'}`
 					)
 					.setAuthor({
-						name: client.user?.username,
+						name: client.user?.username || '',
 						iconURL: me.displayAvatarURL()
 					})
 					.setTimestamp()
