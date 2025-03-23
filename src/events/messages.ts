@@ -1,7 +1,7 @@
 import type { ArgsOf, Client } from 'discordx'
 import { Discord, On } from 'discordx'
 
-import { CustomLogger, logger } from '../services/logger.service.js'
+import { type CustomLogger, logger } from '../services/logger.service.js'
 
 @Discord()
 export class Messages {
@@ -11,7 +11,9 @@ export class Messages {
 		event: 'messageCreate'
 	})
 	messageCreate([message]: ArgsOf<'messageCreate'>, client: Client): void {
-		this.logger.info(`Message Created. Author: ${message.author.username}, content: "${message.content}"`)
+		this.logger.info(
+			`Message Created. Author: ${message.author.username}, content: "${message.content}"`
+		)
 		client.executeCommand(message)
 	}
 

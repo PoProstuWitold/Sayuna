@@ -1,7 +1,7 @@
 import type { ArgsOf, Client } from 'discordx'
 import { Discord, On } from 'discordx'
 
-import { CustomLogger, logger } from '../services/logger.service.js'
+import { type CustomLogger, logger } from '../services/logger.service.js'
 
 @Discord()
 export class Interactions {
@@ -10,8 +10,11 @@ export class Interactions {
 	@On({
 		event: 'interactionCreate'
 	})
-	interactionCreate([interaction]: ArgsOf<'interactionCreate'>, client: Client): void {
-		this.logger.info(`Interaction created.`)
-        client.executeInteraction(interaction)
+	interactionCreate(
+		[interaction]: ArgsOf<'interactionCreate'>,
+		client: Client
+	): void {
+		this.logger.info('Interaction created.')
+		client.executeInteraction(interaction)
 	}
 }

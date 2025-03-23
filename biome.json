@@ -6,7 +6,10 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": true
+			"recommended": true,
+			"complexity": {
+				"noStaticOnlyClass": "off"
+			}
 		}
 	},
 	"formatter": {
@@ -29,6 +32,9 @@
 			"semicolons": "asNeeded",
 			"trailingCommas": "none",
 			"quoteStyle": "single"
+		},
+		"parser": {
+			"unsafeParameterDecoratorsEnabled": true
 		}
 	},
 	"json": {
@@ -37,5 +43,12 @@
 			"indentWidth": 4,
 			"indentStyle": "tab"
 		}
+	},
+	"files": {
+		"ignore": [
+			"logger.service.ts",
+			"*.utils.ts",
+			"functions.ts"
+		]
 	}
 }

@@ -1,15 +1,23 @@
-import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder, GuildMember, PermissionsBitField, TextChannel, User } from 'discord.js'
-import { Discord, Slash, SlashGroup, SlashOption } from 'discordx'
 import { Category } from '@discordx/utilities'
+import {
+	ApplicationCommandOptionType,
+	type CommandInteraction,
+	EmbedBuilder,
+	GuildMember,
+	PermissionsBitField,
+	TextChannel,
+	User
+} from 'discord.js'
+import { Discord, Slash, SlashGroup, SlashOption } from 'discordx'
 
-import { DiscordUtils } from '../../utils/discord.utils.js'
 import { BaseError } from '../../exceptions/base.exception.js'
+import { DiscordUtils } from '../../utils/discord.utils.js'
 
 @Discord()
 @Category('mod')
-@SlashGroup({ 
-    name: 'mod', 
-    description: 'Commands for managing server and users',
+@SlashGroup({
+	name: 'mod',
+	description: 'Commands for managing server and users',
 	defaultMemberPermissions: [
 		PermissionsBitField.Flags.ManageChannels,
 		PermissionsBitField.Flags.ManageGuild,
@@ -22,23 +30,26 @@ import { BaseError } from '../../exceptions/base.exception.js'
 })
 @SlashGroup('mod')
 export class Moderation {
-    @Slash({
-        name: 'clear',
-        description: 'Clear messages from text channel'
-    })
-    public async clearMessages(
+	@Slash({
+		name: 'clear',
+		description: 'Clear messages from text channel'
+	})
+	public async clearMessages(
 		@SlashOption({
 			description: 'Number of message to clear',
 			name: 'number',
 			type: ApplicationCommandOptionType.Integer,
-			maxValue: 100,
+			maxValue: 100
 		})
 		number: number,
-        interaction: CommandInteraction
-    ): Promise<void> {
-        try {
-            if(!interaction) throw Error('No interaction found')
-			if(!interaction.channel || !(interaction.channel instanceof TextChannel)) 
+		interaction: CommandInteraction
+	): Promise<void> {
+		try {
+			if (!interaction) throw Error('No interaction found')
+			if (
+				!interaction.channel ||
+				!(interaction.channel instanceof TextChannel)
+			)
 				throw new BaseError({
 					name: 'Invalid Channel',
 					message: 'Channel must be of type text'
@@ -48,28 +59,28 @@ export class Moderation {
 			await interaction.channel.bulkDelete(actualNumber, true)
 
 			const msg = await DiscordUtils.replyOrFollowUp(
-				interaction, 
+				interaction,
 				`> User <@${interaction.user.id}> cleared **${actualNumber}** messages from channel **${interaction.channel.name}**`
 			)
-			
+
 			setTimeout(() => {
 				msg.deleteReply()
 			}, 3000)
-        } catch (err) {
-            DiscordUtils.handleInteractionError(interaction, err)
-        }
-    }
+		} catch (err) {
+			DiscordUtils.handleInteractionError(interaction, err)
+		}
+	}
 
 	@Slash({
 		name: 'kick',
-		description: 'Kick a user',
+		description: 'Kick a user'
 	})
 	public async kickUser(
 		@SlashOption({
 			description: 'User you want to kick',
 			name: 'user',
 			required: true,
-			type: ApplicationCommandOptionType.User,
+			type: ApplicationCommandOptionType.User
 		})
 		user: string,
 		@SlashOption({
@@ -87,7 +98,7 @@ export class Moderation {
 			if (!guild) {
 				throw new BaseError({
 					name: 'Invalid Guild',
-					message: `Command must be used in a guild`,
+					message: 'Command must be used in a guild'
 				})
 			}
 
@@ -97,13 +108,15 @@ export class Moderation {
 			if (!member) {
 				throw new BaseError({
 					name: 'Invalid User',
-					message: `The provided user doesn't exist`,
+					message: `The provided user doesn't exist`
 				})
 			}
 
 			const embed = new EmbedBuilder()
-				.setTitle(`**User Kicked**`)
-				.setDescription(`Kicked <@${member instanceof GuildMember ? member.user.id : ''}>`)
+				.setTitle('**User Kicked**')
+				.setDescription(
+					`Kicked <@${member instanceof GuildMember ? member.user.id : ''}>`
+				)
 				.setFields({
 					name: 'Reason',
 					value: actualReason
@@ -111,7 +124,7 @@ export class Moderation {
 				.setTimestamp()
 
 			await DiscordUtils.replyOrFollowUp(interaction, {
-				embeds: [embed],
+				embeds: [embed]
 			})
 		} catch (err) {
 			DiscordUtils.handleInteractionError(interaction, err)
@@ -120,14 +133,14 @@ export class Moderation {
 
 	@Slash({
 		name: 'ban',
-		description: 'Ban a user',
+		description: 'Ban a user'
 	})
 	public async banUser(
 		@SlashOption({
 			description: 'User you want to ban',
 			name: 'user',
 			required: true,
-			type: ApplicationCommandOptionType.User,
+			type: ApplicationCommandOptionType.User
 		})
 		user: string,
 		@SlashOption({
@@ -145,7 +158,7 @@ export class Moderation {
 			if (!guild) {
 				throw new BaseError({
 					name: 'Guild not found',
-					message: `The command must be used in a guild`,
+					message: 'The command must be used in a guild'
 				})
 			}
 
@@ -157,25 +170,27 @@ export class Moderation {
 			if (!member) {
 				throw new BaseError({
 					name: 'Invalid User',
-					message: `The provided user doesn't exist`,
+					message: `The provided user doesn't exist`
 				})
 			}
 
 			const embed = new EmbedBuilder()
-				.setTitle(`**User Banned**`)
-				.setDescription(`Banned <@${member instanceof GuildMember ? member.user.id : ''}>`)
+				.setTitle('**User Banned**')
+				.setDescription(
+					`Banned <@${member instanceof GuildMember ? member.user.id : ''}>`
+				)
 				.setFields({
 					name: 'Reason',
 					value: actualReason
 				})
 				.setAuthor({
-                    name: interaction.user.username,
-                    iconURL: interaction.user.displayAvatarURL()
-                })
+					name: interaction.user.username,
+					iconURL: interaction.user.displayAvatarURL()
+				})
 				.setTimestamp()
 
 			await DiscordUtils.replyOrFollowUp(interaction, {
-				embeds: [embed],
+				embeds: [embed]
 			})
 		} catch (err) {
 			DiscordUtils.handleInteractionError(interaction, err)
@@ -184,14 +199,14 @@ export class Moderation {
 
 	@Slash({
 		name: 'unban',
-		description: 'Unban a user',
+		description: 'Unban a user'
 	})
 	public async unbanUser(
 		@SlashOption({
 			description: 'Id of user you want to unban',
 			name: 'id',
 			required: true,
-			type: ApplicationCommandOptionType.String,
+			type: ApplicationCommandOptionType.String
 		})
 		user: string,
 		interaction: CommandInteraction
@@ -203,30 +218,32 @@ export class Moderation {
 			if (!guild) {
 				throw new BaseError({
 					name: 'Guild not found',
-					message: `The command must be used in a guild`,
+					message: 'The command must be used in a guild'
 				})
 			}
 
 			const member = await guild.members.unban(user)
-			
+
 			if (!member) {
 				throw new BaseError({
 					name: 'Invalid User',
-					message: `The provided user doesn't exist`,
+					message: `The provided user doesn't exist`
 				})
 			}
 
 			const embed = new EmbedBuilder()
-				.setTitle(`**User Unbanned**`)
-				.setDescription(`Unbanned <@${member instanceof GuildMember ? member.user.id : member.id}>`)
+				.setTitle('**User Unbanned**')
+				.setDescription(
+					`Unbanned <@${member instanceof GuildMember ? member.user.id : member.id}>`
+				)
 				.setAuthor({
-                    name: interaction.user.username,
-                    iconURL: interaction.user.displayAvatarURL()
-                })
+					name: interaction.user.username,
+					iconURL: interaction.user.displayAvatarURL()
+				})
 				.setTimestamp()
 
 			await DiscordUtils.replyOrFollowUp(interaction, {
-				embeds: [embed],
+				embeds: [embed]
 			})
 		} catch (err) {
 			DiscordUtils.handleInteractionError(interaction, err)

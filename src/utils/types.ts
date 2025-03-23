@@ -1,6 +1,6 @@
-import { ChatGPTAPIOptions } from 'chatgpt'
-import { ActivityType } from 'discord.js'
-import { Client, ClientOptions } from 'discordx'
+import type { ChatGPTAPIOptions } from 'chatgpt'
+import type { ActivityType } from 'discord.js'
+import type { Client, ClientOptions } from 'discordx'
 
 export interface FeatureEnabledGuardOptions {
 	enabled: boolean
@@ -9,13 +9,13 @@ export interface FeatureEnabledGuardOptions {
 }
 
 export interface MainOptions {
-	clientOptions: ClientOptions,
+	clientOptions: ClientOptions
 	config: {
-		token?: string,
-		devGuildId?: string,
-		ownerId?: string,
+		token?: string
+		devGuildId?: string
+		ownerId?: string
 		activity: {
-			name: string,
+			name: string
 			type: ActivityType
 		}
 	}
@@ -32,19 +32,19 @@ export interface MainOptions {
 }
 
 export interface CommandDocs {
-    name: string
-    description: string
-    category: string | undefined
+	name: string
+	description: string
+	category: string | undefined
 }
 
 export interface MemeJson {
-    postLink: string
-    subreddit: string
-    title: string
-    url: string
-    nsfw: boolean
-    spoiler: boolean
-    author: string
-    ups: number
-    preview: string[]
+	postLink: string
+	subreddit: string
+	title: string
+	url: string
+	nsfw: boolean
+	spoiler: boolean
+	author: string
+	ups: number
+	preview: string[]
 }

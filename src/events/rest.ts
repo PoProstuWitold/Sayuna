@@ -1,7 +1,7 @@
 import type { RestArgsOf } from 'discordx'
 import { Discord, On } from 'discordx'
 
-import { CustomLogger, logger } from '../services/logger.service.js'
+import { type CustomLogger, logger } from '../services/logger.service.js'
 
 @Discord()
 export class Rest {
@@ -15,7 +15,7 @@ export class Rest {
 		this.logger.warn(`
 		You are being rate-limited. 
 		Limit: ${limit}
-		Time to reset (seconds): ${timeToReset/1000} seconds
+		Time to reset (seconds): ${timeToReset / 1000} seconds
 		url: ${url}
 		route: ${route}
 		method: ${method}
