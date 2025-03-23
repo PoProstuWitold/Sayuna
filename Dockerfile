@@ -1,5 +1,5 @@
 # base setup stage (dependencies + pnpm)
-FROM node:22-alpine AS setup
+FROM node:jod-alpine AS setup
 
 WORKDIR /app
 
@@ -34,7 +34,7 @@ ENV DEV_GUILD_ID=$DEV_GUILD_ID \
 CMD ["pnpm", "run", "dev"]
 
 # production stage
-FROM node:20-alpine AS production
+FROM node:jod-alpine AS production
 
 WORKDIR /app
 
