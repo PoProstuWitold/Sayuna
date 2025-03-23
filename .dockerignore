@@ -15,11 +15,14 @@ dist/
 # Exclude editor-specific files
 .vscode/
 .idea/
+.editorconfig
+biome.json
 
 # Exclude environment-specific files
 .env
 .env.local
 .env.*.local
+.env.sample
 
 # Exclude documentation and non-essential files
 *.md
@@ -27,5 +30,7 @@ LICENSE
 *.txt
 *.pdf
 
+# Docker-related files
 docker-compose.yml
 docker-compose.dev.yml
+Dockerfile
