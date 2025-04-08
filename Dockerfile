@@ -28,7 +28,7 @@ ENV DEV_GUILD_ID=$DEV_GUILD_ID \
     BOT_PREFIX=$BOT_PREFIX \
     AI_ENABLED=$AI_ENABLED \
     CHAT_GPT_API_KEY=$CHAT_GPT_API_KEY \
-    LOG_EVERYTHING=$LOG_EVERYTHING
+    DEBUG_LOGS=$DEBUG_LOGS
 
 # Start development server
 CMD ["pnpm", "run", "dev"]
@@ -56,7 +56,7 @@ ENV NODE_ENV=production \
     BOT_PREFIX=$BOT_PREFIX \
     AI_ENABLED=$AI_ENABLED \
     CHAT_GPT_API_KEY=$CHAT_GPT_API_KEY \
-    LOG_EVERYTHING=$LOG_EVERYTHING
+    DEBUG_LOGS=$DEBUG_LOGS
 
 # Run the bot with pm2 in production mode
 CMD ["pm2-runtime", "build/main.js"]
