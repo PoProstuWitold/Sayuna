@@ -7,7 +7,7 @@
 		"types": [
 			"reflect-metadata"
 		],
-		"module": "ES2022",
+		"module": "Preserve",
 		"moduleResolution": "Node",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,

@@ -35,10 +35,10 @@ export class Dev {
 		try {
 			const msg = await interaction.reply({
 				content: 'Checking health...',
-				fetchReply: true
+				withResponse: true
 			})
 
-			const messageTime = `${msg.createdTimestamp - interaction.createdTimestamp}ms`
+			const messageTime = `${msg.interaction.createdTimestamp - interaction.createdTimestamp}ms`
 			const heartBeat = `${Math.round(client.ws.ping)}ms`
 			const websocketStatus = Status[client.ws.status]
 
@@ -85,7 +85,7 @@ export class Dev {
 				}
 			])
 
-			await msg.edit({
+			await msg.resource?.message?.edit({
 				embeds: [embed],
 				content: ''
 			})

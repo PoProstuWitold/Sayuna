@@ -3,14 +3,14 @@ import 'dotenv/config'
 import { ActivityType, IntentsBitField } from 'discord.js'
 import { Client, type ClientOptions } from 'discordx'
 
-import pkg from '../package.json'
+import pkg from '../package.json' with { type: 'json' }
 import { logger } from './services/logger.service.js'
 import type { MainOptions } from './utils/types.js'
 
 const constants = {
 	version: pkg.version,
-	discordjs: pkg.dependencies['discord.js'],
-	distube: pkg.dependencies.distube
+	discordjs: pkg.dependencies['discord.js'].replace(/^\^/, ''),
+	distube: pkg.dependencies.distube.replace(/^\^/, '')
 }
 
 const clientOptions: ClientOptions = {

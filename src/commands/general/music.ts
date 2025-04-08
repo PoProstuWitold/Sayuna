@@ -179,8 +179,6 @@ export class Music {
 			if (!queue) throw new DisTubeError('NO_QUEUE')
 
 			await MusicUtils.paginateQueue(interaction, client, queue)
-
-			await DiscordUtils.replyOrFollowUp(interaction, '> Getting queue')
 		} catch (err) {
 			DiscordUtils.handleInteractionError(interaction, err)
 		}
