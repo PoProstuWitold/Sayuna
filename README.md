@@ -8,7 +8,7 @@ Written in Typescript, Node.js, discord.js, discordx, ESM.
 You can run this bot using official **[Docker image](https://hub.docker.com/r/poprostuwitold/sayuna)**. There are all instructions and available options for running in Docker container.
 
 ## Requirements
-- Node.js v22.14.0 'Jod' (LTS)
+- Node.js v22.16.0 'Jod' (LTS)
 - ffmpeg (installation instructions can be found [here](https://ffmpeg.org/download.html))
 - Discord bot account and a Discord server
 
