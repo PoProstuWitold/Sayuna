@@ -1,5 +1,5 @@
 import { Category } from '@discordx/utilities'
-import { SearchResultType, YouTubeSearchResultSong } from '@distube/youtube'
+import { SearchResultType } from '@distube/youtube'
 import {
 	ActionRowBuilder,
 	ApplicationCommandOptionType,
@@ -28,11 +28,11 @@ import {
 } from '../../services/music.service.js'
 import { DiscordUtils } from '../../utils/discord.utils.js'
 import { formatSeconds } from '../../utils/functions.js'
+import { MusicUtils } from '../../utils/music.utils.js'
 import {
 	type MusicButtons,
 	musicButtons
 } from '../../utils/music-buttons.utils.js'
-import { MusicUtils } from '../../utils/music.utils.js'
 
 @Discord()
 @Category('music')
@@ -685,7 +685,7 @@ export class Music {
 			client.on('interactionCreate', (interaction) => {
 				if (
 					interaction.isCommand() &&
-					interaction.options.data[0].name === 'dashboard'
+					interaction.commandName === 'dashboard'
 				) {
 					clearInterval(interval)
 					return

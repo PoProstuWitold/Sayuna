@@ -10,7 +10,7 @@ export class Channels {
 	@On({
 		event: 'channelCreate'
 	})
-	channelCreate([channel]: ArgsOf<'channelCreate'>, client: Client): void {
+	channelCreate([channel]: ArgsOf<'channelCreate'>, _client: Client): void {
 		this.logger.info(
 			`Channel Created. Guild: ${channel.guild.name}, channel: ${channel.name}`
 		)
@@ -19,7 +19,7 @@ export class Channels {
 	@On({
 		event: 'channelDelete'
 	})
-	channelDelete([channel]: ArgsOf<'channelDelete'>, client: Client): void {
+	channelDelete([_channel]: ArgsOf<'channelDelete'>, _client: Client): void {
 		this.logger.info('Channel Deleted')
 	}
 }

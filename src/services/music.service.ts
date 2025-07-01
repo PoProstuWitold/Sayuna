@@ -64,7 +64,7 @@ export class MusicManager {
 		this.player.on(Events.DISCONNECT, (queue) => {
 			this.logger.info(`Queue ${queue.id} has been disconnected`)
 		})
-		this.player.on(Events.ERROR, (error, queue, song) => {
+		this.player.on(Events.ERROR, (error, _queue, _song) => {
 			this.logger.error(error)
 		})
 		this.player.on(Events.FFMPEG_DEBUG, (debug) => {

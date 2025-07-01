@@ -5,8 +5,7 @@ import {
 	EmbedBuilder,
 	GuildMember,
 	PermissionsBitField,
-	TextChannel,
-	User
+	TextChannel
 } from 'discord.js'
 import { Discord, Slash, SlashGroup, SlashOption } from 'discordx'
 

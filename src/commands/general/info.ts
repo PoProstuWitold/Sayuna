@@ -70,7 +70,7 @@ export class Info {
 			}
 
 			const me = interaction.guild?.members.me ?? interaction.user
-			let externalEmbed: EmbedBuilder
+			let _externalEmbed: EmbedBuilder
 			const pages = commands.map((cmd, i) => {
 				const embed = new EmbedBuilder()
 					.setTitle(
@@ -102,7 +102,7 @@ export class Info {
 								: 'Description unavailable'
 						}`
 					})
-				externalEmbed = embed
+				_externalEmbed = embed
 				return { embeds: [embed] }
 			})
 

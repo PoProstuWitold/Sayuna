@@ -20,7 +20,7 @@ export class Messages {
 	@On({
 		event: 'messageDelete'
 	})
-	messageDelete([message]: ArgsOf<'messageDelete'>, client: Client): void {
+	messageDelete([message]: ArgsOf<'messageDelete'>, _client: Client): void {
 		this.logger.info(`Message Deleted. Author: ${message.author?.username}`)
 	}
 }
