@@ -1,8 +1,9 @@
-import { ActivityType, IntentsBitField } from 'discord.js'
+import { IntentsBitField } from 'discord.js'
 import { Client, type ClientOptions } from 'discordx'
 
 import pkg from '../package.json' with { type: 'json' }
 import { logger } from './services/logger.service.js'
+import { getActivityType } from './utils/functions.js'
 import type { MainOptions } from './utils/types.js'
 
 const constants = {
@@ -41,8 +42,8 @@ const config: MainOptions['config'] = {
 	devGuildId: process.env.DEV_GUILD_ID,
 	ownerId: process.env.OWNER_ID,
 	activity: {
-		name: 'Homsterix',
-		type: ActivityType.Playing
+		name: process.env.ACTIVITY_NAME ?? 'Music',
+		type: getActivityType(process.env.ACTIVITY_TYPE)
 	}
 }
 

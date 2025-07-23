@@ -57,7 +57,7 @@ services:
 
 ## Requirements
 
-- Node.js `v22.17.0` (LTS, codename: "Jod")
+- Node.js `v22.17.1` (LTS, codename: "Jod")
 - `ffmpeg` installed and available in `$PATH` ([download here](https://ffmpeg.org/download.html))
 - Discord bot token & server
 
@@ -81,6 +81,10 @@ DEV_GUILD_ID=''
 OWNER_ID=''
 BOT_ID='Sayuna'
 BOT_PREFIX='$$'
+
+# Activity settings (optional)
+ACTIVITY_NAME='Music'
+ACTIVITY_TYPE=':moyai:'
 
 # Spotify API (optional)
 # Spotify links will not work very well without these credentials

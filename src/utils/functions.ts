@@ -1,3 +1,5 @@
+import { ActivityType } from 'discord.js'
+
 export const formatSeconds = (seconds: number): string => {
 	let formattedTime = ''
 
@@ -12,4 +14,25 @@ export const formatSeconds = (seconds: number): string => {
 				.slice(14, 19))
 
 	return formattedTime
+}
+
+export const getActivityType = (type?: string): number => {
+	if (!type) return ActivityType.Streaming
+	
+	switch (type) {
+		case 'PLAYING':
+			return ActivityType.Playing
+		case 'STREAMING':
+			return ActivityType.Streaming
+		case 'LISTENING':
+			return ActivityType.Listening
+		case 'WATCHING':
+			return ActivityType.Watching
+		case 'COMPETING':
+			return ActivityType.Competing
+		case 'CUSTOM':
+			return ActivityType.Custom
+		default:
+			return ActivityType.Playing
+	}
 }
