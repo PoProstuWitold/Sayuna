@@ -84,7 +84,7 @@ BOT_PREFIX='$$'
 
 # Activity settings (optional)
 ACTIVITY_NAME='Music'
-ACTIVITY_TYPE=':moyai:'
+ACTIVITY_TYPE=''
 
 # Spotify API (optional)
 # Spotify links will not work very well without these credentials
