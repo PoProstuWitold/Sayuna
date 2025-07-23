@@ -1,5 +1,3 @@
-import 'dotenv/config'
-
 import { ActivityType, IntentsBitField } from 'discord.js'
 import { Client, type ClientOptions } from 'discordx'
 
@@ -23,7 +21,7 @@ const clientOptions: ClientOptions = {
 		IntentsBitField.Flags.GuildVoiceStates,
 		IntentsBitField.Flags.MessageContent,
 		IntentsBitField.Flags.DirectMessages,
-		IntentsBitField.Flags.GuildBans,
+		IntentsBitField.Flags.GuildModeration,
 		IntentsBitField.Flags.GuildPresences,
 		IntentsBitField.Flags.GuildIntegrations
 	],
@@ -36,20 +34,6 @@ const clientOptions: ClientOptions = {
 		process.env.DEV_GUILD_ID && process.env.NODE_ENV === 'development'
 			? process.env.DEV_GUILD_ID.split(', ')
 			: undefined
-}
-
-const aiOptions: MainOptions['aiOptions'] = {
-	enabled: process.env.AI_ENABLED === '1',
-	chatpgtOptions: {
-		apiKey: process.env.CHAT_GPT_API_KEY || '',
-		// debug: process.env.NODE_ENV === 'development' ? true : false,
-		systemMessage: `
-        You are Sayuna. Discord all-in-one bot for moderation, music & fun. Current date is ${new Date().toISOString()}.
-        There are several categories of commands: 'dev', 'info', 'fun', 'music', 'ai'. 
-        Users can get informations about them using command: /info commands <command_category>. Your developer is Witold Zawada
-        `
-		// messageStore
-	}
 }
 
 const config: MainOptions['config'] = {
@@ -67,7 +51,6 @@ const client = new Client(clientOptions)
 export const globalConfig: MainOptions = {
 	clientOptions,
 	config,
-	aiOptions,
 	constants,
 	client
 }

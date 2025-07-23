@@ -44,7 +44,6 @@ export class MusicUtils {
 				.setFooter({
 					text: `${queue.voiceChannel?.guild.name} | ${queue.voiceChannel?.name}`
 				})
-				.setThumbnail(`${queue.songs[0].thumbnail}`)
 				.addFields({
 					name: 'Current duration',
 					value: `${queue.formattedCurrentTime}`,
@@ -90,6 +89,10 @@ export class MusicUtils {
 					value: `<@${queue.songs[0].user?.id}>`,
 					inline: true
 				})
+
+				if (queue.songs[0].thumbnail && /^https?:\/\//.test(queue.songs[0].thumbnail)) {
+					currentEmbed.setThumbnail(queue.songs[0].thumbnail)
+				}
 			return currentEmbed
 		} catch (err) {
 			DiscordUtils.handleInteractionError(interaction, err)
@@ -138,9 +141,7 @@ export class MusicUtils {
 		const pages = queue.songs.map((song, i) => {
 			const embed = new EmbedBuilder()
 				.setTitle(`**${interaction.guild?.name}**`)
-				.setDescription(
-					`Music queue for **${queue.voiceChannel?.name}**`
-				)
+				.setDescription(`Music queue for **${queue.voiceChannel?.name}**`)
 				.setAuthor({
 					name: client.user?.username || '',
 					iconURL: me.displayAvatarURL()
@@ -149,23 +150,34 @@ export class MusicUtils {
 				.setFooter({
 					text: `Page ${slicesArray.length + i + 1} of ${queue.songs.length + slicesArray.length} | Song ${i + 1} of ${queue.songs.length}`
 				})
-				.setThumbnail(`${song.thumbnail}`)
-				.addFields({
+
+			if (song.thumbnail && /^https?:\/\//.test(song.thumbnail)) {
+				embed.setThumbnail(song.thumbnail)
+			}
+
+			const uploader =
+				song.uploader?.name && song.uploader?.url
+					? `[${song.uploader.name}](${song.uploader.url})`
+					: song.uploader?.name || 'Unknown'
+
+			embed.addFields(
+				{
 					name: '**name**',
 					value: `[${song.name}](${song.url})`
-				})
-				.addFields({
+				},
+				{
 					name: '**uploader**',
-					value: `[${song.uploader.name}](${song.uploader.url})`
-				})
-				.addFields({
+					value: uploader
+				},
+				{
 					name: '**source**',
-					value: `${song.source}`
-				})
-				.addFields({
+					value: song.source ?? 'Unknown'
+				},
+				{
 					name: '**duration (seconds/formatted)**',
 					value: `${song.duration} / ${song.formattedDuration}`
-				})
+				}
+			)
 
 			return { embeds: [embed] }
 		})

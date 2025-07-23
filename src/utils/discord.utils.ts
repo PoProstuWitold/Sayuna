@@ -117,7 +117,7 @@ export class DiscordUtils {
 			)
 			throw error
 		}
-
+		
 		throw new Error(error as any)
 	}
 

@@ -8,7 +8,7 @@ Written in Typescript, Node.js, discord.js, discordx, ESM.
 You can run this bot using official **[Docker image](https://hub.docker.com/r/poprostuwitold/sayuna)**. There are all instructions and available options for running in Docker container.
 
 ## Requirements
-- Node.js v22.16.0 'Jod' (LTS)
+- Node.js v22.17.0 'Jod' (LTS)
 - ffmpeg (installation instructions can be found [here](https://ffmpeg.org/download.html))
 - Discord bot account and a Discord server
 
@@ -27,27 +27,22 @@ You can run this bot using official **[Docker image](https://hub.docker.com/r/po
 #### 0.  Create ``.env`` file in server root directory and fill with following:
 
 ```ini
-# ALL ENV
-BOT_TOKEN=
+BOT_TOKEN=''
 
-# DEV
-# you can provide more than one using syntax: 'guild_id1, guild_id2'
-DEV_GUILD_ID=
+# Development (optional)
+# you can provide more than one using syntax: 'guild_id1, guild_id2' 1242471380587646986
+DEBUG_LOGS=false
+DEV_GUILD_ID=''
 
-# OWNER COMMANDS
-OWNER_ID=
+# Owner commands, cleaner logs & legacy message commands (optional)
+OWNER_ID=''
+BOT_ID='Sayuna'
+BOT_PREFIX='$$'
 
-# CLEANER LOGS & LEGACY MESSAGE COMMANDS (OPTIONAL)
-BOT_ID=
-BOT_PREFIX=
-
-# AI
-# Access token for talking to ChatGPT
-AI_ENABLED=
-CHAT_GPT_API_KEY=
-
-# Debug logs in production
-DEBUG_LOGS=true
+# Spotify API (optional)
+# Spotify links will not work very well without these credentials
+SPOTIFY_CLIENT_ID=''
+SPOTIFY_CLIENT_SECRET=''
 ```
 
 #### 1.  Install dependencies
@@ -61,7 +56,6 @@ pnpm install
 ## TO DO
 - [x] Logging
 - [x] Error handling
-- [x] AI
 - [x] Commands
 	- [x] Fun commands
 	- [x] Music Commands

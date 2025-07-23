@@ -1,62 +1,37 @@
-# base setup stage (dependencies + pnpm)
-FROM node:jod-alpine AS setup
+FROM node:jod-alpine AS build
 
 WORKDIR /app
 
-# Install ffmpeg and global dependencies (pnpm)
 RUN apk add --no-cache ffmpeg \
     && npm install -g pnpm
 
-# Copy dependency files first for better caching
 COPY package.json pnpm-lock.yaml ./
 RUN pnpm install --frozen-lockfile
 
-# Copy rest of the source code
 COPY . .
 
-# development stage
-FROM setup AS development
+RUN pnpm run build && pnpm prune --prod
 
-# Set node environment to development
-ENV NODE_ENV=development
-
-# Pass necessary environment variables for development
-ENV DEV_GUILD_ID=$DEV_GUILD_ID \
-    BOT_TOKEN=$BOT_TOKEN \
-    OWNER_ID=$OWNER_ID \
-    BOT_ID=$BOT_ID \
-    BOT_PREFIX=$BOT_PREFIX \
-    AI_ENABLED=$AI_ENABLED \
-    CHAT_GPT_API_KEY=$CHAT_GPT_API_KEY \
-    DEBUG_LOGS=$DEBUG_LOGS
-
-# Start development server
-CMD ["pnpm", "run", "dev"]
-
-# production stage
 FROM node:jod-alpine AS production
 
 WORKDIR /app
 
-# Install runtime dependencies (ffmpeg, pm2, pnpm)
+RUN addgroup -S sayuna && adduser -S sayuna -G sayuna
+
 RUN apk add --no-cache ffmpeg \
-    && npm install -g pnpm pm2
+    && npm install -g pm2
 
-# Copy prepared source files and dependencies from setup stage
-COPY --from=setup /app ./
+COPY --from=build /app /app
 
-# Build application for production
-RUN pnpm run build
+RUN chown -R sayuna:sayuna /app
+USER sayuna
 
-# Set node environment to production
-ENV NODE_ENV=production \
-    BOT_TOKEN=$BOT_TOKEN \
-    OWNER_ID=$OWNER_ID \
-    BOT_ID=$BOT_ID \
-    BOT_PREFIX=$BOT_PREFIX \
-    AI_ENABLED=$AI_ENABLED \
-    CHAT_GPT_API_KEY=$CHAT_GPT_API_KEY \
-    DEBUG_LOGS=$DEBUG_LOGS
+ENV NODE_ENV=production
 
-# Run the bot with pm2 in production mode
-CMD ["pm2-runtime", "build/main.js"]
+ENV OWNER_ID= \
+    BOT_ID= \
+    BOT_PREFIX= \
+    DEBUG_LOGS=
+
+ENTRYPOINT ["pm2-runtime"]
+CMD ["build/main.js"]

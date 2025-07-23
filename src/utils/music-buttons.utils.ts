@@ -147,9 +147,6 @@ export class MusicButtons {
 				queue.volume + 10
 			)
 
-			// we need to wait because queue will return outdated songs
-			// await new Promise(resolve => setTimeout(resolve, 1000))
-
 			queue = this.musicManager.player.getQueue(interaction.guildId)
 			if (!queue) throw new DisTubeError('NO_QUEUE')
 
@@ -183,9 +180,6 @@ export class MusicButtons {
 				interaction.guildId,
 				queue.volume - 10
 			)
-
-			// we need to wait because queue will return outdated songs
-			// await new Promise(resolve => setTimeout(resolve, 1000))
 
 			queue = this.musicManager.player.getQueue(interaction.guildId)
 			if (!queue) throw new DisTubeError('NO_QUEUE')

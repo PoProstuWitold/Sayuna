@@ -1,4 +1,3 @@
-import type { ChatGPTAPIOptions } from 'chatgpt'
 import type { ActivityType } from 'discord.js'
 import type { Client, ClientOptions } from 'discordx'
 
@@ -18,10 +17,6 @@ export interface MainOptions {
 			name: string
 			type: ActivityType
 		}
-	}
-	aiOptions: {
-		enabled: boolean
-		chatpgtOptions?: ChatGPTAPIOptions
 	}
 	constants: {
 		version: string

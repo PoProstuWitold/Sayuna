@@ -26,7 +26,13 @@ export class MusicManager {
 			nsfw: true,
 			plugins: [
 				this.ytPlugin,
-				new SpotifyPlugin(),
+				new SpotifyPlugin({
+					api: {
+						topTracksCountry: 'PL',
+						clientId: process.env.SPOTIFY_CLIENT_ID,
+						clientSecret: process.env.SPOTIFY_CLIENT_SECRET
+					}
+				}),
 				new SoundCloudPlugin(),
 				new DirectLinkPlugin(),
 				new DeezerPlugin(),

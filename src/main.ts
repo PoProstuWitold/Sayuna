@@ -1,17 +1,14 @@
 import 'reflect-metadata'
-import 'dotenv/config'
 
 import { dirname, importx } from '@discordx/importer'
 import type { Client } from 'discordx'
 
 import { globalConfig } from './config.js'
-import { type AiService, aiService } from './services/ai.service.js'
 import {
 	type ErrorHandler,
 	errorHandler
 } from './services/error-handler.service.js'
 import { type CustomLogger, logger } from './services/logger.service.js'
-import { type MusicManager, musicManager } from './services/music.service.js'
 import type { MainOptions } from './utils/types.js'
 
 export class Main {
@@ -20,9 +17,7 @@ export class Main {
 	constructor(
 		public opts: MainOptions,
 		private logger: CustomLogger,
-		private errorHandler: ErrorHandler,
-		private musicManager: MusicManager,
-		private aiService: AiService
+		private errorHandler: ErrorHandler
 	) {
 		this.opts = opts
 		this.client = globalConfig.client
@@ -45,7 +40,6 @@ export class Main {
 
 	public async start() {
 		await this.errorHandler.start()
-		await this.aiService.start()
 
 		const { token } = await this.checkEnvs()
 
@@ -53,7 +47,6 @@ export class Main {
 	}
 
 	private async checkEnvs() {
-		// all
 		if (!this.opts.config.token) {
 			throw Error('No BOT_TOKEN specified!')
 		}
@@ -69,7 +62,6 @@ export class Main {
 		}
 
 		// NODE ENV = 'development' or 'production'
-		// development
 		if (process.env.NODE_ENV === 'development') {
 			if (!this.opts.config.devGuildId) {
 				throw Error('No DEV_GUILD_ID specified!')
@@ -79,7 +71,6 @@ export class Main {
 			}
 		}
 
-		// production
 		if (process.env.NODE_ENV === 'production') {
 			if (!this.opts.config.ownerId) {
 				this.logger.warn(
@@ -99,12 +90,6 @@ export class Main {
 	}
 }
 
-export const sayuna = new Main(
-	globalConfig,
-	logger,
-	errorHandler,
-	musicManager,
-	aiService
-)
+export const sayuna = new Main(globalConfig, logger, errorHandler)
 
 sayuna.start()

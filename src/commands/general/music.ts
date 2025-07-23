@@ -71,21 +71,43 @@ export class Music {
 			const member: GuildMember =
 				DiscordUtils.getInteractionMember(interaction)
 
+			const origWarn = console.warn
+			let warned = false
+
+			// biome-ignore lint: no need to type this
+			console.warn = (...args: any[]) => {
+				const msg = args.map(String).join(' ')
+				if (!warned && msg.includes('[SPOTIFY_PLUGIN_API]')) {
+					warned = true
+					DiscordUtils.replyOrFollowUp(
+						interaction,
+						`**Spotify API Error:** Spotify won't work properly without the client ID and secret. Please, set them in the .env file.`
+					).catch(() => {})
+				}
+
+				origWarn(...args)
+			}
+
 			await this.musicManager.player.play(voiceChannel, songName, {
-				member: member
+				member
 			})
+
+			console.warn = origWarn
 
 			const queue = this.musicManager.player.getQueue(interaction.guildId)
 			if (!queue) return
-			queue.songs.length < 2
-				? await DiscordUtils.replyOrFollowUp(
-						interaction,
-						`> Now playing: **${queue.songs[0].name}**`
-					)
-				: await DiscordUtils.replyOrFollowUp(
-						interaction,
-						`> Added to queue: **${queue.songs[queue.songs.length - 1].name}**. There are ${queue.songs.length} songs in the queue`
-					)
+
+			if (queue.songs.length < 2) {
+				await DiscordUtils.replyOrFollowUp(
+					interaction,
+					`> Now playing: **${queue.songs[0].name}**`
+				)
+			} else {
+				await DiscordUtils.replyOrFollowUp(
+					interaction,
+					`> Added to queue: **${queue.songs[queue.songs.length - 1].name}**. There are ${queue.songs.length} songs in the queue`
+				)
+			}
 		} catch (err) {
 			DiscordUtils.handleInteractionError(interaction, err)
 		}
@@ -604,18 +626,18 @@ export class Music {
 
 			const me = interaction.guild?.members.me ?? interaction.user
 
+			const previousButton = new ButtonBuilder()
+				.setLabel('⏮️')
+				.setStyle(ButtonStyle.Primary)
+				.setCustomId('previous')
 			const pauseResumeButton = new ButtonBuilder()
-				.setLabel('⏸/▶')
+				.setLabel('▶️/⏸️')
 				.setStyle(ButtonStyle.Primary)
 				.setCustomId('pause-resume')
 			const skipButton = new ButtonBuilder()
 				.setLabel('⏭️')
 				.setStyle(ButtonStyle.Primary)
 				.setCustomId('skip')
-			const previousButton = new ButtonBuilder()
-				.setLabel('⏮️')
-				.setStyle(ButtonStyle.Primary)
-				.setCustomId('previous')
 			const stopButton = new ButtonBuilder()
 				.setLabel('⏹️')
 				.setStyle(ButtonStyle.Danger)
@@ -631,9 +653,9 @@ export class Music {
 
 			const buttonRow1 =
 				new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents(
+					previousButton,
 					pauseResumeButton,
 					skipButton,
-					previousButton,
 					stopButton
 				)
 
@@ -643,7 +665,6 @@ export class Music {
 					volumeUpButton
 				)
 
-			// init
 			let currentEmbed: EmbedBuilder | undefined
 			currentEmbed = await MusicUtils.getCurrentSongEmbed(
 				queue,
@@ -684,9 +705,11 @@ export class Music {
 			// one dashboard at the same time
 			client.on('interactionCreate', (interaction) => {
 				if (
-					interaction.isCommand() &&
-					interaction.commandName === 'dashboard'
+					interaction.isChatInputCommand() &&
+					interaction.commandName === 'music' &&
+					interaction.options.getSubcommand() === 'dashboard'
 				) {
+					console.log('INTERACTION DETECTED', interaction)
 					clearInterval(interval)
 					return
 				}

@@ -28,27 +28,4 @@ export class Voice {
 			this.logger.error(err)
 		}
 	}
-
-	/*
-	// Pause the queue if there is no user in the voice channel and resume it if there is
-	@On({
-        event: 'voiceStateUpdate'
-    })
-	async toggleQueue([oldState]: ArgsOf<'voiceStateUpdate'>): Promise<void> {
-		try {
-			if (!oldState.channel) return
-			const queue = this.musicManager.player.getQueue(oldState.guild)
-
-			if (!queue) return
-
-			if (isVoiceChannelEmpty(oldState)) {
-				queue.pause()
-			} else if (queue.paused) {
-				queue.resume()
-			}
-		} catch (err) {
-			this.logger.error(err)
-		}
-	}
-	*/
 }
