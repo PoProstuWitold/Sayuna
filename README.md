@@ -1,30 +1,73 @@
 # Sayuna
 
-Easily extensible and customizable all-in-one Discord bot. Moderation, music & fun!
-Written in Typescript, Node.js, discord.js, discordx, ESM.
+## ***"Your all-in-one Discord assistant for moderation, music & fun!"***
 
-## Docker
+A powerful and extensible Discord bot built with TypeScript, Node.js, discord.js, and discordx (ESM-ready).
 
-You can run this bot using official **[Docker image](https://hub.docker.com/r/poprostuwitold/sayuna)**. There are all instructions and available options for running in Docker container.
-
-## Requirements
-- Node.js v22.17.0 'Jod' (LTS)
-- ffmpeg (installation instructions can be found [here](https://ffmpeg.org/download.html))
-- Discord bot account and a Discord server
-
-...or just Docker to run production version.
+<hr>
 
 ## Features
-- Logging
-- Error handling
-- Slash commands
-    - General (info, music, fun)
-    - Moderation (managing users and channels)
-    - Owner (dev)
 
+### Core
+- Robust logging system
+- Global error handling
+- Simple setup with environment variables and Docker
 
-## Usage
-#### 0.  Create ``.env`` file in server root directory and fill with following:
+### Music
+- Many music sources via plugins
+- Realtime music dashboard
+
+### Moderation
+- Slash commands to manage users and channels
+- Kick, ban, mute and more
+
+### Fun
+- Memes, gifs and general fun commands
+
+### Developer Tools
+- Owner-only commands
+- Debugging options and developer logs
+
+---
+
+## Docker Support
+
+You can run Sayuna using the official **[Docker image](https://hub.docker.com/r/poprostuwitold/sayuna)**.  
+All runtime options and environment variables are documented there.
+
+```bash
+services:
+  sayuna:
+    container_name: sayuna
+    image: poprostuwitold/sayuna:latest
+    stdin_open: true
+    tty: true
+    env_file:
+     - .env
+    # environment:
+    #   - BOT_TOKEN=
+    #   - DEV_GUILD_ID=
+    #   - OWNER_ID=
+    #   - BOT_ID='Sayuna'
+    #   - BOT_PREFIX='$$'
+    restart: unless-stopped
+```
+
+---
+
+## Requirements
+
+- Node.js `v22.17.0` (LTS, codename: "Jod")
+- `ffmpeg` installed and available in `$PATH` ([download here](https://ffmpeg.org/download.html))
+- Discord bot token & server
+
+Or just use **Docker** for a simpler production setup.
+
+---
+
+## Environment Configuration
+
+Create a `.env` file in the root directory:
 
 ```ini
 BOT_TOKEN=''
@@ -45,22 +88,40 @@ SPOTIFY_CLIENT_ID=''
 SPOTIFY_CLIENT_SECRET=''
 ```
 
-#### 1.  Install dependencies
+---
+
+## Usage
+
+Install dependencies:
+
 ```bash
 pnpm install
 ```
 
-#### 2.  Run in ``development`` or ``production`` mode using npm scripts
+Run in **development** or **production** mode using npm scripts:
 
+```bash
+pnpm dev     # development mode
+pnpm start   # production mode
+```
 
-## TO DO
-- [x] Logging
+---
+
+## To-Do / Progress
+
+- [x] Logging system
 - [x] Error handling
-- [x] Commands
-	- [x] Fun commands
-	- [x] Music Commands
-        - [x] Current music dashboard with real-time updates
-	- [x] Moderation commands
+- [x] Slash commands
+  - [x] Owner
+  - [x] Moderation
+  - [x] General
+	- [x] Fun
+	- [x] Info
+	- [x] Music
+	  - [x] Real-time music dashboard
 
-## LICENSE
+---
+
+## License
+
 [MIT](https://choosealicense.com/licenses/mit/)
