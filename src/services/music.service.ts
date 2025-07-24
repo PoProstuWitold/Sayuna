@@ -52,7 +52,6 @@ export class MusicManager {
 			this.logger.info(
 				`Playlist ${playlist.name} has been added to queue ${queue.id}`
 			)
-			console.log('QUEUE', queue)
 		})
 		this.player.on(Events.ADD_SONG, (queue, song) => {
 			this.logger.info(
