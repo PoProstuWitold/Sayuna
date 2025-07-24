@@ -71,28 +71,12 @@ export class Music {
 			const member: GuildMember =
 				DiscordUtils.getInteractionMember(interaction)
 
-			const origWarn = console.warn
-			let warned = false
-
-			// biome-ignore lint: no need to type this
-			console.warn = (...args: any[]) => {
-				const msg = args.map(String).join(' ')
-				if (!warned && msg.includes('[SPOTIFY_PLUGIN_API]')) {
-					warned = true
-					DiscordUtils.replyOrFollowUp(
-						interaction,
-						`**Spotify API Error:** Spotify won't work properly without the client ID and secret. Please, set them in the .env file.`
-					).catch(() => {})
-				}
-
-				origWarn(...args)
-			}
-
 			await this.musicManager.player.play(voiceChannel, songName, {
-				member
+				member,
+				metadata: {
+					interaction
+				}
 			})
-
-			console.warn = origWarn
 
 			const queue = this.musicManager.player.getQueue(interaction.guildId)
 			if (!queue) return
@@ -399,7 +383,10 @@ export class Music {
 				voiceChannel,
 				this.results[number - 1].url,
 				{
-					member
+					member,
+					metadata: {
+						interaction
+					}
 				}
 			)
 

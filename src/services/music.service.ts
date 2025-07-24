@@ -8,6 +8,7 @@ import type { Client } from 'discordx'
 import { DisTube, Events } from 'distube'
 
 import { globalConfig } from '../config.js'
+import { DiscordUtils } from '../utils/discord.utils.js'
 import { type CustomLogger, logger } from './logger.service.js'
 
 export class MusicManager {
@@ -45,12 +46,13 @@ export class MusicManager {
 
 	async listen() {
 		this.logger.info('Music player is listening to events...')
-		this.player.setMaxListeners(50)
+		this.player.setMaxListeners(100)
 
 		this.player.on(Events.ADD_LIST, (queue, playlist) => {
 			this.logger.info(
 				`Playlist ${playlist.name} has been added to queue ${queue.id}`
 			)
+			console.log('QUEUE', queue)
 		})
 		this.player.on(Events.ADD_SONG, (queue, song) => {
 			this.logger.info(
@@ -70,8 +72,13 @@ export class MusicManager {
 		this.player.on(Events.DISCONNECT, (queue) => {
 			this.logger.info(`Queue ${queue.id} has been disconnected`)
 		})
-		this.player.on(Events.ERROR, (error, _queue, _song) => {
+		this.player.on(Events.ERROR, async (error, _queue, song) => {
 			this.logger.error(error)
+			// @ts-ignore
+			const interaction = song?.metadata?.interaction
+			if (!interaction) return
+
+			await DiscordUtils.handleInteractionError(interaction, error)
 		})
 		this.player.on(Events.FFMPEG_DEBUG, (debug) => {
 			process.env.NODE_ENV === 'development' ||
