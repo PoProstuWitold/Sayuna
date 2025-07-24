@@ -50,6 +50,10 @@ services:
     #   - OWNER_ID=
     #   - BOT_ID='Sayuna'
     #   - BOT_PREFIX='$$'
+    #   - ACTIVITY_NAME=''
+    #   - ACTIVITY_TYPE=''
+    #   - SPOTIFY_CLIENT_ID=''
+    #   - SPOTIFY_CLIENT_SECRET=''
     restart: unless-stopped
 ```
 
