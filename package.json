@@ -1,6 +1,6 @@
 {
 	"name": "sayuna",
-	"version": "2.4.2",
+	"version": "2.5.0",
 	"description": "Easily extensible and customizable all-in-one Discord bot. Moderation, music & fun!",
 	"author": "Witold Zawada",
 	"private": true,
