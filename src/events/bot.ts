@@ -10,7 +10,7 @@ export class Bot {
 	private musicManager: MusicManager = musicManager
 
 	@Once({
-		event: 'ready'
+		event: 'clientReady'
 	})
 	async ready([client]: [Client]) {
 		try {

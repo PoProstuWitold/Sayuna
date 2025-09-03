@@ -73,7 +73,7 @@ export class MusicManager {
 		})
 		this.player.on(Events.ERROR, async (error, _queue, song) => {
 			this.logger.error(error)
-			// @ts-ignore
+			// @ts-expect-error
 			const interaction = song?.metadata?.interaction
 			if (!interaction) return
 
