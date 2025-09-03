@@ -61,7 +61,7 @@ services:
 
 ## Requirements
 
-- Node.js `v22.17.1` (LTS, codename: "Jod")
+- Node.js `v22.19.0` (LTS, codename: "Jod")
 - `ffmpeg` installed and available in `$PATH` ([download here](https://ffmpeg.org/download.html))
 - Discord bot token & server
 
