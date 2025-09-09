@@ -1,6 +1,6 @@
 {
 	"name": "sayuna",
-	"version": "2.5.0",
+	"version": "2.5.1",
 	"description": "Easily extensible and customizable all-in-one Discord bot. Moderation, music & fun!",
 	"author": "Witold Zawada",
 	"private": true,
@@ -43,9 +43,9 @@
 		"winston-transport": "^4.9.0"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^2.2.2",
+		"@biomejs/biome": "^2.2.3",
 		"@swc/core": "^1.13.5",
-		"@types/node": "^24.3.0",
+		"@types/node": "^24.3.1",
 		"tsx": "^4.20.5",
 		"typescript": "^5.9.2"
 	},
