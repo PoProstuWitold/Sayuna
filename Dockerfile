@@ -1,4 +1,4 @@
-FROM node:jod-alpine AS build
+FROM node:krypton-alpine AS build
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ COPY . .
 
 RUN pnpm run build && pnpm prune --prod
 
-FROM node:jod-alpine AS production
+FROM node:krypton-alpine AS production
 
 WORKDIR /app
 
