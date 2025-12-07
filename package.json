@@ -1,6 +1,6 @@
 {
 	"name": "sayuna",
-	"version": "2.5.3",
+	"version": "2.5.4",
 	"description": "Easily extensible and customizable all-in-one Discord bot. Moderation, music & fun!",
 	"author": "Witold Zawada",
 	"private": true,
@@ -8,7 +8,7 @@
 	"type": "module",
 	"main": "build/main.js",
 	"engines": {
-		"node": ">=22.x.x",
+		"node": ">=24.x.x",
 		"pnpm": ">=10.x.x"
 	},
 	"scripts": {
@@ -38,7 +38,7 @@
 		"opusscript": "^0.1.1",
 		"reflect-metadata": "^0.2.2",
 		"sodium-native": "^5.0.10",
-		"winston": "^3.18.3",
+		"winston": "^3.19.0",
 		"winston-transport": "^4.9.0",
 		"youtubei.js": "^16.0.1"
 	},
@@ -58,7 +58,7 @@
 		]
 	},
 	"volta": {
-		"node": "24.11.0",
+		"node": "24.11.1",
 		"pnpm": "10.24.0"
 	}
 }
