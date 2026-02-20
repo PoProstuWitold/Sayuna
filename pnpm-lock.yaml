@@ -8,12 +8,9 @@ importers:
 
   .:
     dependencies:
-      '@discordjs/opus':
-        specifier: ^0.10.0
-        version: 0.10.0
       '@discordjs/voice':
         specifier: ^0.19.0
-        version: 0.19.0(@discordjs/opus@0.10.0)
+        version: 0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1)
       '@discordx/importer':
         specifier: ^1.3.3
         version: 1.3.3
@@ -25,19 +22,19 @@ importers:
         version: 8.0.0(discord.js@14.25.1)(discordx@11.13.3(discord.js@14.25.1))
       '@distube/deezer':
         specifier: ^2.0.1
-        version: 2.0.1(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1))
+        version: 2.0.1(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1))
       '@distube/direct-link':
         specifier: ^1.0.1
-        version: 1.0.1(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1))
+        version: 1.0.1(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1))
       '@distube/soundcloud':
         specifier: ^2.0.4
-        version: 2.0.4(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1))
+        version: 2.0.4(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1))
       '@distube/spotify':
         specifier: ^2.0.2
-        version: 2.0.2(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1))
+        version: 2.0.2(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1))
       '@distube/youtube':
         specifier: ^1.0.4
-        version: 1.0.4(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1))
+        version: 1.0.4(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1))
       '@noble/ciphers':
         specifier: ^2.1.1
         version: 2.1.1
@@ -52,10 +49,13 @@ importers:
         version: 11.13.3(discord.js@14.25.1)
       distube:
         specifier: ^5.2.3
-        version: 5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1)
+        version: 5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1)
       moment:
         specifier: ^2.30.1
         version: 2.30.1
+      opusscript:
+        specifier: ^0.1.1
+        version: 0.1.1
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -1055,6 +1055,9 @@ packages:
   one-time@1.0.0:
     resolution: {integrity: sha512-5DXOiRKwuSEcQ/l0kGCF6Q3jcADFv5tSmRaJck/OqkVFcOzutB134KRSfF0xDrL39MNnqxbHBbUUcjZIhTgb2g==}
 
+  opusscript@0.1.1:
+    resolution: {integrity: sha512-mL0fZZOUnXdZ78woRXp18lApwpp0lF5tozJOD1Wut0dgrA9WuQTgSels/CSmFleaAZrJi/nci5KOVtbuxeWoQA==}
+
   package-json-from-dist@1.0.1:
     resolution: {integrity: sha512-UEZIS3/by4OC8vL3P2dTXRETpebLI2NiI5vIrjaD/5UtrkFX/tNbwjTSRAGC/+7CAo2pIcBaRgWmcBBHcsaCIw==}
 
@@ -1388,6 +1391,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    optional: true
 
   '@discordjs/opus@0.10.0':
     dependencies:
@@ -1396,6 +1400,7 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+    optional: true
 
   '@discordjs/rest@2.6.0':
     dependencies:
@@ -1413,11 +1418,11 @@ snapshots:
     dependencies:
       discord-api-types: 0.38.40
 
-  '@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)':
+  '@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1)':
     dependencies:
       '@types/ws': 8.18.1
       discord-api-types: 0.38.40
-      prism-media: 1.3.5(@discordjs/opus@0.10.0)
+      prism-media: 1.3.5(@discordjs/opus@0.10.0)(opusscript@0.1.1)
       tslib: 2.8.1
       ws: 8.19.0
     transitivePeerDependencies:
@@ -1465,24 +1470,24 @@ snapshots:
       discord.js: 14.25.1
       discordx: 11.13.3(discord.js@14.25.1)
 
-  '@distube/deezer@2.0.1(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1))':
+  '@distube/deezer@2.0.1(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1))':
     dependencies:
-      distube: 5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1)
+      distube: 5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1)
       undici: 6.23.0
 
-  '@distube/direct-link@1.0.1(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1))':
+  '@distube/direct-link@1.0.1(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1))':
     dependencies:
-      distube: 5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1)
+      distube: 5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1)
       undici: 6.23.0
 
-  '@distube/soundcloud@2.0.4(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1))':
+  '@distube/soundcloud@2.0.4(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1))':
     dependencies:
-      distube: 5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1)
+      distube: 5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1)
       soundcloud.ts: 0.6.9
 
-  '@distube/spotify@2.0.2(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1))':
+  '@distube/spotify@2.0.2(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1))':
     dependencies:
-      distube: 5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1)
+      distube: 5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1)
       spotify-uri: 4.1.0
       spotify-url-info: 3.2.18
       spotify-web-api-node: 5.0.2
@@ -1490,12 +1495,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@distube/youtube@1.0.4(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1))':
+  '@distube/youtube@1.0.4(distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1))':
     dependencies:
       '@distube/ytdl-core': 4.16.12
       '@distube/ytpl': 1.2.4
       '@distube/ytsr': 2.0.4
-      distube: 5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1)
+      distube: 5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -1768,30 +1773,36 @@ snapshots:
 
   '@vladfrangu/async_event_emitter@2.4.7': {}
 
-  abbrev@1.1.1: {}
+  abbrev@1.1.1:
+    optional: true
 
   agent-base@6.0.2:
     dependencies:
       debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   agent-base@7.1.4: {}
 
-  ansi-regex@5.0.1: {}
+  ansi-regex@5.0.1:
+    optional: true
 
-  aproba@2.1.0: {}
+  aproba@2.1.0:
+    optional: true
 
   are-we-there-yet@2.0.0:
     dependencies:
       delegates: 1.0.0
       readable-stream: 3.6.2
+    optional: true
 
   async@3.2.6: {}
 
   asynckit@0.4.0: {}
 
-  balanced-match@1.0.2: {}
+  balanced-match@1.0.2:
+    optional: true
 
   balanced-match@4.0.3: {}
 
@@ -1799,6 +1810,7 @@ snapshots:
     dependencies:
       balanced-match: 1.0.2
       concat-map: 0.0.1
+    optional: true
 
   brace-expansion@5.0.2:
     dependencies:
@@ -1814,7 +1826,8 @@ snapshots:
       call-bind-apply-helpers: 1.0.2
       get-intrinsic: 1.3.0
 
-  chownr@2.0.0: {}
+  chownr@2.0.0:
+    optional: true
 
   color-convert@3.1.3:
     dependencies:
@@ -1826,7 +1839,8 @@ snapshots:
     dependencies:
       color-name: 2.1.0
 
-  color-support@1.1.3: {}
+  color-support@1.1.3:
+    optional: true
 
   color@5.0.3:
     dependencies:
@@ -1839,9 +1853,11 @@ snapshots:
 
   component-emitter@1.3.1: {}
 
-  concat-map@0.0.1: {}
+  concat-map@0.0.1:
+    optional: true
 
-  console-control-strings@1.1.0: {}
+  console-control-strings@1.1.0:
+    optional: true
 
   cookiejar@2.1.4: {}
 
@@ -1859,9 +1875,11 @@ snapshots:
 
   delayed-stream@1.0.0: {}
 
-  delegates@1.0.0: {}
+  delegates@1.0.0:
+    optional: true
 
-  detect-libc@2.1.2: {}
+  detect-libc@2.1.2:
+    optional: true
 
   discord-api-types@0.38.40: {}
 
@@ -1891,9 +1909,9 @@ snapshots:
       discord.js: 14.25.1
       lodash: 4.17.23
 
-  distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0))(discord.js@14.25.1):
+  distube@5.2.3(@discordjs/voice@0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1))(discord.js@14.25.1):
     dependencies:
-      '@discordjs/voice': 0.19.0(@discordjs/opus@0.10.0)
+      '@discordjs/voice': 0.19.0(@discordjs/opus@0.10.0)(opusscript@0.1.1)
       discord.js: 14.25.1
       tiny-typed-emitter: 2.1.0
       undici: 7.22.0
@@ -1904,7 +1922,8 @@ snapshots:
       es-errors: 1.3.0
       gopd: 1.2.0
 
-  emoji-regex@8.0.0: {}
+  emoji-regex@8.0.0:
+    optional: true
 
   enabled@2.0.0: {}
 
@@ -1978,8 +1997,10 @@ snapshots:
   fs-minipass@2.1.0:
     dependencies:
       minipass: 3.3.6
+    optional: true
 
-  fs.realpath@1.0.0: {}
+  fs.realpath@1.0.0:
+    optional: true
 
   fsevents@2.3.3:
     optional: true
@@ -1997,6 +2018,7 @@ snapshots:
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wide-align: 1.1.5
+    optional: true
 
   get-intrinsic@1.3.0:
     dependencies:
@@ -2037,6 +2059,7 @@ snapshots:
       minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
+    optional: true
 
   gopd@1.2.0: {}
 
@@ -2046,7 +2069,8 @@ snapshots:
     dependencies:
       has-symbols: 1.1.0
 
-  has-unicode@2.0.1: {}
+  has-unicode@2.0.1:
+    optional: true
 
   hasown@2.0.2:
     dependencies:
@@ -2067,6 +2091,7 @@ snapshots:
       debug: 4.4.3
     transitivePeerDependencies:
       - supports-color
+    optional: true
 
   https-proxy-agent@7.0.6:
     dependencies:
@@ -2079,10 +2104,12 @@ snapshots:
     dependencies:
       once: 1.4.0
       wrappy: 1.0.2
+    optional: true
 
   inherits@2.0.4: {}
 
-  is-fullwidth-code-point@3.0.0: {}
+  is-fullwidth-code-point@3.0.0:
+    optional: true
 
   is-stream@2.0.1: {}
 
@@ -2119,6 +2146,7 @@ snapshots:
   make-dir@3.1.0:
     dependencies:
       semver: 6.3.1
+    optional: true
 
   math-intrinsics@1.1.0: {}
 
@@ -2143,12 +2171,15 @@ snapshots:
   minimatch@3.1.2:
     dependencies:
       brace-expansion: 1.1.12
+    optional: true
 
   minipass@3.3.6:
     dependencies:
       yallist: 4.0.0
+    optional: true
 
-  minipass@5.0.0: {}
+  minipass@5.0.0:
+    optional: true
 
   minipass@7.1.3: {}
 
@@ -2156,22 +2187,27 @@ snapshots:
     dependencies:
       minipass: 3.3.6
       yallist: 4.0.0
+    optional: true
 
-  mkdirp@1.0.4: {}
+  mkdirp@1.0.4:
+    optional: true
 
   moment@2.30.1: {}
 
   ms@2.1.3: {}
 
-  node-addon-api@8.5.0: {}
+  node-addon-api@8.5.0:
+    optional: true
 
   node-fetch@2.7.0:
     dependencies:
       whatwg-url: 5.0.0
+    optional: true
 
   nopt@5.0.0:
     dependencies:
       abbrev: 1.1.1
+    optional: true
 
   npmlog@5.0.1:
     dependencies:
@@ -2179,22 +2215,28 @@ snapshots:
       console-control-strings: 1.1.0
       gauge: 3.0.2
       set-blocking: 2.0.0
+    optional: true
 
-  object-assign@4.1.1: {}
+  object-assign@4.1.1:
+    optional: true
 
   object-inspect@1.13.4: {}
 
   once@1.4.0:
     dependencies:
       wrappy: 1.0.2
+    optional: true
 
   one-time@1.0.0:
     dependencies:
       fn.name: 1.1.0
 
+  opusscript@0.1.1: {}
+
   package-json-from-dist@1.0.1: {}
 
-  path-is-absolute@1.0.1: {}
+  path-is-absolute@1.0.1:
+    optional: true
 
   path-key@3.1.1: {}
 
@@ -2203,9 +2245,10 @@ snapshots:
       lru-cache: 11.2.6
       minipass: 7.1.3
 
-  prism-media@1.3.5(@discordjs/opus@0.10.0):
+  prism-media@1.3.5(@discordjs/opus@0.10.0)(opusscript@0.1.1):
     optionalDependencies:
       '@discordjs/opus': 0.10.0
+      opusscript: 0.1.1
 
   qs@6.15.0:
     dependencies:
@@ -2224,6 +2267,7 @@ snapshots:
   rimraf@3.0.2:
     dependencies:
       glob: 7.2.3
+    optional: true
 
   safe-buffer@5.2.1: {}
 
@@ -2231,11 +2275,13 @@ snapshots:
 
   sax@1.4.4: {}
 
-  semver@6.3.1: {}
+  semver@6.3.1:
+    optional: true
 
   semver@7.7.4: {}
 
-  set-blocking@2.0.0: {}
+  set-blocking@2.0.0:
+    optional: true
 
   shebang-command@2.0.0:
     dependencies:
@@ -2271,7 +2317,8 @@ snapshots:
       side-channel-map: 1.0.1
       side-channel-weakmap: 1.0.2
 
-  signal-exit@3.0.7: {}
+  signal-exit@3.0.7:
+    optional: true
 
   signal-exit@4.1.0: {}
 
@@ -2297,6 +2344,7 @@ snapshots:
       emoji-regex: 8.0.0
       is-fullwidth-code-point: 3.0.0
       strip-ansi: 6.0.1
+    optional: true
 
   string_decoder@1.3.0:
     dependencies:
@@ -2305,6 +2353,7 @@ snapshots:
   strip-ansi@6.0.1:
     dependencies:
       ansi-regex: 5.0.1
+    optional: true
 
   superagent@6.1.0:
     dependencies:
@@ -2330,6 +2379,7 @@ snapshots:
       minizlib: 2.1.2
       mkdirp: 1.0.4
       yallist: 4.0.0
+    optional: true
 
   text-hex@1.0.0: {}
 
@@ -2345,7 +2395,8 @@ snapshots:
     dependencies:
       tldts: 6.1.86
 
-  tr46@0.0.3: {}
+  tr46@0.0.3:
+    optional: true
 
   triple-beam@1.4.1: {}
 
@@ -2380,12 +2431,14 @@ snapshots:
 
   util-deprecate@1.0.2: {}
 
-  webidl-conversions@3.0.1: {}
+  webidl-conversions@3.0.1:
+    optional: true
 
   whatwg-url@5.0.0:
     dependencies:
       tr46: 0.0.3
       webidl-conversions: 3.0.1
+    optional: true
 
   which@2.0.2:
     dependencies:
@@ -2394,6 +2447,7 @@ snapshots:
   wide-align@1.1.5:
     dependencies:
       string-width: 4.2.3
+    optional: true
 
   winston-transport@4.9.0:
     dependencies:
@@ -2415,11 +2469,13 @@ snapshots:
       triple-beam: 1.4.1
       winston-transport: 4.9.0
 
-  wrappy@1.0.2: {}
+  wrappy@1.0.2:
+    optional: true
 
   ws@8.19.0: {}
 
-  yallist@4.0.0: {}
+  yallist@4.0.0:
+    optional: true
 
   youtubei.js@16.0.1:
     dependencies:
