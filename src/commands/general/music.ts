@@ -427,10 +427,10 @@ export class Music {
 			if (!voiceChannel) return
 			if (!interaction.guildId) return
 
-			const queue = this.musicManager.player.seek(
-				interaction.guildId,
-				time
-			)
+			const queue = this.musicManager.player.getQueue(interaction.guildId)
+			if (!queue) return
+
+			queue.seek(time)
 			await DiscordUtils.replyOrFollowUp(
 				interaction,
 				`
