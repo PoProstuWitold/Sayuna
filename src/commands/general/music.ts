@@ -323,7 +323,7 @@ export class Music {
 
 			this.results = await this.musicManager.ytPlugin.search(query, {
 				limit: 10,
-				safeSearch: false,
+				safeSearch: true,
 				type: SearchResultType.VIDEO
 			})
 

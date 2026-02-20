@@ -3,7 +3,6 @@ import { DirectLinkPlugin } from '@distube/direct-link'
 import { SoundCloudPlugin } from '@distube/soundcloud'
 import { SpotifyPlugin } from '@distube/spotify'
 import { YouTubePlugin } from '@distube/youtube'
-import { YtDlpPlugin } from '@distube/yt-dlp'
 import type { Client } from 'discordx'
 import { DisTube, Events } from 'distube'
 
@@ -24,7 +23,7 @@ export class MusicManager {
 			emitAddSongWhenCreatingQueue: true,
 			emitAddListWhenCreatingQueue: true,
 			savePreviousSongs: true,
-			nsfw: true,
+			nsfw: false,
 			plugins: [
 				this.ytPlugin,
 				new SpotifyPlugin({
@@ -36,10 +35,7 @@ export class MusicManager {
 				}),
 				new SoundCloudPlugin(),
 				new DirectLinkPlugin(),
-				new DeezerPlugin(),
-				new YtDlpPlugin({
-					update: true
-				})
+				new DeezerPlugin()
 			]
 		})
 	}
