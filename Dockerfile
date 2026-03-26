@@ -2,7 +2,11 @@ FROM node:krypton-alpine AS build
 
 WORKDIR /app
 
-RUN apk add --no-cache ffmpeg \
+RUN apk add --no-cache \
+    ffmpeg \
+    python3 \
+    make \
+    g++ \
     && npm install -g pnpm
 
 COPY package.json pnpm-lock.yaml ./
@@ -18,7 +22,8 @@ WORKDIR /app
 
 RUN addgroup -S sayuna && adduser -S sayuna -G sayuna
 
-RUN apk add --no-cache ffmpeg \
+RUN apk add --no-cache \
+    ffmpeg \
     && npm install -g pm2
 
 COPY --from=build /app /app

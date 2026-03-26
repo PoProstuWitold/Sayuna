@@ -8,7 +8,7 @@
 			"reflect-metadata"
 		],
 		"module": "Preserve",
-		"moduleResolution": "Node",
+		"moduleResolution": "bundler",
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"allowJs": true,
@@ -16,7 +16,6 @@
 		"resolveJsonModule": true,
 		"outDir": "build",
 		"rootDir": "src",
-		"baseUrl": ".",
 		"strict": true,
 		"allowSyntheticDefaultImports": true,
 		"skipLibCheck": true,
